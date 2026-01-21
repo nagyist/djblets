@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Iterator, TYPE_CHECKING, Union
+from typing import Any, Callable, Iterator, TYPE_CHECKING
 
 from django.template import Library, RequestContext
 from django.utils.html import format_html_join
@@ -94,7 +94,7 @@ class ExtensionStylesheetNode(ExtensionStaticMediaNodeMixin, StylesheetNode):
 
 @register.simple_tag(takes_context=True)
 def template_hook_point(
-    context: Union[Context, RequestContext],
+    context: Context | RequestContext,
     name: str,
 ) -> SafeString:
     """Register a place where TemplateHooks can render to.
@@ -151,7 +151,7 @@ def ext_static(
 def _render_bundle(
     *,
     context: Context,
-    node_cls: type[Union[ExtensionJavascriptNode, ExtensionStylesheetNode]],
+    node_cls: type[ExtensionJavascriptNode | ExtensionStylesheetNode],
     extension: Extension,
     name: str,
     bundle_type: str,

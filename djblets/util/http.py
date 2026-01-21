@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import hashlib
-from typing import Mapping, Union
+from typing import Mapping
 from urllib.parse import urlencode
 
 from django.http import HttpResponse, HttpResponseNotModified
@@ -53,7 +53,7 @@ def set_etag(response, etag):
 
 
 def encode_etag(
-    etag: Union[bytes, str],
+    etag: bytes | str,
 ) -> str:
     """Encode a string as a SHA256 value, for use in an ETag.
 

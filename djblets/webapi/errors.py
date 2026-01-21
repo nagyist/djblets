@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Callable, TYPE_CHECKING, Union
+from typing import Callable, TYPE_CHECKING
 
 from housekeeping import deprecate_non_keyword_only_args
 
@@ -17,10 +17,10 @@ if TYPE_CHECKING:
     #:
     #: Version Added:
     #:     4.0
-    _HTTPHeadersOrCallable: TypeAlias = Union[
-        WebAPIResponseHeaders,
+    _HTTPHeadersOrCallable: TypeAlias = (
+        WebAPIResponseHeaders |
         Callable[[HttpRequest], WebAPIResponseHeaders]
-    ]
+    )
 
 
 class WebAPIError:

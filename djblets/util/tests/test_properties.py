@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Union
-
 from typing_extensions import assert_type
 
 from djblets.testing.testcases import TestCase
@@ -165,11 +163,11 @@ class TypedPropertyTests(TestCase):
     def test_with_valid_type(self) -> None:
         """Testing TypedProperty with valid type"""
         class MyObject:
-            prop: TypedProperty[Union[int, bool],
-                                Union[int, bool]] = TypedProperty((int, bool))
+            prop: TypedProperty[int | bool, int | bool] = \
+                TypedProperty((int, bool))
 
         obj = MyObject()
-        assert_type(obj.prop, Union[int, bool])
+        assert_type(obj.prop, int | bool)
 
         obj.prop = 100
         self.assertEqual(obj.prop, 100)
@@ -207,12 +205,11 @@ class TypedPropertyTests(TestCase):
         """Testing TypedProperty.__set__ with None value and allow_none=False
         """
         class MyObject:
-            prop: TypedProperty[Union[int, bool],
-                                Union[int, bool]] = \
+            prop: TypedProperty[int | bool, int | bool] = \
                 TypedProperty((int, bool), allow_none=False)
 
         obj = MyObject()
-        assert_type(obj.prop, Union[int, bool])
+        assert_type(obj.prop, int | bool)
 
         expected_message = 'None is not a valid value for this property.'
 
@@ -222,11 +219,10 @@ class TypedPropertyTests(TestCase):
     def test_get_with_default(self) -> None:
         """Testing TypedProperty.__get__ with default value"""
         class MyObject:
-            prop: TypedProperty[Union[int, bool],
-                                Union[int, bool]] = \
+            prop: TypedProperty[int | bool, int | bool] = \
                 TypedProperty((int, bool), default=100)
 
         obj = MyObject()
 
-        assert_type(obj.prop, Union[int, bool])
+        assert_type(obj.prop, int | bool)
         self.assertEqual(obj.prop, 100)

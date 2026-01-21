@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import copy
-from typing import Any, TYPE_CHECKING, Union
+from typing import Any, TYPE_CHECKING
 from zoneinfo import available_timezones
 
 from django import forms
@@ -215,8 +215,7 @@ class ConditionsField(forms.Field):
 
     def prepare_value(
         self,
-        value: Union[ConditionSet,
-                     ConditionSetData],
+        value: ConditionSet | ConditionSetData,
     ) -> ConditionSetData:
         """Prepare the value for loading into the field.
 

@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
-    from typing import TypedDict, Union
+    from typing import TypedDict
 
     from typing_extensions import TypeAlias
 
@@ -38,7 +38,7 @@ if TYPE_CHECKING:
     #:
     #: Version Added:
     #:     6.0
-    Dependency: TypeAlias = Union[str, list[PythonSpecificDependency]]
+    Dependency: TypeAlias = str | list[PythonSpecificDependency]
 
 
 ###########################################################################

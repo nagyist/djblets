@@ -6,7 +6,7 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Sequence, TYPE_CHECKING, Union
+from typing import Sequence, TYPE_CHECKING
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -114,7 +114,7 @@ class CommaSeparatedValuesField(models.CharField):
 
     def to_python(
         self,
-        value: Union[str, list[str]],
+        value: str | list[str],
     ) -> list[str]:
         """Convert the given value from DB representation to Python.
 
@@ -154,7 +154,7 @@ class CommaSeparatedValuesField(models.CharField):
 
     def get_db_prep_value(
         self,
-        value: Union[list[str], str, None],
+        value: list[str] | str | None,
         connection: BaseDatabaseWrapper,
         prepared: bool = False,
     ) -> str:

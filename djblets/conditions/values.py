@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from typing import (Any, Callable, ClassVar, Generic, Sequence, TYPE_CHECKING,
-                    Union, cast)
+                    cast)
 
 from django import forms
 from django.db.models import Model, QuerySet
@@ -31,20 +31,17 @@ _ModelT = TypeVar('_ModelT',
 #:
 #: Version Added:
 #:     6.0
-FieldOrCallable: TypeAlias = Union[
-    forms.Field,
-    Callable[[], forms.Field],
-]
+FieldOrCallable: TypeAlias = forms.Field | Callable[[], forms.Field]
 
 
 #: Type for a QuerySet or a function that returns a QuerySet.
 #:
 #: Version Added:
 #:     6.0
-QuerySetOrCallable: TypeAlias = Union[
-    QuerySet[_ModelT],
-    Callable[[], QuerySet[_ModelT]],
-]
+QuerySetOrCallable: TypeAlias = (
+    QuerySet[_ModelT] |
+    Callable[[], QuerySet[_ModelT]]
+)
 
 
 #: Type for a dictionary used to cache common computable state for values.

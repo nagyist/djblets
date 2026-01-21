@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import warnings
-from typing import Any, Callable, Generic, Sequence, Union, cast, overload
+from typing import Any, Callable, Generic, Sequence, cast, overload
 
 from typing_extensions import Self, TypeAlias, TypeVar
 
@@ -20,8 +20,7 @@ _AliasPropertySetT = TypeVar('_AliasPropertySetT')
 _AliasPropertyStoredT: TypeAlias = Any
 
 _TypedPropertyGetT = TypeVar('_TypedPropertyGetT')
-_TypedPropertyValidTypesParamT: TypeAlias = Union[type[_SetT],
-                                                  Sequence[type[_SetT]]]
+_TypedPropertyValidTypesParamT: TypeAlias = type[_SetT] | Sequence[type[_SetT]]
 
 
 class BaseProperty(Generic[_StoredT]):
@@ -215,7 +214,7 @@ class AliasProperty(Generic[_GetT, _AliasPropertySetT],
         self,
         instance: object,
         owner: type[object],
-    ) -> Union[Self, _GetT]:
+    ) -> Self | _GetT:
         """Return the value of the property.
 
         This will retrieve the value from the aliased property, converting
@@ -385,7 +384,7 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
         self,
         instance: object,
         owner: type[object],
-    ) -> Union[Self, _TypedPropertyGetT]:
+    ) -> Self | _TypedPropertyGetT:
         """Return the value of the property.
 
         Args:

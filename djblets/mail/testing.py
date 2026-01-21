@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, TYPE_CHECKING, Union
+from typing import List, TYPE_CHECKING
 
 import dns.message
 import dns.rdataclass
@@ -37,7 +37,7 @@ class DmarcDnsTestsMixin(MixinParentClass):
     #:
     #: Type:
     #:     dict
-    dmarc_txt_records: dict[str, Union[bytes, str, list[Union[bytes, str]]]]
+    dmarc_txt_records: dict[str, bytes | str | list[bytes | str]]
 
     def setUp(self) -> None:
         self.dmarc_txt_records = {}
@@ -91,7 +91,7 @@ class DmarcDnsTestsMixin(MixinParentClass):
                 The domain did not have a pre-populated result.
         """
         try:
-            strings: list[Union[bytes, str]]
+            strings: list[bytes | str]
             value = self.dmarc_txt_records[qname]
 
             if isinstance(value, list):

@@ -15,7 +15,7 @@ from importlib import import_module
 from importlib.machinery import ModuleSpec
 from importlib.util import module_from_spec
 from itertools import zip_longest
-from typing import Any, Iterator, TYPE_CHECKING, Union
+from typing import Any, Iterator, TYPE_CHECKING
 from unittest.util import safe_repr
 
 from django.apps import apps
@@ -408,8 +408,7 @@ class TestCase(testcases.TestCase):
     )
     def assertQueries(
         self,
-        queries: Sequence[Union[ExpectedQuery,
-                                dict[str, Any]]],
+        queries: Sequence[ExpectedQuery | dict[str, Any]],
         num_statements: (int | None) = None,
         *,
         with_tracebacks: bool = False,

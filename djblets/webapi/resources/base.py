@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import inspect
 import logging
-from typing import (Any, Callable, Final, Iterable, Mapping, TYPE_CHECKING,
-                    Union, cast)
+from typing import Any, Callable, Final, Iterable, Mapping, TYPE_CHECKING, cast
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -137,10 +136,7 @@ logger = logging.getLogger(__name__)
 #:
 #: Version Added:
 #:     4.0
-_PayloadOrEvents: TypeAlias = Union[
-    WebAPIResponsePayload,
-    WebAPIEventStream,
-]
+_PayloadOrEvents: TypeAlias = WebAPIResponsePayload | WebAPIEventStream
 
 
 #: The result from an API method handler.
@@ -153,15 +149,15 @@ _PayloadOrEvents: TypeAlias = Union[
 #:
 #: Version Added:
 #:     4.0
-WebAPIResourceHandlerResult: TypeAlias = Union[
-    HttpResponseBase,
-    tuple[WebAPIError, WebAPIResponsePayload, WebAPIResponseHeaders],
-    tuple[WebAPIError, WebAPIResponsePayload],
-    tuple[int, _PayloadOrEvents, WebAPIResponseHeaders],
-    tuple[int, _PayloadOrEvents],
-    WebAPIError,
-    WebAPIResponse,
-]
+WebAPIResourceHandlerResult: TypeAlias = (
+    HttpResponseBase |
+    tuple[WebAPIError, WebAPIResponsePayload, WebAPIResponseHeaders] |
+    tuple[WebAPIError, WebAPIResponsePayload] |
+    tuple[int, _PayloadOrEvents, WebAPIResponseHeaders] |
+    tuple[int, _PayloadOrEvents] |
+    WebAPIError |
+    WebAPIResponse
+)
 
 
 class WebAPIResourceFieldInfo(TypedDict):
@@ -185,18 +181,18 @@ class WebAPIResourceFieldInfo(TypedDict):
     #: This should be a :py:class:`~djblets.webapi.fields.BaseAPIFieldType`
     #: subclass.
     #:
-    #: For backwards-compatibiltiy, :py:class:`str`, :py:class:`bytes`,
+    #: For backwards-compatibility, :py:class:`str`, :py:class:`bytes`,
     #: :py:class:`bool`, :py:class:`int`, or a :py:class:`list, or
     #: :py:class:`tuple` of string values can be specified, but these are
     #: considered legacy.
-    type: Union[
-        type[BaseAPIFieldType],
-        type[bytes],
-        type[str],
-        type[bool],
-        type[int],
-        Sequence[str],
-    ]
+    type: (
+        type[BaseAPIFieldType] |
+        type[bytes] |
+        type[str] |
+        type[bool] |
+        type[int] |
+        Sequence[str]
+    )
 
     #: The version of the product the field was added in.
     #:
@@ -232,7 +228,7 @@ class WebAPIResourceFieldInfo(TypedDict):
     #:
     #: Type:
     #:     str or type
-    resource: NotRequired[Union[str, type[WebAPIResource]]]
+    resource: NotRequired[str | type[WebAPIResource]]
 
 
 class AllowedMimetypeEntry(TypedDict):
@@ -296,7 +292,7 @@ class WebAPIResource(object):
     #:     dict
     fields: ClassVar[Mapping[
         str,
-        Union[WebAPIResourceFieldInfo, Mapping[str, Any]]
+        WebAPIResourceFieldInfo | Mapping[str, Any]
     ]] = {}
 
     #: A regex for mapping keys for an object in an item resource.
@@ -1513,7 +1509,7 @@ class WebAPIResource(object):
 
         return model.objects.all()
 
-    def get_url_patterns(self) -> Sequence[Union[URLPattern, URLResolver]]:
+    def get_url_patterns(self) -> Sequence[URLPattern | URLResolver]:
         """Return the Django URL patterns for this object and its children.
 
         This is used to automatically build up the URL hierarchy for all
@@ -1524,7 +1520,7 @@ class WebAPIResource(object):
             list:
             The list of URL patterns.
         """
-        urlpatterns: list[Union[URLPattern, URLResolver]] = [
+        urlpatterns: list[URLPattern | URLResolver] = [
             path('',
                  self.__call__,
                  name=self._build_named_url(self.name_plural)),

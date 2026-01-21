@@ -12,7 +12,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Sequence, TYPE_CHECKING, TypeVar, Union, cast
+from typing import Sequence, TYPE_CHECKING, TypeVar, cast
 
 from django.core.management import call_command
 from django.utils.translation import gettext as _
@@ -39,7 +39,7 @@ if TYPE_CHECKING:
 #:
 #: Version Added:
 #:     5.0
-LessCSSValueType: TypeAlias = Union[bool, int, str]
+LessCSSValueType: TypeAlias = bool | int | str
 
 
 #: A mapping of LessCSS variable names to values.
@@ -53,7 +53,7 @@ LessCSSVariables: TypeAlias = dict[str, LessCSSValueType]
 #:
 #: Version Added:
 #:     5.0
-NPMWorkspaceDirs: TypeAlias = dict[str, Union[Path, str]]
+NPMWorkspaceDirs: TypeAlias = dict[str, Path | str]
 
 
 class StaticMediaBuildContext:

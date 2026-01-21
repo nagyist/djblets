@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import copy
 from contextlib import contextmanager
-from typing import Any, Callable, Iterable, Iterator, TYPE_CHECKING, Union
+from typing import Any, Callable, Iterable, Iterator, TYPE_CHECKING
 
 from django.forms import widgets
 from django.forms.widgets import HiddenInput
@@ -43,10 +43,10 @@ if TYPE_CHECKING:
 #:
 #: Version Added:
 #:     6.0
-ConditionsWidgetChoices: TypeAlias = Union[
-    ConditionChoices,
-    Callable[[], ConditionChoices],
-]
+ConditionsWidgetChoices: TypeAlias = (
+    ConditionChoices |
+    Callable[[], ConditionChoices]
+)
 
 
 class AmountSelectorWidget(widgets.MultiWidget):
@@ -811,8 +811,11 @@ class ConditionsWidget(widgets.Widget):
 
     def _normalize_value_field(
         self,
-        value_field: Union[BaseConditionValueField | None,
-                           Callable[[], BaseConditionValueField | None]],
+        value_field: (
+            BaseConditionValueField |
+            Callable[[], BaseConditionValueField | None] |
+            None
+        ),
     ) -> BaseConditionValueField | None:
         """Normalize and return a value field.
 

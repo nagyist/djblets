@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import (Any, Callable, Collection, Iterable, Iterator,
-                    TYPE_CHECKING, Union)
+from typing import Any, Callable, Collection, Iterable, Iterator, TYPE_CHECKING
 
 from django.http import HttpResponse
 from django.utils.encoding import force_str
@@ -132,10 +131,10 @@ WebAPIEventStreamMessages: TypeAlias = Iterator[WebAPIEventStreamMessage]
 #:
 #: Version Added:
 #:     4.0
-WebAPIEventStream: TypeAlias = Union[
-    WebAPIEventStreamMessages,
-    Callable[[str | None], WebAPIEventStreamMessages],
-]
+WebAPIEventStream: TypeAlias = (
+    WebAPIEventStreamMessages |
+    Callable[[str | None], WebAPIEventStreamMessages]
+)
 
 
 class WebAPIResponse(HttpResponse):
@@ -618,7 +617,7 @@ class WebAPIResponsePaginated(WebAPIResponse):
 
     def normalize_start(
         self,
-        start: Union[int, str],
+        start: int | str,
     ) -> int:
         """Normalize the start value.
 

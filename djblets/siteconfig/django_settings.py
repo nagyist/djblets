@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Callable, Union
+from typing import Callable
 
 from django.conf import LazySettings, settings
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -50,7 +50,7 @@ class SiteConfigurationMappingDynamicValue(TypedDict):
 #: Version Added:
 #:     3.1
 SiteConfigurationSettingsMap: TypeAlias = \
-    dict[str, Union[str, SiteConfigurationMappingDynamicValue]]
+    dict[str, str | SiteConfigurationMappingDynamicValue]
 
 
 def _set_cache_backend(

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Union
-
 from django.test.utils import TestContextDecorator
 from typing_extensions import TypeAlias
 
@@ -15,7 +13,7 @@ from djblets.features.registry import get_features_registry
 #:
 #: Version Added:
 #:     3.3
-FeatureStates: TypeAlias = dict[Union[Feature, str], bool]
+FeatureStates: TypeAlias = dict[Feature | str, bool]
 
 
 class override_feature_checks(TestContextDecorator):

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import base64
 import os
-from typing import AnyStr, Iterable, Iterator, Union, cast
+from typing import AnyStr, Iterable, Iterator, cast
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -75,7 +75,7 @@ def get_default_aes_encryption_key() -> bytes:
 
 
 def aes_encrypt(
-    data: Union[bytes, str],
+    data: bytes | str,
     *,
     key: (bytes | None) = None,
 ) -> bytes:
@@ -151,7 +151,7 @@ def aes_encrypt_base64(
 
 
 def aes_encrypt_iter(
-    data_iter: Iterable[Union[bytes, str]],
+    data_iter: Iterable[bytes | str],
     *,
     key: (bytes | None) = None,
 ) -> Iterator[bytes]:

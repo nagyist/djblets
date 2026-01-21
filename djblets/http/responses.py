@@ -6,7 +6,7 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Callable, Iterator, TYPE_CHECKING, Union
+from typing import Callable, Iterator, TYPE_CHECKING
 
 from django.http.response import StreamingHttpResponse
 from typing_extensions import NotRequired, TypeAlias, TypedDict
@@ -73,10 +73,10 @@ EventStreamMessages: TypeAlias = Iterator[EventStreamMessage]
 #:
 #: Version Added:
 #:     4.0
-EventStream: TypeAlias = Union[
-    EventStreamMessages,
-    Callable[[str | None], EventStreamMessages],
-]
+EventStream: TypeAlias = (
+    EventStreamMessages |
+    Callable[[str | None], EventStreamMessages]
+)
 
 
 class EventStreamHttpResponse(StreamingHttpResponse):

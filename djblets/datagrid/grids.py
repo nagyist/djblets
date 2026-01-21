@@ -29,7 +29,7 @@ import logging
 import re
 import string
 import traceback
-from typing import Any, Callable, Iterable, TYPE_CHECKING, Union
+from typing import Any, Callable, Iterable, TYPE_CHECKING
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -68,10 +68,7 @@ if TYPE_CHECKING:
     from typelets.django.strings import StrOrPromise
     from typelets.symbols import Unsettable
 
-    _RenderContext: TypeAlias = Union[
-        Context,
-        dict[str, Any],
-    ]
+    _RenderContext: TypeAlias = Context | dict[str, Any]
 
     class _DataGridRow(TypedDict):
         cells: Sequence[SafeString]

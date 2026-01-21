@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from django.urls import include, path, re_path
 
@@ -79,7 +79,7 @@ def build_integration_urlpatterns(
         list:
         The list of URL patterns.
     """
-    include_target: Union[list[_AnyURL], tuple[list[_AnyURL], str]]
+    include_target: list[_AnyURL] | tuple[list[_AnyURL], str]
     urlpatterns: list[_AnyURL] = []
 
     if list_view_cls is not None:

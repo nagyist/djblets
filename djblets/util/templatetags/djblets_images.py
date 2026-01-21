@@ -6,7 +6,7 @@ import io
 import logging
 import os
 import re
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from django import template
 from django.core.files.base import File
@@ -66,8 +66,8 @@ def crop_image(f, x, y, width, height):
 
 @register.filter
 def thumbnail(
-    f: Union[File, str],
-    size: Union[str, tuple[int | None, int | None]] = '400x100',
+    f: File | str,
+    size: str | tuple[int | None, int | None] = '400x100',
     *,
     create_if_missing: bool = True,
     storage: (Storage | None) = None,
