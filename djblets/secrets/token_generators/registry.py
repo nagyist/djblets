@@ -7,7 +7,7 @@ Version Added:
 from __future__ import annotations
 
 import logging
-from typing import Optional, Set
+from typing import Optional
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -97,7 +97,7 @@ class TokenGeneratorRegistry(ExceptionFreeGetterMixin[BaseTokenGenerator],
             VendorChecksumTokenGenerator(),
         ]
 
-    def get_deprecated_token_generators(self) -> Set[str]:
+    def get_deprecated_token_generators(self) -> set[str]:
         """Return deprecated token generator IDs.
 
         The set of deprecated token generator IDs can be set in

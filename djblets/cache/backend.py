@@ -15,7 +15,7 @@ import logging
 import pickle
 import re
 import zlib
-from typing import Optional, TYPE_CHECKING, Tuple, TypeVar
+from typing import Optional, TYPE_CHECKING, TypeVar
 
 from django.conf import settings
 from django.core.cache import cache
@@ -48,12 +48,12 @@ if TYPE_CHECKING:
     #       a TypeVar parameter. This is a known workaround for making this
     #       work.
     _PreparingCacheItem: TypeAlias = Annotated[
-        Tuple[bytes, bool, Optional[_T]],
+        tuple[bytes, bool, Optional[_T]],
         None,
     ]
 
     _PreparedCacheItem: TypeAlias = Annotated[
-        Tuple[Optional[bytes], bool, Optional[_T]],
+        tuple[Optional[bytes], bool, Optional[_T]],
         None,
     ]
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any, Optional, Tuple, Union
+from typing import Any, Optional, Union
 
 from django.contrib import auth
 from django.http import HttpRequest
@@ -41,7 +41,7 @@ from djblets.webapi.responses import WebAPIResponseHeaders
 #:
 #: Version Added:
 #:     3.2
-WebAPIAuthenticateResult: TypeAlias = Tuple[bool,
+WebAPIAuthenticateResult: TypeAlias = tuple[bool,
                                             Optional[str],
                                             Optional[WebAPIResponseHeaders]]
 

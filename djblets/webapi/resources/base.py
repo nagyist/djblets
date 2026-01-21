@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import inspect
 import logging
-from typing import (Any, Callable, Final, Iterable, Mapping, Optional, Set,
-                    TYPE_CHECKING, Tuple, Type, Union, cast)
+from typing import (Any, Callable, Final, Iterable, Mapping, Optional,
+                    TYPE_CHECKING, Type, Union, cast)
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -154,10 +154,10 @@ _PayloadOrEvents: TypeAlias = Union[
 #:     4.0
 WebAPIResourceHandlerResult: TypeAlias = Union[
     HttpResponseBase,
-    Tuple[WebAPIError, WebAPIResponsePayload, WebAPIResponseHeaders],
-    Tuple[WebAPIError, WebAPIResponsePayload],
-    Tuple[int, _PayloadOrEvents, WebAPIResponseHeaders],
-    Tuple[int, _PayloadOrEvents],
+    tuple[WebAPIError, WebAPIResponsePayload, WebAPIResponseHeaders],
+    tuple[WebAPIError, WebAPIResponsePayload],
+    tuple[int, _PayloadOrEvents, WebAPIResponseHeaders],
+    tuple[int, _PayloadOrEvents],
     WebAPIError,
     WebAPIResponse,
 ]
@@ -1850,7 +1850,7 @@ class WebAPIResource(object):
             The serialized object payload.
         """
         requested_mimetype: Optional[str] = None
-        expanded_resources: Set[str] = set()
+        expanded_resources: set[str] = set()
         serialize_cache: dict[str, WebAPIResponsePayload] = {}
 
         if request:

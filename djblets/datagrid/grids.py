@@ -29,8 +29,8 @@ import logging
 import re
 import string
 import traceback
-from typing import (Any, Callable, Iterable, Optional, Set, TYPE_CHECKING,
-                    Type, Union)
+from typing import (Any, Callable, Iterable, Optional, TYPE_CHECKING, Type,
+                    Union)
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -823,7 +823,7 @@ class Column:
         """
         field_name = self.field_name
         id_field = f'{field_name}_id'
-        ids: Set[Any] = set()
+        ids: set[Any] = set()
         model = None
 
         for obj in object_list:

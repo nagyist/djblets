@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import warnings
-from typing import (Any, Callable, Generic, Optional, Sequence, Tuple, Type,
-                    Union, cast, overload)
+from typing import (Any, Callable, Generic, Optional, Sequence, Type, Union,
+                    cast, overload)
 
 from typing_extensions import Self, TypeAlias, TypeVar
 
@@ -298,7 +298,7 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
     #: The types that are valid for this property.
     #:
     #: New values are checked against this at runtime.
-    valid_types: Tuple[Type[_SetT], ...]
+    valid_types: tuple[Type[_SetT], ...]
 
     def __init__(
         self,

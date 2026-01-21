@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Set
-
 from djblets.extensions.hooks import ExtensionHookPoint
 from djblets.integrations.hooks import BaseIntegrationHook
 from djblets.integrations.integration import Integration
@@ -34,7 +32,7 @@ class IntegrationHookTests(IntegrationsTestCase):
         self.manager = IntegrationManager(IntegrationConfig)
 
         # This will make this class a hook owner.
-        self.hooks: Set[DummyIntegrationHook] = set()
+        self.hooks: set[DummyIntegrationHook] = set()
 
         self.hook = DummyIntegrationHook(self.manager, self, DummyIntegration)
 

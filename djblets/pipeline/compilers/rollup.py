@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 import re
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 from pipeline.conf import settings
 from pipeline.compilers import SubProcessCompiler
@@ -184,7 +184,7 @@ class RollupCompiler(SourceMapStaleCheckMixin, SubProcessCompiler):
     def _find_tree_root(
         self,
         start_dir: str,
-    ) -> Tuple[Optional[str], Optional[str]]:
+    ) -> tuple[Optional[str], Optional[str]]:
         """Return the root of a source tree for an input file.
 
         This will scan up the tree, looking for a Rollup configuration file:

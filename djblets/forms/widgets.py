@@ -9,7 +9,7 @@ from __future__ import annotations
 import copy
 from contextlib import contextmanager
 from typing import (Any, Callable, Iterable, Iterator, Optional, TYPE_CHECKING,
-                    Tuple, Union)
+                    Union)
 
 from django.forms import widgets
 from django.forms.widgets import HiddenInput
@@ -62,7 +62,7 @@ class AmountSelectorWidget(widgets.MultiWidget):
 
     def __init__(
         self,
-        unit_choices: Sequence[Tuple[Optional[int], str]],
+        unit_choices: Sequence[tuple[Optional[int], str]],
         number_attrs: Optional[dict[str, Any]] = None,
         select_attrs: Optional[dict[str, Any]] = None,
         attrs: Optional[dict[str, Any]] = None,
@@ -102,7 +102,7 @@ class AmountSelectorWidget(widgets.MultiWidget):
             attrs (dict, optional):
                 Additional HTML element attributes for the MultiWidget parent.
         """
-        self.widgets: Tuple[widgets.NumberInput, widgets.Select] = (
+        self.widgets: tuple[widgets.NumberInput, widgets.Select] = (
             widgets.NumberInput(attrs=number_attrs),
             widgets.Select(attrs=select_attrs, choices=unit_choices),
         )
@@ -111,7 +111,7 @@ class AmountSelectorWidget(widgets.MultiWidget):
     def decompress(
         self,
         value: Optional[int],
-    ) -> Tuple[Optional[int], Optional[int]]:
+    ) -> tuple[Optional[int], Optional[int]]:
         """Break up the value into an amount and unit tuple.
 
         This assumes that the value is stored in the base unit, and will
