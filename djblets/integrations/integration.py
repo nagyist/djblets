@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import ClassVar, Optional, Sequence, TYPE_CHECKING, Type
+from typing import ClassVar, Optional, Sequence, TYPE_CHECKING
 
 from typing_extensions import TypeAlias
 
@@ -264,4 +264,4 @@ class Integration(object):
 #:
 #: Version Added:
 #:     3.3
-IntegrationClassType: TypeAlias = Type[Integration]
+IntegrationClassType: TypeAlias = type[Integration]

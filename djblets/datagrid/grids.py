@@ -29,8 +29,7 @@ import logging
 import re
 import string
 import traceback
-from typing import (Any, Callable, Iterable, Optional, TYPE_CHECKING, Type,
-                    Union)
+from typing import Any, Callable, Iterable, Optional, TYPE_CHECKING, Union
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -219,7 +218,7 @@ logger = logging.getLogger(__name__)
 
 
 # Registration of all datagrid classes to columns.
-_column_registry: dict[Type[DataGrid], dict[str, Column]] = {}
+_column_registry: dict[type[DataGrid], dict[str, Column]] = {}
 
 
 class DataGridPaginator(Paginator):
@@ -2015,7 +2014,7 @@ class DataGrid:
     #:
     #: Type:
     #:     type
-    _model: Optional[Type[Model]]
+    _model: Optional[type[Model]]
 
     #: Any explicit column sort order provided during initialization.
     #:
@@ -2302,7 +2301,7 @@ class DataGrid:
         ]
 
     @property
-    def model(self) -> Optional[Type[Model]]:
+    def model(self) -> Optional[type[Model]]:
         """The model representing the objects shown in the grid.
 
         Type:

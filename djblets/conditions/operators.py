@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, Iterable, Optional, TYPE_CHECKING, Type
+from typing import Any, ClassVar, Iterable, Optional, TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
@@ -53,7 +53,7 @@ class BaseConditionOperator:
     choice: BaseConditionChoice
 
     @classmethod
-    def with_overrides(cls, **attrs) -> Type[BaseConditionOperator]:
+    def with_overrides(cls, **attrs) -> type[BaseConditionOperator]:
         """Dynamically create a subclass with overridden attributes.
 
         This makes it easy for a choice to make use of existing operators
@@ -977,7 +977,7 @@ class DoesNotMatchRegexOperator(BaseConditionOperator):
         return condition_value.match(match_value) is None
 
 
-class ConditionOperators(OrderedRegistry[Type[BaseConditionOperator]]):
+class ConditionOperators(OrderedRegistry[type[BaseConditionOperator]]):
     """Represents a list of operators for a condition choice.
 
     This stores a list of operators that can be used for condition choices.
@@ -1000,7 +1000,7 @@ class ConditionOperators(OrderedRegistry[Type[BaseConditionOperator]]):
     #:
     #: This is only used if a list of operators is not passed to the
     #: constructor.
-    operator_classes: list[Type[BaseConditionOperator]] = []
+    operator_classes: list[type[BaseConditionOperator]] = []
 
     lookup_attrs = ('operator_id',)
     lookup_error_class = ConditionOperatorNotFoundError
@@ -1030,11 +1030,11 @@ class ConditionOperators(OrderedRegistry[Type[BaseConditionOperator]]):
     ######################
 
     #: The list of operators assigned.
-    _operators: list[Type[BaseConditionOperator]]
+    _operators: list[type[BaseConditionOperator]]
 
     def __init__(
         self,
-        operators: list[Type[BaseConditionOperator]] = [],
+        operators: list[type[BaseConditionOperator]] = [],
         *args,
         **kwargs,
     ) -> None:
@@ -1076,7 +1076,7 @@ class ConditionOperators(OrderedRegistry[Type[BaseConditionOperator]]):
 
         return operator_cls(choice)
 
-    def get_defaults(self) -> Iterable[Type[BaseConditionOperator]]:
+    def get_defaults(self) -> Iterable[type[BaseConditionOperator]]:
         """Return the default operators for the list.
 
         This is used internally by the parent registry classa, and is based on

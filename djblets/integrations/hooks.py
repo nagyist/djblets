@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Type
+from typing import TYPE_CHECKING
 
 from djblets.extensions.hooks import ExtensionHook
 from djblets.integrations.errors import IntegrationError
@@ -31,11 +31,11 @@ class BaseIntegrationHook(NeedsIntegrationManagerMixin, ExtensionHook):
     ######################
 
     #: The integration class being managed by the hook.
-    integration_cls: Type[Integration]
+    integration_cls: type[Integration]
 
     def initialize(
         self,
-        integration_cls: Type[Integration],
+        integration_cls: type[Integration],
     ) -> None:
         """Initialize the hook.
 

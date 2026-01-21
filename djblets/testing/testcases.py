@@ -15,7 +15,7 @@ from importlib import import_module
 from importlib.machinery import ModuleSpec
 from importlib.util import module_from_spec
 from itertools import zip_longest
-from typing import Any, Iterator, Optional, TYPE_CHECKING, Type, Union
+from typing import Any, Iterator, Optional, TYPE_CHECKING, Union
 from unittest.util import safe_repr
 
 from django.apps import apps
@@ -85,7 +85,7 @@ class ExpectedWarning(TypedDict):
     #:
     #: Type:
     #:     type
-    cls: Type[Warning]
+    cls: type[Warning]
 
     #: The expected message for the warning.
     #:
@@ -259,7 +259,7 @@ class TestCase(testcases.TestCase):
     @contextmanager
     def assertWarns(
         self,
-        cls: Type[Warning] = DeprecationWarning,
+        cls: type[Warning] = DeprecationWarning,
         message: Optional[str] = None,
     ) -> Iterator[None]:
         """Assert that a warning is generated with a given message.

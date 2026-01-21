@@ -5,7 +5,7 @@ from __future__ import annotations
 import inspect
 import logging
 from typing import (Any, Callable, Final, Iterable, Mapping, Optional,
-                    TYPE_CHECKING, Type, Union, cast)
+                    TYPE_CHECKING, Union, cast)
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -189,11 +189,11 @@ class WebAPIResourceFieldInfo(TypedDict):
     #: :py:class:`tuple` of string values can be specified, but these are
     #: considered legacy.
     type: Union[
-        Type[BaseAPIFieldType],
-        Type[bytes],
-        Type[str],
-        Type[bool],
-        Type[int],
+        type[BaseAPIFieldType],
+        type[bytes],
+        type[str],
+        type[bool],
+        type[int],
         Sequence[str],
     ]
 
@@ -231,7 +231,7 @@ class WebAPIResourceFieldInfo(TypedDict):
     #:
     #: Type:
     #:     str or type
-    resource: NotRequired[Union[str, Type[WebAPIResource]]]
+    resource: NotRequired[Union[str, type[WebAPIResource]]]
 
 
 class AllowedMimetypeEntry(TypedDict):
@@ -284,7 +284,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     type
-    model: Optional[Type[Model]] = None
+    model: Optional[type[Model]] = None
 
     #: A mapping of field names to definitions for any serialized objects.
     #:
@@ -433,7 +433,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     list
-    paginated_cls: Type[WebAPIResponsePaginated] = WebAPIResponsePaginated
+    paginated_cls: type[WebAPIResponsePaginated] = WebAPIResponsePaginated
 
     #: A mapping of HTTP methods to handler method names.
     #:

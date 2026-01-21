@@ -36,7 +36,7 @@ from djblets.registries.registry import Registry, RegistryItemType
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Sequence
-    from typing import Any, Optional, Type
+    from typing import Any, Optional
 
     from django.utils.safestring import SafeString
 
@@ -384,7 +384,7 @@ class DataGridColumnsHook(ExtensionHook, metaclass=ExtensionHookPoint):
 
     def initialize(
         self,
-        datagrid_cls: Type[DataGrid],
+        datagrid_cls: type[DataGrid],
         columns: Sequence[Column],
     ) -> None:
         """Initialize the hook.

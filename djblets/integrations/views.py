@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Type
+from typing import TYPE_CHECKING
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -424,7 +424,7 @@ class BaseIntegrationConfigFormView(NeedsIntegrationManagerMixin,
         """
         return reverse('integration-list')
 
-    def get_form_class(self) -> Type[BaseIntegrationConfig]:
+    def get_form_class(self) -> type[BaseIntegrationConfig]:
         """Return the class used for the configuration form.
 
         This will return whatever class is specified for that integration.

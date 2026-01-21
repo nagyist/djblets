@@ -11,7 +11,7 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import Optional, TYPE_CHECKING, Type, cast
+from typing import Optional, TYPE_CHECKING, cast
 
 from importlib_metadata import EntryPoint, Sectioned
 from setuptools import Command
@@ -198,7 +198,7 @@ class BuildStaticFiles(Command):
 
         for entrypoint in extension_entry_points:
             try:
-                extension_cls = cast(Type[Extension], entrypoint.load())
+                extension_cls = cast(type[Extension], entrypoint.load())
             except ImportError:
                 sys.stderr.write(
                     'Error loading the extension for entry point %s\n'

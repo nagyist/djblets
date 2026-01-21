@@ -11,7 +11,7 @@ Version Changed:
 
 from __future__ import annotations
 
-from typing import Any, Callable, Optional, Type
+from typing import Any, Callable, Optional
 
 from housekeeping import (
     BasePendingRemovalWarning,
@@ -109,7 +109,7 @@ def deprecated_arg_value(
     value: Any,
     old_arg_name: str,
     new_arg_name: Optional[str] = None,
-    warning_cls: Type[BaseRemovedInWarning] = BaseRemovedInWarning,
+    warning_cls: type[BaseRemovedInWarning] = BaseRemovedInWarning,
 ) -> LazyObject:
     """Wrap a value in a lazy object to warn when used.
 
@@ -161,7 +161,7 @@ def deprecated_arg_value(
 @func_moved(RemovedInDjblets70Warning,
             new_func=djblets_deprecate_non_keyword_only_args)
 def deprecate_non_keyword_only_args(
-    warning_cls: Type[BaseRemovedInProductVersionWarning],
+    warning_cls: type[BaseRemovedInProductVersionWarning],
     message: Optional[str] = None,
 ) -> Callable[[_FuncT], _FuncT]:
     """Deprecate calls passing keyword-only arguments as positional arguments.

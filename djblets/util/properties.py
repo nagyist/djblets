@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import warnings
-from typing import (Any, Callable, Generic, Optional, Sequence, Type, Union,
-                    cast, overload)
+from typing import (Any, Callable, Generic, Optional, Sequence, Union, cast,
+                    overload)
 
 from typing_extensions import Self, TypeAlias, TypeVar
 
@@ -21,8 +21,8 @@ _AliasPropertySetT = TypeVar('_AliasPropertySetT')
 _AliasPropertyStoredT: TypeAlias = Any
 
 _TypedPropertyGetT = TypeVar('_TypedPropertyGetT')
-_TypedPropertyValidTypesParamT: TypeAlias = Union[Type[_SetT],
-                                                  Sequence[Type[_SetT]]]
+_TypedPropertyValidTypesParamT: TypeAlias = Union[type[_SetT],
+                                                  Sequence[type[_SetT]]]
 
 
 class BaseProperty(Generic[_StoredT]):
@@ -108,7 +108,7 @@ class AliasProperty(Generic[_GetT, _AliasPropertySetT],
     deprecated: bool
 
     #: The type of class to use for the deprecation warning.
-    deprecation_warning: Type[DeprecationWarning]
+    deprecation_warning: type[DeprecationWarning]
 
     #: The name of the property or attribute to read from and write to
     prop_name: str
@@ -122,7 +122,7 @@ class AliasProperty(Generic[_GetT, _AliasPropertySetT],
         convert_from_func: Optional[Callable[[_AliasPropertyStoredT],
                                              _GetT]] = None,
         deprecated: bool = False,
-        deprecation_warning: Type[DeprecationWarning] = DeprecationWarning,
+        deprecation_warning: type[DeprecationWarning] = DeprecationWarning,
     ) -> None:
         """Initialize the property.
 
@@ -198,7 +198,7 @@ class AliasProperty(Generic[_GetT, _AliasPropertySetT],
     def __get__(
         self,
         instance: None,
-        owner: Type[object],
+        owner: type[object],
     ) -> Self:
         ...
 
@@ -206,14 +206,14 @@ class AliasProperty(Generic[_GetT, _AliasPropertySetT],
     def __get__(
         self,
         instance: object,
-        owner: Type[object],
+        owner: type[object],
     ) -> _GetT:
         ...
 
     def __get__(
         self,
         instance: object,
-        owner: Type[object],
+        owner: type[object],
     ) -> Union[Self, _GetT]:
         """Return the value of the property.
 
@@ -298,7 +298,7 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
     #: The types that are valid for this property.
     #:
     #: New values are checked against this at runtime.
-    valid_types: tuple[Type[_SetT], ...]
+    valid_types: tuple[type[_SetT], ...]
 
     def __init__(
         self,
@@ -368,7 +368,7 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
     def __get__(
         self,
         instance: None,
-        owner: Type[object],
+        owner: type[object],
     ) -> Self:
         ...
 
@@ -376,14 +376,14 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
     def __get__(
         self,
         instance: object,
-        owner: Type[object],
+        owner: type[object],
     ) -> _TypedPropertyGetT:
         ...
 
     def __get__(
         self,
         instance: object,
-        owner: Type[object],
+        owner: type[object],
     ) -> Union[Self, _TypedPropertyGetT]:
         """Return the value of the property.
 

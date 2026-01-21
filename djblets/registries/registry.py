@@ -11,7 +11,7 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from threading import RLock
-from typing import (Generic, Iterable, Iterator, Optional, TYPE_CHECKING, Type,
+from typing import (Generic, Iterable, Iterator, Optional, TYPE_CHECKING,
                     TypeVar)
 from typelets.django.strings import StrOrPromise
 
@@ -194,7 +194,7 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     type
-    already_registered_error_class: Type[AlreadyRegisteredError] = \
+    already_registered_error_class: type[AlreadyRegisteredError] = \
         AlreadyRegisteredError
 
     #: The lookup error exception class.
@@ -204,7 +204,7 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     type
-    lookup_error_class: Type[ItemLookupError] = ItemLookupError
+    lookup_error_class: type[ItemLookupError] = ItemLookupError
 
     ######################
     # Instance variables #

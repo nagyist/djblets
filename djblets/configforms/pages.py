@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING, Type
+from typing import Optional, TYPE_CHECKING
 
 from django.template.loader import render_to_string
 
@@ -34,7 +34,7 @@ class ConfigPage(object):
     page_title: Optional[StrOrPromise] = None
 
     #: The list of form subclasses to display on the page.
-    form_classes: Optional[Sequence[Type[ConfigPageForm]]] = None
+    form_classes: Optional[Sequence[type[ConfigPageForm]]] = None
 
     #: The template used to render the page.
     template_name = 'configforms/config_page.html'

@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from datetime import datetime
 from importlib import import_module
-from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING, Type
+from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING
 
 import dateutil.parser
 from django.core.exceptions import ValidationError
@@ -37,7 +37,7 @@ class ListFieldTypeItemsInfo(TypedDict):
     #: The type of item.
     #:
     #: This can be any class type, including primitives or API field types.
-    type: Type
+    type: type[object]
 
 
 class BaseAPIFieldType:
@@ -579,7 +579,7 @@ class ResourceFieldType(NonRequestFieldTypeMixin, BaseAPIFieldType):
     #:
     #: Type:
     #:     type
-    resource: Type[WebAPIResource]
+    resource: type[WebAPIResource]
 
     def __init__(self, *args, **kwargs) -> None:
         """Initialize the field type.

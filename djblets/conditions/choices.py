@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import (Any, Callable, ClassVar, Iterable, Iterator, Optional,
-                    Sequence, TYPE_CHECKING, Type, Union)
+                    Sequence, TYPE_CHECKING, Union)
 
 from django.utils.translation import gettext_lazy as _
 
@@ -541,7 +541,7 @@ class BaseConditionModelMultipleChoice(ModelQueryChoiceMixin,
         return ConditionValueMultipleModelField(queryset=self.get_queryset)
 
 
-class ConditionChoices(OrderedRegistry[Type[BaseConditionChoice]]):
+class ConditionChoices(OrderedRegistry[type[BaseConditionChoice]]):
     """Represents a list of choices for conditions.
 
     This stores a list of choices that can be used for conditions. It can be
@@ -564,7 +564,7 @@ class ConditionChoices(OrderedRegistry[Type[BaseConditionChoice]]):
     #: A list of default choices.
     #:
     #: This is only used if a list of choices is not passed to the constructor.
-    choice_classes: ClassVar[Sequence[Type[BaseConditionChoice]]] = []
+    choice_classes: ClassVar[Sequence[type[BaseConditionChoice]]] = []
 
     lookup_attrs = ('choice_id',)
     lookup_error_class = ConditionChoiceNotFoundError
@@ -591,7 +591,7 @@ class ConditionChoices(OrderedRegistry[Type[BaseConditionChoice]]):
 
     def __init__(
         self,
-        choices: Sequence[Type[BaseConditionChoice]] = [],
+        choices: Sequence[type[BaseConditionChoice]] = [],
     ) -> None:
         """Initialize the list of choices.
 
@@ -655,7 +655,7 @@ class ConditionChoices(OrderedRegistry[Type[BaseConditionChoice]]):
         for choice_cls in self:
             yield choice_cls(**choice_kwargs)
 
-    def get_defaults(self) -> Iterable[Type[BaseConditionChoice]]:
+    def get_defaults(self) -> Iterable[type[BaseConditionChoice]]:
         """Return the default choices for the list.
 
         This is used internally by the parent registry class, and is based on

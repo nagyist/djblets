@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Type
+from typing import TYPE_CHECKING
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 @staff_member_required
 def site_settings(
     request: HttpRequest,
-    form_class: Type[SiteSettingsForm] = SiteSettingsForm,
+    form_class: type[SiteSettingsForm] = SiteSettingsForm,
     template_name: str = 'siteconfig/settings.html',
     extra_context: dict[str, Any] = {},
 ) -> HttpResponse:

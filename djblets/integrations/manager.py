@@ -5,7 +5,7 @@ from __future__ import annotations
 import atexit
 import logging
 import threading
-from typing import Iterable, Optional, TYPE_CHECKING, Type
+from typing import Iterable, Optional, TYPE_CHECKING
 from weakref import WeakValueDictionary
 
 from django.conf import settings
@@ -47,7 +47,7 @@ class IntegrationManager:
     ######################
 
     #: The model used to store configuration data.
-    config_model: Type[BaseIntegrationConfig]
+    config_model: type[BaseIntegrationConfig]
 
     #: Whether the integration manager is enabled.
     #:
@@ -77,7 +77,7 @@ class IntegrationManager:
 
     def __init__(
         self,
-        config_model: Type[BaseIntegrationConfig],
+        config_model: type[BaseIntegrationConfig],
     ) -> None:
         """Initialize the integration manager.
 
