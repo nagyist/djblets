@@ -1,5 +1,7 @@
 """Template context processors for SiteConfiguration information."""
 
+from __future__ import annotations
+
 import logging
 
 from django.conf import settings

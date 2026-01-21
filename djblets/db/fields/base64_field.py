@@ -3,6 +3,8 @@
 See :py:class:`Base64Field` for the main field type and usage instructions.
 """
 
+from __future__ import annotations
+
 from base64 import (decodebytes as base64_decode,
                     encodebytes as base64_encode)
 

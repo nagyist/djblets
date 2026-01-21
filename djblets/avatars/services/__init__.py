@@ -1,5 +1,7 @@
 """Djblets Avatar Services."""
 
+from __future__ import annotations
+
 from djblets.avatars.services.base import AvatarService
 from djblets.avatars.services.fallback import FallbackService
 from djblets.avatars.services.file_upload import FileUploadService

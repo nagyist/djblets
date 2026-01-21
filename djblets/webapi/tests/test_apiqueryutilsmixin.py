@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.db.models import Q
 from django.test.client import RequestFactory
 

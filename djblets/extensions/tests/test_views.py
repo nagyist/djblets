@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.views."""
 
+from __future__ import annotations
+
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import User

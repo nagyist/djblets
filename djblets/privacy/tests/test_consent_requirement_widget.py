@@ -1,5 +1,7 @@
 """Unit tests for djblets.privacy.consent.forms.ConsentRequirementWidget."""
 
+from __future__ import annotations
+
 from djblets.privacy.consent import BaseConsentRequirement
 from djblets.privacy.consent.forms import ConsentRequirementWidget
 from djblets.privacy.tests.testcases import ConsentTestCase

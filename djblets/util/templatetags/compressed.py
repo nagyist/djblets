@@ -6,6 +6,8 @@ lot of sense, it's possible that third-party users will still have templates
 relying on the old names.
 """
 
+from __future__ import annotations
+
 from django import template
 from pipeline.templatetags.pipeline import javascript, stylesheet
 

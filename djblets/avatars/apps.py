@@ -1,5 +1,7 @@
 """The app configuration for djblets.avatars."""
 
+from __future__ import annotations
+
 from django.apps import AppConfig
 
 

@@ -4,6 +4,8 @@ Version Added:
     3.0
 """
 
+from __future__ import annotations
+
 import hashlib
 import re
 from typing import Any, Dict

@@ -1,5 +1,7 @@
 """Extension models."""
 
+from __future__ import annotations
+
 from django.db import models
 
 from djblets.db.fields import JSONField

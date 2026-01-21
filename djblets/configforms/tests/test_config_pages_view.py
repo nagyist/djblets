@@ -1,5 +1,7 @@
 """Unit tests for djblets.configforms.views.ConfigPagesView."""
 
+from __future__ import annotations
+
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.test.client import RequestFactory

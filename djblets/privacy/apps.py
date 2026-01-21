@@ -1,5 +1,7 @@
 """App configuration for djblets.privacy."""
 
+from __future__ import annotations
+
 from django.apps import AppConfig
 
 

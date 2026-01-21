@@ -1,5 +1,7 @@
 """Resource registration and lookup."""
 
+from __future__ import annotations
+
 import logging
 
 

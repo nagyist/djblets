@@ -6,6 +6,8 @@ a number of useful helpers for calling APIs and validating results, along
 with generating consistent docstrings.
 """
 
+from __future__ import annotations
+
 import json
 import pprint
 

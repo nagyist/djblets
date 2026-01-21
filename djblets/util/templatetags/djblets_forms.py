@@ -1,5 +1,7 @@
 """Form-related template tags."""
 
+from __future__ import annotations
+
 from django import forms, template
 from django.utils.html import conditional_escape, format_html
 

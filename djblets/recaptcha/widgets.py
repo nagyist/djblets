@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.forms import widgets
 from django.utils.html import format_html

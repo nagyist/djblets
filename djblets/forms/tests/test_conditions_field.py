@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.forms import Form, ValidationError
 
 from djblets.conditions.choices import (BaseConditionChoice,

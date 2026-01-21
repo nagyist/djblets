@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.settings.ExtensionSettings."""
 
+from __future__ import annotations
+
 from mock import Mock
 
 from djblets.extensions.settings import ExtensionSettings

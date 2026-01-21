@@ -1,6 +1,7 @@
-from kgb import SpyAgency
+from __future__ import annotations
 
 from django.conf import settings
+from kgb import SpyAgency
 
 from djblets.features import Feature, FeatureLevel, get_features_registry
 from djblets.features.checkers import (BaseFeatureChecker, get_feature_checker,

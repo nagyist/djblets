@@ -1,5 +1,7 @@
 """Unit tests for djblets.forms.widgets.ListEditWidget."""
 
+from __future__ import annotations
+
 from django import forms
 from django.utils.datastructures import MultiValueDict
 

@@ -1,5 +1,7 @@
 """Unit tests for extension middleware."""
 
+from __future__ import annotations
+
 import kgb
 from django.test import override_settings
 

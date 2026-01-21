@@ -4,6 +4,8 @@ The middleware sets up some advanced logging capabilities for profiling
 and exception logging.
 """
 
+from __future__ import annotations
+
 import io
 import logging
 import sys

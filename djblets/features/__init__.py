@@ -7,7 +7,10 @@ This module contains convenience imports for:
 * :py:class:`~djblets.features.registry.get_features_registry`
 """
 
-from djblets.features.feature import Feature, FeatureLevel
+from __future__ import annotations
+
+from djblets.features.feature import Feature
+from djblets.features.level import FeatureLevel
 from djblets.features.registry import get_features_registry
 
 

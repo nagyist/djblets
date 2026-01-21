@@ -1,5 +1,7 @@
 """Base test case for privacy consent tests."""
 
+from __future__ import annotations
+
 from django.core.cache import cache
 
 from djblets.privacy.consent import get_consent_requirements_registry

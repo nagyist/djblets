@@ -1,5 +1,7 @@
 """URL patterns for applications that can use SITE_ROOT."""
 
+from __future__ import annotations
+
 from django.conf import settings
 from django.conf.urls import handler404, handler500
 from django.core.exceptions import ImproperlyConfigured

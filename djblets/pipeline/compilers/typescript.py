@@ -4,6 +4,8 @@ Version Added:
     4.0
 """
 
+from __future__ import annotations
+
 from pipeline.compilers.es6 import ES6Compiler
 
 

@@ -18,6 +18,8 @@ See the following for the new function/class locations:
 * :py:func:`djblets.webapi.resources.registry.unregister_resource_for_model`
 """
 
+from __future__ import annotations
+
 from djblets.webapi.resources.base import WebAPIResource
 from djblets.webapi.resources.group import GroupResource, group_resource
 from djblets.webapi.resources.registry import (get_resource_from_class,

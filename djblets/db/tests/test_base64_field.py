@@ -1,5 +1,7 @@
 """Unit tests for djblets.db.fields.base64_field."""
 
+from __future__ import annotations
+
 from django.db import connection, models
 
 from djblets.db.fields.base64_field import (Base64DecodedValue, Base64Field,

@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.json_utils."""
 
+from __future__ import annotations
+
 from djblets.testing.testcases import TestCase
 from djblets.util.json_utils import (JSONPatchError,
                                      JSONPatchPathError,

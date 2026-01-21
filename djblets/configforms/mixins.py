@@ -1,5 +1,7 @@
 """Utility mixins for configuration forms."""
 
+from __future__ import annotations
+
 
 class DynamicConfigPageMixin(object):
     """A mixin for utilizing a registry to keep track of the pages and forms.

@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.hooks.ExtensionHookPoint."""
 
+from __future__ import annotations
+
 from mock import Mock
 
 from djblets.extensions.extension import Extension

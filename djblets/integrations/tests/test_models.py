@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from djblets.integrations.integration import Integration
 from djblets.integrations.manager import IntegrationManager
 from djblets.integrations.tests.models import IntegrationConfig

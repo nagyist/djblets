@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.urls import path
 
 from djblets.log.views import server_log

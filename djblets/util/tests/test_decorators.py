@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.decorators."""
 
+from __future__ import annotations
+
 from djblets.testing.testcases import TestCase
 from djblets.util.decorators import cached_property, optional_decorator
 

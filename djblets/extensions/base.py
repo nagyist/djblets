@@ -1,5 +1,7 @@
 """Compatibility imports for older extensions."""
 
+from __future__ import annotations
+
 from djblets.extensions.extension import Extension, ExtensionInfo
 from djblets.extensions.hooks import ExtensionHook, ExtensionHookPoint
 from djblets.extensions.manager import ExtensionManager

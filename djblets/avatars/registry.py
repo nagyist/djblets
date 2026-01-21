@@ -1,5 +1,7 @@
 """A registry for managing avatar services."""
 
+from __future__ import annotations
+
 import logging
 
 from django.utils.translation import gettext_lazy as _

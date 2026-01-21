@@ -1,5 +1,7 @@
 """Settings managers for avatar service registries."""
 
+from __future__ import annotations
+
 
 class AvatarSettingsManager(object):
     """The settings manager is responsible for loading and saving settings.

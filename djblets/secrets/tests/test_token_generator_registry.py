@@ -4,6 +4,8 @@ Version Added:
     3.0
 """
 
+from __future__ import annotations
+
 from django.test.utils import override_settings
 
 from djblets.secrets.token_generators import token_generator_registry

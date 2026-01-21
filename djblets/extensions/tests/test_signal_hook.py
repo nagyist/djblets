@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.hooks.SignalHook."""
 
+from __future__ import annotations
+
 from django.dispatch import Signal
 from kgb import SpyAgency
 

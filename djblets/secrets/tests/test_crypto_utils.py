@@ -1,5 +1,7 @@
 """Unit tests for djblets.secrets.crypto."""
 
+from __future__ import annotations
+
 import inspect
 
 from django.test.utils import override_settings

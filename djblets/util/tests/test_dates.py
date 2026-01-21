@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.dates."""
 
+from __future__ import annotations
+
 import datetime
 
 from djblets.testing.testcases import TestCase

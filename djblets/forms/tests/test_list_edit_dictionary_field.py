@@ -1,5 +1,7 @@
 """Unit tests for djblets.forms.fields.ListEditDictionaryField."""
 
+from __future__ import annotations
+
 from djblets.forms.fields import ListEditDictionaryField
 from djblets.testing.testcases import TestCase
 

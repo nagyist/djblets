@@ -1,5 +1,7 @@
 """Utilities for generating resource trees for testing."""
 
+from __future__ import annotations
+
 from collections import namedtuple
 
 from djblets.extensions.resources import (

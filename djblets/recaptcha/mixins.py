@@ -3,6 +3,8 @@
 See :ref:`using-recaptcha` for a guide on using reCAPTCHA validation.
 """
 
+from __future__ import annotations
+
 import json
 import logging
 from urllib.error import HTTPError

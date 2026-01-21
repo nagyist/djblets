@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.extension.Extension."""
 
+from __future__ import annotations
+
 from django.core.exceptions import ImproperlyConfigured
 from kgb import SpyAgency
 

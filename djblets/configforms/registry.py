@@ -1,5 +1,7 @@
 """A registry for configuration forms and pages."""
 
+from __future__ import annotations
+
 from django.utils.translation import gettext_lazy as _
 
 from djblets.registries.errors import RegistrationError

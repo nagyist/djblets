@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from contextlib import contextmanager
 
 from django.contrib.sites.models import Site

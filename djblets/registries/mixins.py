@@ -1,5 +1,7 @@
 """Utility mixins for registries."""
 
+from __future__ import annotations
+
 from typing import Generic, Optional, TYPE_CHECKING
 
 from djblets.registries.errors import ItemLookupError

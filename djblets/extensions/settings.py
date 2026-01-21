@@ -1,5 +1,7 @@
 """Settings API for extensions."""
 
+from __future__ import annotations
+
 from django.utils.translation import gettext as _
 
 from djblets.extensions.signals import settings_saved

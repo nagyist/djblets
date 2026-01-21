@@ -1,5 +1,7 @@
 """An avatar service for providing Gravatars."""
 
+from __future__ import annotations
+
 from django.utils.safestring import mark_safe
 
 from djblets.avatars.services.base import AvatarService

@@ -1,5 +1,7 @@
 """Tests for the utilities for rate-limiting login attempts."""
 
+from __future__ import annotations
+
 import re
 
 import kgb

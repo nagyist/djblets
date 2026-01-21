@@ -6,6 +6,8 @@ This module contains convenience imports for:
 * :py:class:`~djblets.conditions.conditions.ConditionSet`
 """
 
+from __future__ import annotations
+
 from djblets.conditions.conditions import Condition, ConditionSet
 
 

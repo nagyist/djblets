@@ -1,6 +1,9 @@
 """Siteconfig definitions for the log app."""
 
+from __future__ import annotations
+
 from djblets.log import DEFAULT_LOG_LEVEL
+
 
 settings_map = {
     'logging_enabled':         'LOGGING_ENABLED',

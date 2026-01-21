@@ -1,5 +1,7 @@
 """Testing feature-related decorators."""
 
+from __future__ import annotations
+
 from django.http import (HttpResponse, HttpResponseForbidden,
                          HttpResponseNotFound)
 from kgb import SpyAgency

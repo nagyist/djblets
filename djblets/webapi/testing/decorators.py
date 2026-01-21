@@ -1,5 +1,7 @@
 """Decorators to help with API test suites."""
 
+from __future__ import annotations
+
 from djblets.util.decorators import simple_decorator
 
 

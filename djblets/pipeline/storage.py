@@ -4,6 +4,8 @@ Version Added:
     3.0
 """
 
+from __future__ import annotations
+
 from pipeline.storage import PipelineManifestStorage
 
 

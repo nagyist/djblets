@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.templatetags.djblets_forms."""
 
+from __future__ import annotations
+
 from django import forms
 from django.template import Context, Template
 

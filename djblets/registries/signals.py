@@ -1,5 +1,7 @@
 """Signals for being notified on registry operations."""
 
+from __future__ import annotations
+
 from django.dispatch import Signal
 
 

@@ -14,6 +14,8 @@ This provides convenience imports for the following:
    ~djblets.privacy.consent.tracker.get_consent_tracker
 """
 
+from __future__ import annotations
+
 from djblets.privacy.consent.base import (BaseConsentRequirement, Consent,
                                           ConsentData)
 from djblets.privacy.consent.registry import get_consent_requirements_registry

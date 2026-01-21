@@ -4,6 +4,8 @@ Version Added:
     3.0
 """
 
+from __future__ import annotations
+
 from djblets.secrets.token_generators.vendor_checksum import \
     VendorChecksumTokenGenerator
 from djblets.testing.testcases import TestCase

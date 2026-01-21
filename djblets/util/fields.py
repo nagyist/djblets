@@ -5,6 +5,8 @@
 #       ModificationTimestampField indefinitely.
 #
 
+from __future__ import annotations
+
 from djblets.db.fields import (Base64DecodedValue, Base64Field,
                                Base64FieldCreator, CounterField, JSONField,
                                ModificationTimestampField)

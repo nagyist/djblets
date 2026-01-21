@@ -5,6 +5,8 @@ text and the rendered content looks roughly the same. It's meant to help ensure
 that what's typed is very close to what's viewed when rendered.
 """
 
+from __future__ import annotations
+
 import re
 from collections import OrderedDict
 from xml.etree.ElementTree import SubElement

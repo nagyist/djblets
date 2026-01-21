@@ -1,5 +1,7 @@
 """Unit tests for djblets.privacy.pii."""
 
+from __future__ import annotations
+
 from django.http import QueryDict
 from django.test.client import RequestFactory
 from django.urls import ResolverMatch

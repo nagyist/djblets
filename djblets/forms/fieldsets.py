@@ -1,5 +1,7 @@
 """Utilities related to django.contrib.admin fieldsets."""
 
+from __future__ import annotations
+
 
 def filter_fieldsets(form, admin=None, fieldsets=None, exclude=None,
                      exclude_collapsed=True):

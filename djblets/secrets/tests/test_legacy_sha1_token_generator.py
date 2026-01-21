@@ -4,6 +4,8 @@ Version Added:
     3.0
 """
 
+from __future__ import annotations
+
 from django.contrib.auth.models import User
 
 from djblets.secrets.token_generators.legacy_sha1 import \

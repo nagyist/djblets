@@ -4,6 +4,8 @@ Version Added:
     3.3
 """
 
+from __future__ import annotations
+
 from djblets.forms.widgets import AmountSelectorWidget
 from djblets.testing.testcases import TestCase
 

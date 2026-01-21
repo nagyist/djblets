@@ -1,5 +1,7 @@
 """Unit tests for djblets.integrations.forms.IntegrationConfigForm."""
 
+from __future__ import annotations
+
 from django.test.client import RequestFactory
 
 from djblets.integrations.forms import IntegrationConfigForm

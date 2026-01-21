@@ -4,6 +4,8 @@ This provides some basic definitions with standard requirement IDs that can be
 further customized by applications needing to offer consent for services.
 """
 
+from __future__ import annotations
+
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _, gettext
 

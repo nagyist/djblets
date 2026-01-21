@@ -1,5 +1,7 @@
 """Middleware for HTTP-related processing."""
 
+from __future__ import annotations
+
 import django
 from django.utils.deprecation import MiddlewareMixin
 

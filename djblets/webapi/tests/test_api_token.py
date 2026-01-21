@@ -1,6 +1,7 @@
 """Unit tests for BaseWebAPIToken and WebAPITokenManager."""
 
-import warnings
+from __future__ import annotations
+
 from datetime import timedelta
 
 import kgb

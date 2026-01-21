@@ -1,5 +1,7 @@
 """Unit tests for djblets.forms.widgets.CopyableTextInput."""
 
+from __future__ import annotations
+
 from django import forms
 
 from djblets.forms.widgets import CopyableTextInput

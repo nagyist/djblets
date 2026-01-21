@@ -1,5 +1,7 @@
 """Unit tests for PrePostDispatchViewMixin."""
 
+from __future__ import annotations
+
 from django.http import HttpResponse, HttpResponseForbidden
 from django.test.client import RequestFactory
 from django.views.generic.base import View

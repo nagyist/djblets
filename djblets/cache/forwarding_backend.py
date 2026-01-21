@@ -1,5 +1,8 @@
 """A cache backend that forwards to other dynamically-configured backends."""
 
+from __future__ import annotations
+
+
 DEFAULT_FORWARD_CACHE_ALIAS = 'forwarded_backend'
 
 

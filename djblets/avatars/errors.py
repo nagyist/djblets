@@ -1,5 +1,7 @@
 """Avatar-specific errors."""
 
+from __future__ import annotations
+
 from djblets.registries.errors import ItemLookupError
 
 

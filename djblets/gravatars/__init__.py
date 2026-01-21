@@ -1,5 +1,7 @@
 """Utilities for working with gravatars."""
 
+from __future__ import annotations
+
 from hashlib import md5
 from urllib.parse import urlencode
 

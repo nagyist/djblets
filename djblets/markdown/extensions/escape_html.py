@@ -4,6 +4,8 @@ This is built as a replacement for the ``safe_mode='escape'`` Markdown render
 mode, which is deprecated in Python-Markdown 2.5.
 """
 
+from __future__ import annotations
+
 from markdown.extensions import Extension
 
 

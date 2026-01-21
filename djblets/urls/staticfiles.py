@@ -1,5 +1,7 @@
 """Utility functions for looking up static media URLs."""
 
+from __future__ import annotations
+
 from django.templatetags.static import static
 from django.utils.functional import lazy
 

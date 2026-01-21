@@ -1,5 +1,7 @@
 """Base classes and mixins for new class-based generic views."""
 
+from __future__ import annotations
+
 
 class CheckRequestMethodViewMixin(object):
     """Generic view mixin to check the HTTP method before dispatching.

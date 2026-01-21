@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.hooks.ExtensionHook."""
 
+from __future__ import annotations
+
 from djblets.extensions.extension import Extension
 from djblets.extensions.hooks import ExtensionHook, ExtensionHookPoint
 from djblets.extensions.testing import ExtensionTestCaseMixin

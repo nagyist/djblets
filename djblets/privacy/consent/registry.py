@@ -1,5 +1,7 @@
 """Registry for things that require consent from a user."""
 
+from __future__ import annotations
+
 from django.utils.translation import gettext_lazy as _
 
 from djblets.privacy.consent.errors import (ConsentRequirementConflictError,

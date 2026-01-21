@@ -1,5 +1,7 @@
 """Unit tests for the web API basic auth backend."""
 
+from __future__ import annotations
+
 import base64
 import logging
 

@@ -1,5 +1,7 @@
 """The base avatar service class implementation."""
 
+from __future__ import annotations
+
 import logging
 
 from django.template.loader import render_to_string

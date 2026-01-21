@@ -1,5 +1,7 @@
 """A flexible resource for the root of your API resource tree."""
 
+from __future__ import annotations
+
 import logging
 from collections import defaultdict, namedtuple
 from threading import RLock

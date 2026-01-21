@@ -5,6 +5,8 @@ This provides handy imports for extension testing classes:
 * :py:class:`djblets.extensions.testing.testcases.ExtensionTestCaseMixin`
 """
 
+from __future__ import annotations
+
 from djblets.extensions.testing.testcases import ExtensionTestCaseMixin
 
 

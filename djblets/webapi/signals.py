@@ -1,5 +1,7 @@
 """Web API signals."""
 
+from __future__ import annotations
+
 from django.dispatch import Signal
 
 

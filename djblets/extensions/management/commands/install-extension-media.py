@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from itertools import chain
 
 from django.core.management.base import BaseCommand, CommandError

@@ -1,5 +1,7 @@
 """Unit tests for djblets.webapi.fields."""
 
+from __future__ import annotations
+
 import datetime
 from zoneinfo import ZoneInfo
 

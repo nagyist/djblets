@@ -1,5 +1,7 @@
 """Feature-related decorators."""
 
+from __future__ import annotations
+
 from functools import wraps
 
 from django.http import HttpResponseNotFound

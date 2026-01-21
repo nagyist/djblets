@@ -4,6 +4,8 @@ Version Added:
     4.0
 """
 
+from __future__ import annotations
+
 import json
 import logging
 import os

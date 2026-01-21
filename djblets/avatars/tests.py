@@ -1,5 +1,7 @@
 """Tests for djblets.avatars."""
 
+from __future__ import annotations
+
 import uuid
 
 from django.contrib.auth.models import User

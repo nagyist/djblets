@@ -1,5 +1,7 @@
 """Base support for consent types, data, and requirements."""
 
+from __future__ import annotations
+
 from enum import Enum
 
 import dateutil.parser

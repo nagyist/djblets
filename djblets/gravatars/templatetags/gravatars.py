@@ -1,5 +1,7 @@
 """Template tags for using gravatars."""
 
+from __future__ import annotations
+
 from django import template
 from django.utils.html import format_html
 

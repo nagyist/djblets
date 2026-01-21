@@ -13,6 +13,8 @@ See the following for the new function/class locations:
 * :py:func:`djblets.webapi.auth.views.account_logout`
 """
 
+from __future__ import annotations
+
 from djblets.webapi.auth.backends import (check_login, get_auth_backends,
                                           reset_auth_backends)
 from djblets.webapi.auth.backends.base import WebAPIAuthBackend

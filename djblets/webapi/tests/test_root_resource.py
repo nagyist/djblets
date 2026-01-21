@@ -1,5 +1,7 @@
 """Unit tests for the Root Resource."""
 
+from __future__ import annotations
+
 import kgb
 
 from django.core.exceptions import ImproperlyConfigured

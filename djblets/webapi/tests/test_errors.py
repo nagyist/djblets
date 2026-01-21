@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from djblets.testing.testcases import TestCase
 from djblets.webapi.errors import WebAPIError
 

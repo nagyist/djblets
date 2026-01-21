@@ -1,5 +1,7 @@
 """Unit tests for API rate limiting."""
 
+from __future__ import annotations
+
 import json
 
 from django.test.utils import override_settings

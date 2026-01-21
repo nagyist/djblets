@@ -1,5 +1,7 @@
 """Tests for djblets.extensions.templatetags."""
 
+from __future__ import annotations
+
 import os
 import re
 from collections import OrderedDict

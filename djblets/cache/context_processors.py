@@ -8,6 +8,8 @@ See :py:mod:`djblets.cache.serials` for more information on building these
 serials.
 """
 
+from __future__ import annotations
+
 from django.conf import settings
 
 

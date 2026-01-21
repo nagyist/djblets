@@ -1,5 +1,7 @@
 """Mixins for integrating a web API resource with a form."""
 
+from __future__ import annotations
+
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.models import model_to_dict
 from django.utils.encoding import force_str

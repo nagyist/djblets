@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from djblets.features import Feature
 from djblets.features.errors import FeatureConflictError
 from djblets.features.registry import FeaturesRegistry

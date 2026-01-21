@@ -1,5 +1,7 @@
 """Functions to humanize values."""
 
+from __future__ import annotations
+
 
 def humanize_list(value):
     """

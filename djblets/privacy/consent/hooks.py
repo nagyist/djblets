@@ -1,5 +1,7 @@
 """Extension hooks for consent requirements."""
 
+from __future__ import annotations
+
 from djblets.extensions.hooks import BaseRegistryHook, ExtensionHookPoint
 from djblets.privacy.consent.registry import get_consent_requirements_registry
 

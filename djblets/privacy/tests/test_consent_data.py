@@ -1,5 +1,7 @@
 """Unit tests for djblets.privacy.consent.base.ConsentData."""
 
+from __future__ import annotations
+
 import datetime
 
 from djblets.privacy.consent import ConsentData

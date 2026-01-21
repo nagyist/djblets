@@ -1,5 +1,7 @@
 """Web API resource support for OAuth2 token access."""
 
+from __future__ import annotations
+
 from django.contrib import auth
 from django.core.exceptions import ImproperlyConfigured
 

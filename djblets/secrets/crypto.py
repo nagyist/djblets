@@ -4,6 +4,8 @@ Version Added:
     3.0
 """
 
+from __future__ import annotations
+
 import base64
 import os
 from typing import AnyStr, Iterable, Iterator, Optional, Union, cast

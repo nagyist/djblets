@@ -1,5 +1,7 @@
 """Utility functions for working with template contexts."""
 
+from __future__ import annotations
+
 from django.core.exceptions import ImproperlyConfigured
 from django.template import engines
 

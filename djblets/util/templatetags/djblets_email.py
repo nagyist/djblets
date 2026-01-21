@@ -1,5 +1,7 @@
 """E-mail formatting template tags."""
 
+from __future__ import annotations
+
 import re
 
 from django import template

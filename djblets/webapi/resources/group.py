@@ -1,5 +1,7 @@
 """Built-in resource representing the Group model."""
 
+from __future__ import annotations
+
 from django.contrib.auth.models import Group
 
 from djblets.webapi.resources.base import WebAPIResource

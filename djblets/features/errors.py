@@ -1,5 +1,7 @@
 """Error classes for features."""
 
+from __future__ import annotations
+
 from djblets.registries.errors import AlreadyRegisteredError, ItemLookupError
 
 

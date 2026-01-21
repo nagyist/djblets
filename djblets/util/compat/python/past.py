@@ -4,6 +4,9 @@ Note that this module is not considered API-stable. Changes may be made that
 remove or alter functionality in the future. Please use at your own risk.
 """
 
+from __future__ import annotations
+
+
 cmp = lambda x, y: (x > y) - (x < y)
 
 

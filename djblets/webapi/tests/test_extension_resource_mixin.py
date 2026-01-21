@@ -1,5 +1,7 @@
 """Unit tests for the ExtensionResource mixin."""
 
+from __future__ import annotations
+
 from django.test import RequestFactory
 
 from djblets.extensions.extension import Extension

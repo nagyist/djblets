@@ -1,5 +1,7 @@
 """Admin site definitions for extension models."""
 
+from __future__ import annotations
+
 from django.contrib import admin
 
 from djblets.extensions.models import RegisteredExtension

@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.templatetags.djblets_deco."""
 
+from __future__ import annotations
+
 from django.template import Context, Template, TemplateSyntaxError
 
 from djblets.testing.testcases import TagTest

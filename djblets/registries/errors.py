@@ -1,5 +1,7 @@
 """Exception classes for dealing with Djblets registries."""
 
+from __future__ import annotations
+
 
 class ItemLookupError(Exception):
     """An error that occurs during item lookup."""

@@ -20,6 +20,8 @@ import them all from one place. The following are provided:
    ~djblets.db.fields.relation_counter_field.RelationCounterField
 """
 
+from __future__ import annotations
+
 from djblets.db.fields.base64_field import (Base64DecodedValue,
                                             Base64FieldCreator, Base64Field)
 from djblets.db.fields.comma_separated_values_field import \

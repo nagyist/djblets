@@ -1,5 +1,7 @@
 """Standard views for displaying and interacting with configuration forms."""
 
+from __future__ import annotations
+
 import logging
 
 from django.http import (Http404, HttpResponse, HttpResponseBadRequest,

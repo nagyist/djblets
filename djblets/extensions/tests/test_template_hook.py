@@ -1,5 +1,7 @@
 """Unit tests for djblets.extensions.hooks.TemplateHook."""
 
+from __future__ import annotations
+
 from django.template import Context, RequestContext, Template
 from django.test.client import RequestFactory
 from django.urls import ResolverMatch

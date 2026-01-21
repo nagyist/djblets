@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.templatetags.djblets_utils."""
 
+from __future__ import annotations
+
 import warnings
 from collections import OrderedDict
 from datetime import datetime, timedelta

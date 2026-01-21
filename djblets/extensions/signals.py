@@ -1,5 +1,7 @@
 """Extension-related signals."""
 
+from __future__ import annotations
+
 from django.dispatch import Signal
 
 

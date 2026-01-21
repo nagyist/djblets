@@ -1,5 +1,7 @@
 """An avatar service for providing uploaded images."""
 
+from __future__ import annotations
+
 import os
 from hashlib import md5
 from uuid import uuid4

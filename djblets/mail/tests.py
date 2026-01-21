@@ -1,5 +1,7 @@
 """Unit tests for djblets.mail."""
 
+from __future__ import annotations
+
 import dns.resolver
 from django.conf import settings
 from django.contrib.auth.models import User

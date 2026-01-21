@@ -1,5 +1,7 @@
 """Views for the log app."""
 
+from __future__ import annotations
+
 import calendar
 import codecs
 import datetime

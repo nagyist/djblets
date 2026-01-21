@@ -1,5 +1,7 @@
 """Database backend for MySQL with backported fixes."""
 
+from __future__ import annotations
+
 from django.core.exceptions import ImproperlyConfigured
 
 try:

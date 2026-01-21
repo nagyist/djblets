@@ -4,6 +4,8 @@ Version Added:
     3.2
 """
 
+from __future__ import annotations
+
 from djblets.testing.testcases import TestCase
 from djblets.util.datastructures import (dict_get_path_value,
                                          dict_set_path_value)

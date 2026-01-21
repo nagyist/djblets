@@ -1,5 +1,7 @@
 """HTML-related utilities."""
 
+from __future__ import annotations
+
 from django.utils.functional import lazy
 from django.utils.safestring import SafeString, mark_safe
 

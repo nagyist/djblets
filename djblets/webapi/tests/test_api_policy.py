@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from djblets.testing.testcases import TestCase
 from djblets.webapi.resources.base import WebAPIResource
 from djblets.webapi.resources.mixins.api_tokens import ResourceAPITokenMixin

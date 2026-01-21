@@ -1,5 +1,7 @@
 """Utility functions for working with template-related caches."""
 
+from __future__ import annotations
+
 from django.template import Engine, engines
 
 

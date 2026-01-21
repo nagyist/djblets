@@ -1,5 +1,7 @@
 """Tests for djblets.gravatars."""
 
+from __future__ import annotations
+
 from hashlib import md5
 
 from django.contrib.auth.models import User

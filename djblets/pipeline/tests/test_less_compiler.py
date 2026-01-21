@@ -1,5 +1,7 @@
 """Unit tests for djblets.pipeline.compilers.less.LessCompiler."""
 
+from __future__ import annotations
+
 import os
 import shutil
 import tempfile

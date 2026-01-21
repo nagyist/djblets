@@ -1,5 +1,7 @@
 """An avatar service used as a fallback to show something basic for a user."""
 
+from __future__ import annotations
+
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 

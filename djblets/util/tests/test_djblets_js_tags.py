@@ -1,5 +1,7 @@
 """Unit tests for djblets.util.templatetags.djblets_js."""
 
+from __future__ import annotations
+
 from djblets.testing.testcases import TestCase
 from djblets.util.templatetags.djblets_js import json_dumps
 

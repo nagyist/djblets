@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.urls import (NoReverseMatch,
                          clear_url_caches,
                          include,

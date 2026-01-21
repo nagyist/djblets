@@ -1,5 +1,7 @@
 """Unit tests for the web API token auth backend."""
 
+from __future__ import annotations
+
 import datetime
 import logging
 import time
