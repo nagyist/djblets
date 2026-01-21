@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import (Any, Dict, Generic, Protocol, TYPE_CHECKING,
-                    runtime_checkable)
+from typing import Any, Generic, Protocol, TYPE_CHECKING, runtime_checkable
 
 from django import forms
 from typing_extensions import TypeVar
@@ -15,7 +14,7 @@ if TYPE_CHECKING:
     from django.utils.datastructures import MultiValueDict
 
 
-_T = TypeVar('_T', default=Dict[str, Any])
+_T = TypeVar('_T', default=dict[str, Any])
 
 
 @runtime_checkable

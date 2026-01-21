@@ -10,11 +10,14 @@ import re
 import secrets
 import string
 import zlib
-from typing import Any, Dict, List
+from typing import Any, List, TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
 from djblets.secrets.token_generators.base import BaseTokenGenerator
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class VendorChecksumTokenGenerator(BaseTokenGenerator):
@@ -55,7 +58,7 @@ class VendorChecksumTokenGenerator(BaseTokenGenerator):
 
     def create_token(
         self,
-        token_info: Dict[str, Any] = {},
+        token_info: Mapping[str, Any] = {},
         **kwargs,
     ) -> str:
         """Create a token that contains a prefix and checksum.
@@ -100,7 +103,7 @@ class VendorChecksumTokenGenerator(BaseTokenGenerator):
     def validate_token(
         self,
         token: str,
-        token_info: Dict[str, Any] = {},
+        token_info: Mapping[str, Any] = {},
         **kwargs,
     ) -> bool:
         """Return whether the token is a valid token from this generator.
@@ -174,7 +177,7 @@ class VendorChecksumTokenGenerator(BaseTokenGenerator):
 
     def _check_token_info(
         self,
-        token_info: Dict[str, Any],
+        token_info: Mapping[str, Any],
     ) -> None:
         """Checks if all required keys are in the token info dictionary.
 

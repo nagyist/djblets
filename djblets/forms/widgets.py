@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import copy
 from contextlib import contextmanager
-from typing import (Any, Callable, Dict, Iterable, Iterator, List, Optional,
+from typing import (Any, Callable, Iterable, Iterator, List, Optional,
                     TYPE_CHECKING, Tuple, Union)
 
 from django.forms import widgets
@@ -26,6 +26,8 @@ from djblets.conditions.errors import (ConditionChoiceNotFoundError,
 from djblets.deprecation import RemovedInDjblets80Warning
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+
     from django.forms.renderers import BaseRenderer
     from django.forms.utils import _DataT, _FilesT
     from django.utils.safestring import SafeText
@@ -61,9 +63,9 @@ class AmountSelectorWidget(widgets.MultiWidget):
     def __init__(
         self,
         unit_choices: List[Tuple[Optional[int], str]],
-        number_attrs: Optional[Dict[str, Any]] = None,
-        select_attrs: Optional[Dict[str, Any]] = None,
-        attrs: Optional[Dict[str, Any]] = None,
+        number_attrs: Optional[dict[str, Any]] = None,
+        select_attrs: Optional[dict[str, Any]] = None,
+        attrs: Optional[dict[str, Any]] = None,
     ) -> None:
         """Initialize the widget.
 
@@ -153,8 +155,8 @@ class AmountSelectorWidget(widgets.MultiWidget):
 
     def value_from_datadict(
         self,
-        data: Dict[str, Any],
-        files: Dict[str, Any],
+        data: Mapping[str, Any],
+        files: Mapping[str, Any],
         name: str,
     ) -> Optional[int]:
         """Return a value for the field from a submitted form.
@@ -163,7 +165,7 @@ class AmountSelectorWidget(widgets.MultiWidget):
         field can use and validate. This will convert the integer value to the
         base unit.
 
-         Args:
+        Args:
             data (dict):
                 The dictionary containing form data.
 

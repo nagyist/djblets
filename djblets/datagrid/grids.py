@@ -29,8 +29,8 @@ import logging
 import re
 import string
 import traceback
-from typing import (Any, Callable, Dict, Iterable, List, Optional, Sequence,
-                    Set, TYPE_CHECKING, Type, Union)
+from typing import (Any, Callable, Iterable, List, Optional, Sequence, Set,
+                    TYPE_CHECKING, Type, Union)
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -70,7 +70,7 @@ if TYPE_CHECKING:
 
     _RenderContext: TypeAlias = Union[
         Context,
-        Dict[str, Any],
+        dict[str, Any],
     ]
 
     class _DataGridRow(TypedDict):
@@ -218,7 +218,7 @@ logger = logging.getLogger(__name__)
 
 
 # Registration of all datagrid classes to columns.
-_column_registry: Dict[Type[DataGrid], Dict[str, Column]] = {}
+_column_registry: dict[Type[DataGrid], dict[str, Column]] = {}
 
 
 class DataGridPaginator(Paginator):
@@ -913,7 +913,7 @@ class Column:
             if url:
                 css_class = '%s has-link' % css_class
 
-            ctx: Dict[str, Any] = {}
+            ctx: dict[str, Any] = {}
 
             if render_context:
                 ctx.update(render_context)
@@ -1184,7 +1184,7 @@ class StatefulColumn:
     #:
     #: Type:
     #:     dict
-    cell_render_cache: Dict[str, SafeString]
+    cell_render_cache: dict[str, str]
 
     #: The column instance that this state is associated with.
     #:
@@ -1196,7 +1196,7 @@ class StatefulColumn:
     #:
     #: Type:
     #:     dict
-    data_cache: Dict[Any, Any]
+    data_cache: dict[Any, Any]
 
     #: The datagrid that owns this column state.
     #:
@@ -1849,7 +1849,7 @@ class DataGrid:
     #:
     #: Type:
     #:     dict
-    column_map: Dict[Column, StatefulColumn]
+    column_map: dict[Column, StatefulColumn]
 
     #: A list of all stateful columns on this datagrid.
     #:
@@ -3028,7 +3028,7 @@ class DataGrid:
 
             self.load_state(render_context)
 
-            context: Dict[str, Any] = {
+            context: dict[str, Any] = {
                 'datagrid': self,
             }
 
@@ -3101,7 +3101,7 @@ class DataGrid:
             return self.render_listview_to_response(
                 render_context=render_context)
 
-        context: Dict[str, Any] = {
+        context: dict[str, Any] = {
             'datagrid': self,
         }
         context.update(extra_context)

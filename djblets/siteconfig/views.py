@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Type
+from typing import TYPE_CHECKING, Type
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -12,6 +12,9 @@ from django.views.decorators.csrf import csrf_protect
 from djblets.siteconfig.forms import SiteSettingsForm
 from djblets.siteconfig.models import SiteConfiguration
 
+if TYPE_CHECKING:
+    from typing import Any
+
 
 @csrf_protect
 @staff_member_required
@@ -19,7 +22,7 @@ def site_settings(
     request: HttpRequest,
     form_class: Type[SiteSettingsForm] = SiteSettingsForm,
     template_name: str = 'siteconfig/settings.html',
-    extra_context: Dict = {},
+    extra_context: dict[str, Any] = {},
 ) -> HttpResponse:
     """A view for customizing the site configuration's settings.
 

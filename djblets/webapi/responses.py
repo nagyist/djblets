@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import (Any, Callable, Collection, Dict, Iterable, Iterator,
-                    List, Optional, Sequence, TYPE_CHECKING, Union)
+from typing import (Any, Callable, Collection, Iterable, Iterator, List,
+                    Optional, Sequence, TYPE_CHECKING, Union)
 
 from django.http import HttpResponse
 from django.utils.encoding import force_str
@@ -22,6 +22,8 @@ from djblets.webapi.errors import INVALID_FORM_DATA
 
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+
     from django.db.models import QuerySet
     from django.forms import Form
     from django.http import HttpRequest
@@ -33,7 +35,7 @@ if TYPE_CHECKING:
 #:
 #: Version Added:
 #:     3.2
-WebAPIResponseHeaders: TypeAlias = Dict[str, str]
+WebAPIResponseHeaders: TypeAlias = dict[str, str]
 
 
 class WebAPIResponseLink(TypedDict):
@@ -75,14 +77,14 @@ class WebAPIResponseLink(TypedDict):
 #:
 #: Version Added:
 #:     3.2
-WebAPIResponseLinks: TypeAlias = Dict[str, WebAPIResponseLink]
+WebAPIResponseLinks: TypeAlias = dict[str, WebAPIResponseLink]
 
 
 #: A type alias for an API response payload.
 #:
 #: Version Added:
 #:     3.2
-WebAPIResponsePayload: TypeAlias = Dict[Any, Any]
+WebAPIResponsePayload: TypeAlias = dict[Any, Any]
 
 
 class WebAPIEventStreamMessage(EventStreamMessage):
@@ -187,7 +189,7 @@ class WebAPIResponse(HttpResponse):
     #:
     #: Type:
     #:     dict
-    encoder_kwargs: Dict[str, Any]
+    encoder_kwargs: Mapping[str, Any]
 
     #: The mimetype used for the response.
     #:
@@ -211,7 +213,7 @@ class WebAPIResponse(HttpResponse):
         status: int = 200,
         headers: WebAPIResponseHeaders = {},
         encoders: Sequence[WebAPIEncoder] = [],
-        encoder_kwargs: Dict[str, Any] = {},
+        encoder_kwargs: Mapping[str, Any] = {},
         mimetype: Optional[str] = None,
         supported_mimetypes: Optional[List[str]] = None,
     ) -> None:
@@ -481,7 +483,7 @@ class WebAPIResponsePaginated(WebAPIResponse):
         serialize_object_func: Optional[Callable[[object], Any]] = None,
         serialize_object_list_func: Optional[Callable[[Iterable[Any]],
                                                       Sequence[Any]]] = None,
-        extra_data: Dict[Any, Any] = {},
+        extra_data: Mapping[Any, Any] = {},
         **kwargs,
     ) -> None:
         """Initialize the response.
@@ -784,7 +786,7 @@ class WebAPIResponseError(WebAPIResponse):
         request: HttpRequest,
         err: WebAPIError,
         *args,
-        extra_params: Dict[Any, Any] = {},
+        extra_params: Mapping[Any, Any] = {},
         headers: WebAPIResponseHeaders = {},
         **kwargs,
     ) -> None:
@@ -898,7 +900,7 @@ class WebAPIResponseFormError(WebAPIResponseError):
             if arg in kwargs:
                 raise ValueError(f'{arg}= cannot be passed to {type(self)}')
 
-        fields: Dict[str, List[str]] = {
+        fields: dict[str, List[str]] = {
             field: [force_str(e) for e in form.errors[field]]
             for field in form.errors
         }
@@ -947,7 +949,7 @@ class WebAPIResponseEventStream(EventStreamHttpResponse):
         status: int = 200,
         headers: WebAPIResponseHeaders = {},
         encoders: Sequence[WebAPIEncoder] = [],
-        encoder_kwargs: Dict[str, Any] = {},
+        encoder_kwargs: Mapping[str, Any] = {},
         message_data_mimetype: Optional[str] = None,
         supported_mimetypes: Optional[List[str]] = None,
     ) -> None:

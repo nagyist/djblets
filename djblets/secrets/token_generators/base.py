@@ -6,7 +6,10 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class BaseTokenGenerator:
@@ -33,7 +36,7 @@ class BaseTokenGenerator:
 
     def create_token(
         self,
-        token_info: Dict[str, Any] = {},
+        token_info: Mapping[str, Any] = {},
         **kwargs,
     ) -> str:
         """Create a new token.
@@ -61,7 +64,7 @@ class BaseTokenGenerator:
     def validate_token(
         self,
         token: str,
-        token_info: Dict[str, Any] = {},
+        token_info: Mapping[str, Any] = {},
         **kwargs,
     ) -> bool:
         """Validate the token.

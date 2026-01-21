@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import inspect
 import logging
-from typing import (Any, Callable, Dict, Final, Iterable, List, Mapping,
-                    Optional, Sequence, Set, TYPE_CHECKING, Tuple, Type,
-                    Union, cast)
+from typing import (Any, Callable, Final, Iterable, List, Mapping, Optional,
+                    Sequence, Set, TYPE_CHECKING, Tuple, Type, Union, cast)
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -1851,7 +1850,7 @@ class WebAPIResource(object):
         """
         requested_mimetype: Optional[str] = None
         expanded_resources: Set[str] = set()
-        serialize_cache: Dict[str, WebAPIResponsePayload] = {}
+        serialize_cache: dict[str, WebAPIResponsePayload] = {}
 
         if request:
             try:
@@ -1933,7 +1932,7 @@ class WebAPIResource(object):
 
         data: WebAPIResponsePayload = {}
         links: WebAPIResponseLinks = {}
-        expand_info: Dict[str, _ExpandInfo] = {}
+        expand_info: dict[str, _ExpandInfo] = {}
 
         resource: Optional[WebAPIResource]
 
@@ -2481,7 +2480,7 @@ class WebAPIResource(object):
         self,
         obj: Any,
         **kwargs,
-    ) -> Dict[str, str]:
+    ) -> Mapping[str, str]:
         """Return a dictionary mapping parent object keys to object values.
 
         This will walk up the resource tree and return a mapping of parent
@@ -2503,7 +2502,7 @@ class WebAPIResource(object):
             dict:
             A mapping of object IDs to values.
         """
-        parent_ids: Dict[str, str]
+        parent_ids: dict[str, str]
         parent_resource = self._parent_resource
 
         if parent_resource and self.model_parent_key:

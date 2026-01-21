@@ -11,8 +11,8 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from threading import RLock
-from typing import (Dict, Generic, Iterable, Iterator, List, Optional,
-                    Sequence, Type, TypeVar)
+from typing import (Generic, Iterable, Iterator, List, Optional, Sequence,
+                    Type, TypeVar)
 from typelets.django.strings import StrOrPromise
 
 from django.utils.translation import gettext_lazy as _
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 #:
 #: Version Added:
 #:     3.3
-RegistryErrorsDict: TypeAlias = Dict[str, StrOrPromise]
+RegistryErrorsDict: TypeAlias = dict[str, StrOrPromise]
 
 
 #: A generic type for items stored in a registry.
@@ -380,7 +380,7 @@ class Registry(Generic[RegistryItemType]):
                 the registry.
         """
         self.populate()
-        attr_values: Dict[str, object] = {}
+        attr_values: dict[str, object] = {}
 
         with self._lock:
             if item in self._items:
@@ -784,7 +784,7 @@ class OrderedRegistry(Registry[RegistryItemType]):
         """Initialize the OrderedRegistry"""
         super(OrderedRegistry, self).__init__()
 
-        self._by_id: Dict[int, RegistryItemType] = {}
+        self._by_id: dict[int, RegistryItemType] = {}
         self._key_order: List[int] = []
 
     def on_item_registered(

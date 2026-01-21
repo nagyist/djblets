@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Optional, Tuple, Union
 
 from django.contrib import auth
 from django.http import HttpRequest
@@ -50,7 +50,7 @@ WebAPIAuthenticateResult: TypeAlias = Tuple[bool,
 #:
 #: Version Added:
 #:     3.2
-WebAPICredentials: TypeAlias = Dict[str, Any]
+WebAPICredentials: TypeAlias = dict[str, Any]
 
 
 #: A type alias for the result of a get_credentials response.
@@ -101,7 +101,7 @@ class WebAPIAuthBackend:
     def get_auth_headers(
         self,
         request: HttpRequest
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Return extra authentication headers for the response.
 
         Args:

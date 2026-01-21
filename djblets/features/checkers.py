@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Dict, Optional, cast
+from typing import Optional, cast
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -168,7 +168,7 @@ class SiteConfigFeatureChecker(SettingsFeatureChecker):
         from djblets.siteconfig.models import SiteConfiguration
 
         siteconfig = SiteConfiguration.objects.get_current()
-        enabled_features = cast(Dict[str, bool],
+        enabled_features = cast(dict[str, bool],
                                 siteconfig.get(self.siteconfig_key, {}))
 
         try:

@@ -7,7 +7,7 @@ import logging
 import os
 from pathlib import PosixPath
 from types import ModuleType
-from typing import Any, Dict, Mapping, TYPE_CHECKING
+from typing import Any, Mapping, TYPE_CHECKING
 
 import importlib_resources
 from django.conf import settings
@@ -171,14 +171,14 @@ class JSBundleConfig(BaseStaticBundleConfig):
 #:
 #: Version Added:
 #:     5.0
-CSSBundleConfigs: TypeAlias = Dict[str, CSSBundleConfig]
+CSSBundleConfigs: TypeAlias = Mapping[str, CSSBundleConfig]
 
 
 #: A mapping of JavaScript bundle names to configurations.
 #:
 #: Version Added:
 #:     5.0
-JSBundleConfigs: TypeAlias = Dict[str, JSBundleConfig]
+JSBundleConfigs: TypeAlias = Mapping[str, JSBundleConfig]
 
 
 class JSExtension:

@@ -13,6 +13,7 @@ from djblets.features.registry import get_features_registry
 if TYPE_CHECKING:
     from django.template.base import (Context, FilterExpression, Parser,
                                       Token)
+    from typelets.funcs import KwargsDict
 
 
 register = template.Library()
@@ -40,7 +41,7 @@ class IfFeatureNode(Node):
         nodelist_enabled: NodeList,
         nodelist_disabled: NodeList,
         feature_id: FilterExpression,
-        extra_kwargs: Dict
+        extra_kwargs: KwargsDict,
     ) -> None:
         """Initialize the template node.
 

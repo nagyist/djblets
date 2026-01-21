@@ -12,8 +12,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import (Dict, Optional, Sequence, TYPE_CHECKING, TypeVar,
-                    Union, cast)
+from typing import Optional, Sequence, TYPE_CHECKING, TypeVar, Union, cast
 
 from django.core.management import call_command
 from django.utils.translation import gettext as _
@@ -47,14 +46,14 @@ LessCSSValueType: TypeAlias = Union[bool, int, str]
 #:
 #: Version Added:
 #:     5.0
-LessCSSVariables: TypeAlias = Dict[str, LessCSSValueType]
+LessCSSVariables: TypeAlias = dict[str, LessCSSValueType]
 
 
 #: A mapping of NPM workspace names to paths.
 #:
 #: Version Added:
 #:     5.0
-NPMWorkspaceDirs: TypeAlias = Dict[str, Union[Path, str]]
+NPMWorkspaceDirs: TypeAlias = dict[str, Union[Path, str]]
 
 
 class StaticMediaBuildContext:

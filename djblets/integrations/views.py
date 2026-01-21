@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, TYPE_CHECKING, Type
+from typing import List, TYPE_CHECKING, Type
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -17,8 +17,13 @@ from djblets.integrations.mixins import NeedsIntegrationManagerMixin
 from djblets.util.templatetags.djblets_images import build_srcset
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+    from typing import Any
+
     from django.db.models import QuerySet
     from django.http import HttpRequest, HttpResponseBase
+    from typelets.json import JSONDict
+
     from djblets.integrations.forms import IntegrationConfigForm
     from djblets.integrations.integration import Integration
     from djblets.integrations.models import BaseIntegrationConfig
@@ -40,7 +45,7 @@ class IntegrationListContextViewMixin(NeedsIntegrationManagerMixin):
     #: This must be set in subclasses.
     request: HttpRequest
 
-    def get_integration_js_view_data(self) -> Dict:
+    def get_integration_js_view_data(self) -> JSONDict:
         """Return data for a JavaScript view for the page.
 
         This will include the list of available integrations IDs, a mapping of
@@ -51,9 +56,9 @@ class IntegrationListContextViewMixin(NeedsIntegrationManagerMixin):
             The data for the JavaScript view.
         """
         integration_manager = self.get_integration_manager()
-        integrations_map: Dict[str, Dict] = {}
+        integrations_map: dict[str, dict[str, Any]] = {}
         integration_ids: List[str] = []
-        configs: List[Dict] = []
+        configs: List[dict[str, Any]] = []
 
         for integration in integration_manager.get_integrations():
             integration_ids.append(integration.integration_id)
@@ -189,7 +194,7 @@ class BaseIntegrationListView(IntegrationListContextViewMixin,
         """
         return super().dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs) -> Dict:
+    def get_context_data(self, **kwargs) -> Mapping[str, Any]:
         """Return context data for the template.
 
         By default, this returns a dictionary with a sole ``integrations``
@@ -347,7 +352,7 @@ class BaseIntegrationConfigFormView(NeedsIntegrationManagerMixin,
 
         return HttpResponse(status=204)
 
-    def get_config_query_kwargs(self, **kwargs) -> Dict:
+    def get_config_query_kwargs(self, **kwargs) -> Mapping[str, Any]:
         """Return query arguments for fetching an integration configuration.
 
         This can be subclassed to return additional arguments used when
@@ -367,7 +372,7 @@ class BaseIntegrationConfigFormView(NeedsIntegrationManagerMixin,
         """
         return {}
 
-    def get_context_data(self, **kwargs) -> Dict:
+    def get_context_data(self, **kwargs) -> Mapping[str, Any]:
         """Return context data for the configuration page.
 
         Args:
@@ -384,7 +389,7 @@ class BaseIntegrationConfigFormView(NeedsIntegrationManagerMixin,
 
         return data
 
-    def get_form_kwargs(self) -> Dict:
+    def get_form_kwargs(self) -> Mapping[str, Any]:
         """Return keyword arguments to pass to the form.
 
         This will, by default, provide ``integration`` and configuration
@@ -484,7 +489,7 @@ class BaseAdminIntegrationConfigFormView(BaseIntegrationConfigFormView):
         """
         return super().dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs) -> Dict:
+    def get_context_data(self, **kwargs) -> Mapping[str, Any]:
         """Return context data for the configuration page.
 
         Args:

@@ -13,7 +13,7 @@ list at ``settings.WEB_API_AUTH_BACKENDS``.
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, Optional, Type
+from typing import Any, Optional, Type
 
 from django.contrib.auth import get_backends
 from django.http import HttpRequest
@@ -201,7 +201,7 @@ class TokenAuthBackendMixin:
 
         queryset = api_token_model.objects.filter(token=token)
 
-        log_extra: Dict[str, Any] = {
+        log_extra: dict[str, Any] = {
             'request': request,
         }
 

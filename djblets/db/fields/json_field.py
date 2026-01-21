@@ -4,7 +4,6 @@ import copy
 import json
 import logging
 from ast import literal_eval
-from typing import Dict
 
 from django import forms
 from django.conf import settings
@@ -48,7 +47,7 @@ JSONValue: TypeAlias = object
 #:
 #: Version Added:
 #:     3.1
-JSONDict: TypeAlias = Dict[str, JSONValue]
+JSONDict: TypeAlias = dict[str, JSONValue]
 
 
 class JSONFormField(forms.CharField):

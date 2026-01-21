@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from enum import Enum
-from typing import Dict, Optional
+from typing import Optional, TYPE_CHECKING
 
 import dns.rdatatype
 import dns.resolver
@@ -14,6 +14,9 @@ from publicsuffixlist import PublicSuffixList
 from djblets.cache.backend import DEFAULT_EXPIRATION_TIME, cache_memoize
 from djblets.deprecation import RemovedInDjblets70Warning
 from djblets.log import log_timed
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 logger = logging.getLogger(__name__)
@@ -95,7 +98,7 @@ class DmarcRecord:
     #:
     #: Type:
     #:     dict
-    fields: Dict[str, str]
+    fields: Mapping[str, str]
 
     #: The hostname containing the DMARC TXT record.
     #:
@@ -131,7 +134,7 @@ class DmarcRecord:
         policy: DmarcPolicy,
         subdomain_policy: DmarcPolicy = DmarcPolicy.UNSET,
         pct: int = 100,
-        fields: Dict[str, str] = {},
+        fields: Mapping[str, str] = {},
     ) -> None:
         """Initialize the record.
 
@@ -205,7 +208,7 @@ class DmarcRecord:
             # valid DMARC record.
             return None
 
-        fields: Dict[str, str] = {}
+        fields: dict[str, str] = {}
 
         for part in txt_record.strip('"').split(';'):
             try:

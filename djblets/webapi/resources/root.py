@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from collections import defaultdict, namedtuple
 from threading import RLock
-from typing import Callable, Dict, Optional, OrderedDict
+from typing import Callable, Optional, OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -28,14 +28,14 @@ logger = logging.getLogger(__name__)
 #:
 #: Version Added:
 #:     3.2
-URITemplates: TypeAlias = Dict[str, str]
+URITemplates: TypeAlias = dict[str, str]
 
 
 #: A mapping of API resource instances to URI templates.
 #:
 #: Version Added:
 #:     3.2
-_URITemplatesByResourceMap: TypeAlias = Dict[Optional[WebAPIResource],
+_URITemplatesByResourceMap: TypeAlias = dict[Optional[WebAPIResource],
                                              URITemplates]
 
 

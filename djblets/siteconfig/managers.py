@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from django.contrib.sites.models import Site
 from django.db import models
-from typing import Dict, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from djblets.siteconfig.signals import siteconfig_reloaded
 
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from djblets.siteconfig.models import SiteConfiguration
 
 
-_SITECONFIG_CACHE: Dict[int, SiteConfiguration] = {}
+_SITECONFIG_CACHE: dict[int, SiteConfiguration] = {}
 
 
 class SiteConfigurationManager(models.Manager['SiteConfiguration']):

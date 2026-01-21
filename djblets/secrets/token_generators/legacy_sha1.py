@@ -8,13 +8,16 @@ from __future__ import annotations
 
 import hashlib
 import re
-from typing import Any, Dict
+from typing import Any, TYPE_CHECKING
 
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from djblets.secrets.token_generators.base import BaseTokenGenerator
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class LegacySHA1TokenGenerator(BaseTokenGenerator):
@@ -32,7 +35,7 @@ class LegacySHA1TokenGenerator(BaseTokenGenerator):
 
     def create_token(
         self,
-        token_info: Dict[str, Any] = {},
+        token_info: Mapping[str, Any] = {},
         **kwargs,
     ) -> str:
         """Create a SHA1 token.
@@ -81,7 +84,7 @@ class LegacySHA1TokenGenerator(BaseTokenGenerator):
     def validate_token(
         self,
         token: str,
-        token_info: Dict[str, Any] = {},
+        token_info: Mapping[str, Any] = {},
         **kwargs,
     ) -> bool:
         """Validate the token to see if it is a valid token from this generator.

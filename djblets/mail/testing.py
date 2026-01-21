@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, TYPE_CHECKING, Union
+from typing import List, TYPE_CHECKING, Union
 
 import dns.message
 import dns.rdataclass
@@ -37,7 +37,7 @@ class DmarcDnsTestsMixin(MixinParentClass):
     #:
     #: Type:
     #:     dict
-    dmarc_txt_records: Dict[str, Union[bytes, str, list[Union[bytes, str]]]]
+    dmarc_txt_records: dict[str, Union[bytes, str, list[Union[bytes, str]]]]
 
     def setUp(self) -> None:
         self.dmarc_txt_records = {}

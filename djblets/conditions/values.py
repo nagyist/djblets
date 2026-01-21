@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import re
-from typing import (Any, Callable, ClassVar, Dict, Generic, Optional,
-                    Sequence, TYPE_CHECKING, Union, cast)
+from typing import (Any, Callable, ClassVar, Generic, Optional, Sequence,
+                    TYPE_CHECKING, Union, cast)
 
 from django import forms
 from django.db.models import Model, QuerySet
@@ -51,7 +51,7 @@ QuerySetOrCallable: TypeAlias = Union[
 #:
 #: Version Added:
 #:     6.0
-ValueStateCache: TypeAlias = Dict[str, Any]
+ValueStateCache: TypeAlias = dict[str, Any]
 
 
 class BaseConditionValueField(Generic[_T]):

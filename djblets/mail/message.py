@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from email.utils import parseaddr
-from typing import Dict, Optional, Sequence, TYPE_CHECKING, Union
+from typing import Optional, Sequence, TYPE_CHECKING, Union
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -99,7 +99,7 @@ class EmailMessage(EmailMultiAlternatives):
         bcc: Optional[Sequence[str]] = None,
         sender: Optional[str] = None,
         in_reply_to: Optional[str] = None,
-        headers: Optional[Union[Dict[str, str],
+        headers: Optional[Union[dict[str, str],
                                 MultiValueDict[str, str]]] = None,
         auto_generated: bool = False,
         prevent_auto_responses: bool = False,
@@ -329,7 +329,7 @@ class EmailMessage(EmailMultiAlternatives):
         # difference between these, Django's SMTP e-mail sending machinery
         # treats them differently, sending the value of EmailMessage.from_email
         # when communicating with the SMTP server.
-        message_headers: Dict[str, str] = {}
+        message_headers: dict[str, str] = {}
 
         if from_email:
             message_headers['From'] = from_email
