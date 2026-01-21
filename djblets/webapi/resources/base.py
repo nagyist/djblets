@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import inspect
 import logging
-from typing import (Any, Callable, Final, Iterable, Mapping, Optional,
-                    TYPE_CHECKING, Union, cast)
+from typing import (Any, Callable, Final, Iterable, Mapping, TYPE_CHECKING,
+                    Union, cast)
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -59,6 +59,7 @@ from djblets.webapi.responses import (WebAPIEventStream,
 if TYPE_CHECKING:
     from collections.abc import Sequence
     from datetime import datetime
+    from typing import ClassVar
 
     from django.db.models import Model
     from django.http import HttpRequest
@@ -80,7 +81,7 @@ if TYPE_CHECKING:
         def __call__(
             self,
             obj: Any,
-            request: Optional[HttpRequest],
+            request: HttpRequest | None,
             *args,
             **kwargs,
         ) -> WebAPIResponseLink:
@@ -96,7 +97,7 @@ if TYPE_CHECKING:
         def __call__(
             self,
             obj: Any,
-            request: Optional[HttpRequest],
+            request: HttpRequest | None,
             **kwargs,
         ) -> WebAPIResponsePayload:
             ...
@@ -126,7 +127,7 @@ if TYPE_CHECKING:
         #:
         #: Type:
         #:     str
-        list_url: NotRequired[Optional[str]]
+        list_url: NotRequired[str | None]
 
 
 logger = logging.getLogger(__name__)
@@ -248,7 +249,7 @@ class AllowedMimetypeEntry(TypedDict):
     #:
     #: Type:
     #:     str
-    item: NotRequired[Optional[str]]
+    item: NotRequired[str | None]
 
     #: An allowed mimetype for a list resource.
     #:
@@ -257,7 +258,7 @@ class AllowedMimetypeEntry(TypedDict):
     #:
     #: Type:
     #:     str
-    list: NotRequired[Optional[str]]
+    list: NotRequired[str | None]
 
 
 class WebAPIResource(object):
@@ -284,7 +285,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     type
-    model: Optional[type[Model]] = None
+    model: ClassVar[type[Model] | None] = None
 
     #: A mapping of field names to definitions for any serialized objects.
     #:
@@ -293,10 +294,10 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     dict
-    fields: Mapping[
+    fields: ClassVar[Mapping[
         str,
         Union[WebAPIResourceFieldInfo, Mapping[str, Any]]
-    ] = {}
+    ]] = {}
 
     #: A regex for mapping keys for an object in an item resource.
     #:
@@ -305,13 +306,13 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     str
-    uri_object_key_regex: str = r'[0-9]+'
+    uri_object_key_regex: ClassVar[str] = r'[0-9]+'
 
     #: The key to populate with the ID of an object in an item resource.
     #:
     #: Type:
     #:     str
-    uri_object_key: Optional[str] = None
+    uri_object_key: ClassVar[str | None] = None
 
     #: The key on the provided model for matching an object key.
     #:
@@ -321,7 +322,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     str
-    model_object_key: str = 'pk'
+    model_object_key: ClassVar[str] = 'pk'
 
     #: A key on the provided model for matching a parent resource's model.
     #:
@@ -331,19 +332,19 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     str
-    model_parent_key: Optional[str] = None
+    model_parent_key: ClassVar[str | None] = None
 
     #: The field on an item resource object to use for a Last-Modified header.
     #:
     #: Type:
     #:     str
-    last_modified_field: Optional[str] = None
+    last_modified_field: ClassVar[str | None] = None
 
     #: The field on an item resource object to use for an ETag header.
     #:
     #: Type:
     #:     str
-    etag_field: Optional[str] = None
+    etag_field: ClassVar[str | None] = None
 
     #: Whether to auto-generate ETags for responses.
     #:
@@ -352,7 +353,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     bool
-    autogenerate_etags: bool = False
+    autogenerate_etags: ClassVar[bool] = False
 
     #: Whether the resource is a singleton.
     #:
@@ -361,19 +362,19 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     bool
-    singleton: bool = False
+    singleton: ClassVar[bool] = False
 
     #: A list of child resources to link to on the list resource.
     #:
     #: Type:
     #:     list of WebAPIResource
-    list_child_resources: Sequence[WebAPIResource] = []
+    list_child_resources: ClassVar[Sequence[WebAPIResource]] = []
 
     #: A list of child resources to link to on the item resource.
     #:
     #: Type:
     #:     list of WebAPIResource
-    item_child_resources: Sequence[WebAPIResource] = []
+    item_child_resources: ClassVar[Sequence[WebAPIResource]] = []
 
     #: A list of HTTP methods that are allowed on this resource.
     #:
@@ -382,7 +383,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     tuple of str
-    allowed_methods: Sequence[str] = ('GET',)
+    allowed_methods: ClassVar[Sequence[str]] = ('GET',)
 
     #: A vendor name to use within item and list resource mimetypes.
     #:
@@ -391,7 +392,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     str
-    mimetype_vendor: Optional[str] = None
+    mimetype_vendor: ClassVar[str | None] = None
 
     #: An explicit name to use within list resource mimetypees.
     #:
@@ -400,7 +401,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     str
-    mimetype_list_resource_name: Optional[str] = None
+    mimetype_list_resource_name: ClassVar[str | None] = None
 
     #: An explicit name to use within item resource mimetypees.
     #:
@@ -409,7 +410,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     str
-    mimetype_item_resource_name: Optional[str] = None
+    mimetype_item_resource_name: ClassVar[str | None] = None
 
     #: Mimetypes allowed for requests to the resource.
     #:
@@ -421,7 +422,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     list
-    allowed_mimetypes: Sequence[AllowedMimetypeEntry] = [
+    allowed_mimetypes: ClassVar[Sequence[AllowedMimetypeEntry]] = [
         {
             'list': mime,
             'item': mime,
@@ -433,13 +434,14 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     list
-    paginated_cls: type[WebAPIResponsePaginated] = WebAPIResponsePaginated
+    paginated_cls: ClassVar[type[WebAPIResponsePaginated]] = \
+        WebAPIResponsePaginated
 
     #: A mapping of HTTP methods to handler method names.
     #:
     #: Type:
     #:     dict
-    method_mapping: Mapping[str, str] = {
+    method_mapping: ClassVar[Mapping[str, str]] = {
         'GET': 'get',
         'POST': 'post',
         'PUT': 'put',
@@ -463,7 +465,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     WebAPIResource
-    _parent_resource: Optional[WebAPIResource] = None
+    _parent_resource: (WebAPIResource | None) = None
 
     #: A cached list of fields to pre-fetch when querying resources.
     #:
@@ -528,7 +530,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str] = None,
+        api_format: (str | None) = None,
         **kwargs,
     ) -> HttpResponseBase:
         """Invoke the correct HTTP handler based on the type of request.
@@ -630,7 +632,7 @@ class WebAPIResource(object):
         setattr(request, '_djblets_webapi_kwargs', kwargs)
         setattr(request, 'PUT', request.POST)
 
-        view: Optional[Callable] = None
+        view: (Callable | None) = None
 
         if method in self.allowed_methods:
             if (method == 'GET' and
@@ -859,7 +861,7 @@ class WebAPIResource(object):
         return self.name_plural
 
     @cached_property
-    def uri_template_name(self) -> Optional[str]:
+    def uri_template_name(self) -> str | None:
         """The name of the resource for use in URI templates.
 
         This will be used as the key for this resource in
@@ -879,7 +881,7 @@ class WebAPIResource(object):
         return self.name
 
     @cached_property
-    def uri_template_name_plural(self) -> Optional[str]:
+    def uri_template_name_plural(self) -> str | None:
         """The plural name of the resource for use in URI templates.
 
         This will be used as the key for the list version of this resource in
@@ -1008,7 +1010,7 @@ class WebAPIResource(object):
     def get_object(
         self,
         request: HttpRequest,
-        id_field: Optional[str] = None,
+        id_field: (str | None) = None,
         *args,
         **kwargs,
     ) -> Any:
@@ -1085,7 +1087,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handle HTTP POST requests.
@@ -1135,7 +1137,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handle HTTP PUT requests.
@@ -1177,7 +1179,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handle HTTP GETs to item resources.
@@ -1274,7 +1276,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handle HTTP GETs to list resources.
@@ -1349,7 +1351,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handle HTTP POST requests to list resources.
@@ -1385,7 +1387,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handle HTTP PUT requests to object resources.
@@ -1421,7 +1423,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         *args,
-        api_format: Optional[str],
+        api_format: str | None,
         **kwargs,
     ) -> WebAPIResourceHandlerResult:
         """Handles HTTP DELETE requests to object resources.
@@ -1468,7 +1470,7 @@ class WebAPIResource(object):
 
     def get_queryset(
         self,
-        request: Optional[HttpRequest],
+        request: HttpRequest | None,
         is_list: bool = False,
         *args,
         **kwargs,
@@ -1731,7 +1733,7 @@ class WebAPIResource(object):
             callable:
             The link serializer function.
         """
-        serialize_link_func: Optional[_SerializeLinkFunc] = \
+        serialize_link_func: (_SerializeLinkFunc | None) = \
             getattr(self, f'serialize_{field}_link', None)
 
         if not serialize_link_func or not callable(serialize_link_func):
@@ -1742,7 +1744,7 @@ class WebAPIResource(object):
     def serialize_link(
         self,
         obj: Any,
-        request: Optional[HttpRequest],
+        request: HttpRequest | None,
         *args,
         **kwargs,
     ) -> WebAPIResponseLink:
@@ -1780,7 +1782,7 @@ class WebAPIResource(object):
     def get_object_title(
         self,
         obj: Any,
-        request: Optional[HttpRequest] = None,
+        request: (HttpRequest | None) = None,
         *args,
         **kwargs,
     ) -> str:
@@ -1813,7 +1815,7 @@ class WebAPIResource(object):
     def serialize_object(
         self,
         obj: Any,
-        request: Optional[HttpRequest] = None,
+        request: (HttpRequest | None) = None,
         *args,
         **kwargs,
     ) -> WebAPIResponsePayload:
@@ -1849,7 +1851,7 @@ class WebAPIResource(object):
             dict:
             The serialized object payload.
         """
-        requested_mimetype: Optional[str] = None
+        requested_mimetype: (str | None) = None
         expanded_resources: set[str] = set()
         serialize_cache: dict[str, WebAPIResponsePayload] = {}
 
@@ -1935,7 +1937,7 @@ class WebAPIResource(object):
         links: WebAPIResponseLinks = {}
         expand_info: dict[str, _ExpandInfo] = {}
 
-        resource: Optional[WebAPIResource]
+        resource: WebAPIResource | None
 
         if only_links != []:
             links = self.get_links(self.item_child_resources, obj,
@@ -1953,7 +1955,7 @@ class WebAPIResource(object):
 
             value: Any
 
-            serialize_func: Optional[_SerializeFieldFunc] = \
+            serialize_func: (_SerializeFieldFunc | None) = \
                 getattr(self, f'serialize_{field}_field', None)
 
             if serialize_func and callable(serialize_func):
@@ -2154,8 +2156,8 @@ class WebAPIResource(object):
 
     def get_only_fields(
         self,
-        request: Optional[HttpRequest],
-    ) -> Optional[Sequence[str]]:
+        request: HttpRequest | None,
+    ) -> Sequence[str] | None:
         """Return the list of the only fields that the payload should include.
 
         If the user has requested that no fields should be provided, this
@@ -2177,8 +2179,8 @@ class WebAPIResource(object):
 
     def get_only_links(
         self,
-        request: Optional[HttpRequest],
-    ) -> Optional[Sequence[str]]:
+        request: HttpRequest | None,
+    ) -> Sequence[str] | None:
         """Return the list of the only links that the payload should include.
 
         If the user has requested that no links should be provided, this
@@ -2201,7 +2203,7 @@ class WebAPIResource(object):
     def get_serializer_for_object(
         self,
         obj: Any,
-    ) -> Optional[WebAPIResource]:
+    ) -> WebAPIResource | None:
         """Return the serializer used to serialize an object.
 
         This is called when serializing objects for payloads returned
@@ -2225,9 +2227,9 @@ class WebAPIResource(object):
     def get_links(
         self,
         resources: Sequence[WebAPIResource] = [],
-        obj: Optional[Any] = None,
+        obj: Any = None,
         *args,
-        request: Optional[HttpRequest] = None,
+        request: (HttpRequest | None) = None,
         **kwargs,
     ) -> WebAPIResponseLinks:
         """Return a dictionary of links coming off this resource.
@@ -2259,7 +2261,7 @@ class WebAPIResource(object):
             dict:
             A dictionary of link names to link information.
         """
-        base_href: Optional[str] = None
+        base_href: (str | None) = None
 
         if obj is not None:
             base_href = self.get_href(obj, request, *args, **kwargs)
@@ -2323,8 +2325,8 @@ class WebAPIResource(object):
 
     def get_related_links(
         self,
-        obj: Optional[Any] = None,
-        request: Optional[HttpRequest] = None,
+        obj: Any = None,
+        request: (HttpRequest | None) = None,
         *args,
         **kwargs
     ) -> WebAPIResponseLinks:
@@ -2357,10 +2359,10 @@ class WebAPIResource(object):
     def get_href(
         self,
         obj: Any,
-        request: Optional[HttpRequest],
+        request: HttpRequest | None,
         *args,
         **kwargs,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Return the absolute URL for an object.
 
         This will attempt to build a URL that points to the object's item
@@ -2446,7 +2448,7 @@ class WebAPIResource(object):
     def build_resource_url(
         self,
         name: str,
-        request: Optional[HttpRequest] = None,
+        request: (HttpRequest | None) = None,
         **kwargs,
     ) -> str:
         """Build a resource URL for the given name and keyword arguments.
@@ -2522,7 +2524,7 @@ class WebAPIResource(object):
     def get_parent_object(
         self,
         obj: Any,
-    ) -> Optional[Any]:
+    ) -> Any:
         """Return the parent of an object.
 
         By default, this uses :py:attr:`model_parent_key` to figure out the
@@ -2554,7 +2556,7 @@ class WebAPIResource(object):
         self,
         request: HttpRequest,
         obj: Any,
-    ) -> Optional[datetime]:
+    ) -> datetime | None:
         """Return the last-modified timestamp of an object.
 
         By default, this uses :py:attr:`last_modified_field` to determine what
@@ -2585,7 +2587,7 @@ class WebAPIResource(object):
         obj: Any,
         *args,
         **kwargs,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Return the ETag representing the state of the object.
 
         By default, this uses :py:attr:`etag_field` to determine what field in
@@ -2657,8 +2659,8 @@ class WebAPIResource(object):
     def are_cache_headers_current(
         self,
         request: HttpRequest,
-        last_modified: Optional[datetime] = None,
-        etag: Optional[str] = None,
+        last_modified: (datetime | None) = None,
+        etag: (str | None) = None,
     ) -> bool:
         """Return whether cache headers from the client are current.
 
@@ -2772,7 +2774,7 @@ class WebAPIResource(object):
     def _build_error_mimetype(
         self,
         request: HttpRequest,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Return a mimetype used for errors.
 
         The mimetype will be based off the mimetype requested for this
@@ -2851,10 +2853,10 @@ class WebAPIResource(object):
     def _get_only_items(
         self,
         *,
-        request: Optional[HttpRequest],
+        request: HttpRequest | None,
         query_param_name: str,
         post_field_name: str,
-    ) -> Optional[Sequence[str]]:
+    ) -> Sequence[str] | None:
         """Return a list of "only" items for filtering fields or links.
 
         This will look up the provided names in the HTTP request, looking
@@ -2884,7 +2886,7 @@ class WebAPIResource(object):
 
     def _get_queryset(
         self,
-        request: Optional[HttpRequest],
+        request: HttpRequest | None,
         *args,
         is_list: bool = False,
         **kwargs,

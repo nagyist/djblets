@@ -13,7 +13,7 @@ list at ``settings.WEB_API_AUTH_BACKENDS``.
 from __future__ import annotations
 
 import logging
-from typing import Any, Optional
+from typing import Any, TYPE_CHECKING
 
 from django.contrib.auth import get_backends
 from django.http import HttpRequest
@@ -29,6 +29,9 @@ from djblets.webapi.errors import LOGIN_FAILED
 from djblets.webapi.models import BaseWebAPIToken
 from djblets.webapi.responses import WebAPIResponseHeaders
 from djblets.webapi.signals import webapi_token_expired
+
+if TYPE_CHECKING:
+    from typing import ClassVar
 
 
 logger = logging.getLogger(__name__)
@@ -46,14 +49,14 @@ class TokenAuthValidateResult(TypedDict):
     #: This can be ``None`` if it succeeded, or if it failed and the default
     #: error from :py:data:`~djblets.webapi.errors.LOGIN_FAILED` should be
     #: used.
-    error_message: Optional[str]
+    error_message: str | None
 
     #: Any HTTP headers to return in the response.
     #:
     #: This can be ``None`` if no headers need to be returned, or if it
     #: failed and default headers from
     #: :py:data:`~djblets.webapi.errors.LOGIN_FAILED` should be used.
-    headers: Optional[WebAPIResponseHeaders]
+    headers: WebAPIResponseHeaders | None
 
 
 @runtime_checkable
@@ -68,7 +71,7 @@ class ValidateTokenAuthBackend(Protocol):
         self,
         request: HttpRequest,
         token: str,
-    ) -> Optional[TokenAuthValidateResult]:
+    ) -> TokenAuthValidateResult | None:
         """Validate a token for authentication.
 
         Args:
@@ -99,14 +102,14 @@ class TokenAuthBackendMixin:
     #:
     #: Type:
     #:     type
-    api_token_model: Optional[type[BaseWebAPIToken]] = None
+    api_token_model: ClassVar[type[BaseWebAPIToken] | None] = None
 
     def authenticate(
         self,
         request: HttpRequest,
-        token: Optional[str] = None,
+        token: (str | None) = None,
         **kwargs,
-    ) -> Optional[WebAPIAuthenticateResult]:
+    ) -> WebAPIAuthenticateResult | None:
         """Authenticate a user, given a token ID.
 
         Args:
@@ -158,7 +161,7 @@ class TokenAuthBackendMixin:
         self,
         request: HttpRequest,
         token: str,
-    ) -> Optional[TokenAuthValidateResult]:
+    ) -> TokenAuthValidateResult | None:
         """Check that the token is valid to use for authentication.
 
         This will check if the token is invalid or expired. If so it will
@@ -357,7 +360,7 @@ class WebAPITokenAuthBackend(WebAPIAuthBackend):
         self,
         request: HttpRequest,
         **credentials,
-    ) -> Optional[WebAPIAuthenticateResult]:
+    ) -> WebAPIAuthenticateResult | None:
         """Validate that credentials are valid.
 
         This will run through authentication backends to check whether

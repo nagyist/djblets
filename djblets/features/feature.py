@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from djblets.features.checkers import get_feature_checker
 from djblets.features.level import FeatureLevel
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from typelets.django.strings import StrOrPromise
 
 
@@ -29,16 +31,16 @@ class Feature:
     """
 
     #: The unique ID/slug of the feature.
-    feature_id: Optional[str] = None
+    feature_id: ClassVar[str | None] = None
 
     #: The name of the feature.
-    name: Optional[StrOrPromise] = None
+    name: ClassVar[StrOrPromise | None] = None
 
     #: A summary of the feature.
-    summary: Optional[StrOrPromise] = None
+    summary: ClassVar[StrOrPromise | None] = None
 
     #: Stability level of the feature.
-    level: FeatureLevel = FeatureLevel.EXPERIMENTAL
+    level: ClassVar[FeatureLevel] = FeatureLevel.EXPERIMENTAL
 
     def __init__(
         self,

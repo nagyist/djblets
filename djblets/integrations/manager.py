@@ -5,7 +5,7 @@ from __future__ import annotations
 import atexit
 import logging
 import threading
-from typing import Iterable, Optional, TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 from weakref import WeakValueDictionary
 
 from django.conf import settings
@@ -205,7 +205,7 @@ class IntegrationManager:
 
     def get_integration_configs(
         self,
-        integration_cls: Optional[IntegrationClassType] = None,
+        integration_cls: (IntegrationClassType | None) = None,
         **filter_kwargs,
     ) -> Sequence[BaseIntegrationConfig]:
         """Return a list of saved integration configurations.
@@ -257,7 +257,7 @@ class IntegrationManager:
 
     def clear_configs_cache(
         self,
-        integration_cls: Optional[IntegrationClassType] = None,
+        integration_cls: (IntegrationClassType | None) = None,
         **filter_kwargs,
     ) -> None:
         """Clear the configuration cache matching the given filters.

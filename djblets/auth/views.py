@@ -6,7 +6,7 @@ provided by Django. At the moment, there is only support here for registration.
 
 from __future__ import annotations
 
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.contrib import auth
 from django.http import HttpResponseRedirect
@@ -26,9 +26,9 @@ def register(
     request: HttpRequest,
     next_page: str,
     form_class: type[RegistrationForm] = RegistrationForm,
-    extra_context: Optional[dict[str, Any]] = None,
-    initial_values: Optional[dict[str, Any]] = None,
-    form_kwargs: Optional[dict[str, Any]] = None,
+    extra_context: (dict[str, Any] | None) = None,
+    initial_values: (dict[str, Any] | None) = None,
+    form_kwargs: (dict[str, Any] | None) = None,
     template_name: str = 'accounts/register.html',
 ) -> HttpResponse:
     """Handle registration of a new user.

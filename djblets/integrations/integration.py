@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import ClassVar, Optional, Sequence, TYPE_CHECKING
+from typing import ClassVar, Sequence, TYPE_CHECKING
 
 from typing_extensions import TypeAlias
 
@@ -48,13 +48,13 @@ class Integration(object):
     #:
     #: If not set, this will default to the full class path for the
     #: integration subclass.
-    integration_id: ClassVar[Optional[str]] = None
+    integration_id: ClassVar[str | None] = None
 
     #: The display name of the integration.
-    name: ClassVar[Optional[StrOrPromise]] = None
+    name: ClassVar[StrOrPromise | None] = None
 
     #: A short description of this integration, in plain text format.
-    description: ClassVar[Optional[StrOrPromise]] = None
+    description: ClassVar[StrOrPromise | None] = None
 
     #: Static paths for the integration's icon.
     #:
@@ -96,7 +96,7 @@ class Integration(object):
         IntegrationConfigForm
 
     #: The template name used for the configuration page.
-    config_template_name: ClassVar[Optional[str]] = None
+    config_template_name: ClassVar[str | None] = None
 
     ######################
     # Instance variables #
@@ -129,7 +129,7 @@ class Integration(object):
         self.enabled = False
 
     @property
-    def id(self) -> Optional[str]:
+    def id(self) -> str | None:
         """The ID of the integration.
 
         This is an alias around :py:attr:`integration_id`, meant to provide

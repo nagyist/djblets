@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from email.utils import parseaddr
-from typing import Optional, Sequence, TYPE_CHECKING, Union
+from typing import Sequence, TYPE_CHECKING
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -81,7 +81,7 @@ class EmailMessage(EmailMultiAlternatives):
     ######################
 
     #: The stored Message-ID of the sent e-mail.
-    message_id: Optional[str]
+    message_id: str | None
 
     #: Extra multi-value headers to apply to the message.
     _headers: MultiValueDict[str, str]
@@ -93,19 +93,18 @@ class EmailMessage(EmailMultiAlternatives):
         subject: str = '',
         text_body: str = '',
         html_body: str = '',
-        from_email: Optional[str] = None,
-        to: Optional[Sequence[str]] = None,
-        cc: Optional[Sequence[str]] = None,
-        bcc: Optional[Sequence[str]] = None,
-        sender: Optional[str] = None,
-        in_reply_to: Optional[str] = None,
-        headers: Optional[Union[dict[str, str],
-                                MultiValueDict[str, str]]] = None,
+        from_email: (str | None) = None,
+        to: (Sequence[str] | None) = None,
+        cc: (Sequence[str] | None) = None,
+        bcc: (Sequence[str] | None) = None,
+        sender: (str | None) = None,
+        in_reply_to: (str | None) = None,
+        headers: (dict[str, str] | MultiValueDict[str, str] | None) = None,
         auto_generated: bool = False,
         prevent_auto_responses: bool = False,
-        from_spoofing: Optional[str] = None,
-        enable_smart_spoofing: Optional[bool] = None,
-        reply_to: Optional[Sequence[str]] = None,
+        from_spoofing: (str | None) = None,
+        enable_smart_spoofing: (bool | None) = None,
+        reply_to: (Sequence[str] | None) = None,
     ) -> None:
         """Create a new EmailMessage.
 

@@ -6,8 +6,6 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Optional
-
 from django.middleware.gzip import GZipMiddleware
 from django.test.client import RequestFactory
 
@@ -56,7 +54,7 @@ class EventStreamHttpResponseTests(TestCase):
     def test_with_callable(self) -> None:
         """Testing EventStreamHttpResponse with callable"""
         def _gen_messages(
-            last_id: Optional[str],
+            last_id: str | None,
         ) -> EventStreamMessages:
             self.assertIsNone(last_id)
 
@@ -191,7 +189,7 @@ class EventStreamHttpResponseTests(TestCase):
     def test_with_last_event_id(self) -> None:
         """Testing EventStreamHttpResponse with Last-Event-ID"""
         def _gen_messages(
-            last_id: Optional[str],
+            last_id: str | None,
         ) -> EventStreamMessages:
             assert last_id == '3'
 

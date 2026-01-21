@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.template.loader import render_to_string
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+    from typing import ClassVar
 
     from typelets.django.strings import StrOrPromise
 
@@ -26,18 +27,18 @@ class ConfigPage(object):
     #: The unique ID of the page.
     #:
     #: This must be unique across all ConfigPages at a given URL.
-    page_id: Optional[str] = None
+    page_id: ClassVar[str | None] = None
 
     #: The displayed title for the page.
     #:
     #: This will show up in the navigation sidebar.
-    page_title: Optional[StrOrPromise] = None
+    page_title: ClassVar[StrOrPromise | None] = None
 
     #: The list of form subclasses to display on the page.
-    form_classes: Optional[Sequence[type[ConfigPageForm]]] = None
+    form_classes: ClassVar[Sequence[type[ConfigPageForm]] | None] = None
 
     #: The template used to render the page.
-    template_name = 'configforms/config_page.html'
+    template_name: ClassVar[str] = 'configforms/config_page.html'
 
     def __init__(self, config_view, request, user):
         """Initialize the page.

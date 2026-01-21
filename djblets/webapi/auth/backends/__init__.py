@@ -8,7 +8,7 @@ request.
 from __future__ import annotations
 
 from importlib import import_module
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -82,7 +82,7 @@ def reset_auth_backends():
 
 def check_login(
     request: HttpRequest,
-) -> Optional[WebAPIAuthenticateResult]:
+) -> WebAPIAuthenticateResult | None:
     """Check if a login request was made.
 
     If the client specifies a ``HTTP_AUTHORIZATION`` header, this will attempt

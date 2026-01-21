@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Callable, Optional, TYPE_CHECKING, Union
+from typing import Callable, TYPE_CHECKING, Union
 
 from housekeeping import deprecate_non_keyword_only_args
 
@@ -51,7 +51,7 @@ class WebAPIError:
     #:
     #: Version Added:
     #:     4.0
-    detail: Optional[str]
+    detail: str | None
 
     #: A string indicating the subtype of the error.
     #:
@@ -60,7 +60,7 @@ class WebAPIError:
     #:
     #: Version Added:
     #:     4.0
-    error_subtype: Optional[str]
+    error_subtype: str | None
 
     #: A string indicating the type of the error.
     #:
@@ -70,7 +70,7 @@ class WebAPIError:
     #:
     #: Version Added:
     #:     4.0
-    error_type: Optional[str]
+    error_type: str | None
 
     #: Extra HTTP headers included in the error's HTTP response.
     #:
@@ -100,7 +100,7 @@ class WebAPIError:
     #:
     #: Version Added:
     #:     4.0
-    trace_id: Optional[str]
+    trace_id: str | None
 
     @deprecate_non_keyword_only_args(RemovedInDjblets70Warning)
     def __init__(
@@ -110,10 +110,10 @@ class WebAPIError:
         *,
         http_status: int = 400,
         headers: _HTTPHeadersOrCallable = {},
-        error_type: Optional[str] = None,
-        error_subtype: Optional[str] = None,
-        detail: Optional[str] = None,
-        trace_id: Optional[str] = None,
+        error_type: (str | None) = None,
+        error_subtype: (str | None) = None,
+        detail: (str | None) = None,
+        trace_id: (str | None) = None,
     ) -> None:
         """Initialize the error.
 
@@ -206,12 +206,12 @@ class WebAPIError:
     @deprecate_non_keyword_only_args(RemovedInDjblets70Warning)
     def with_overrides(
         self,
-        msg: Optional[str] = None,
+        msg: (str | None) = None,
         *,
-        headers: Optional[_HTTPHeadersOrCallable] = None,
-        error_subtype: Optional[str] = None,
-        detail: Optional[str] = None,
-        trace_id: Optional[str] = None,
+        headers: (_HTTPHeadersOrCallable | None) = None,
+        error_subtype: (str | None) = None,
+        detail: (str | None) = None,
+        trace_id: (str | None) = None,
     ) -> Self:
         """Return an error with overridden values.
 

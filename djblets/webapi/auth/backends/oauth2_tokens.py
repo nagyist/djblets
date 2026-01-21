@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from importlib import import_module
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ImproperlyConfigured
@@ -34,9 +34,9 @@ class OAuth2TokenBackendMixin(object):
 
     def authenticate(
         self,
-        request: HttpRequest,
+        request: HttpRequest | None,
         **kwargs,
-    ) -> Optional[WebAPIAuthenticateResult]:
+    ) -> WebAPIAuthenticateResult | None:
         """Attempt to authenticate a request.
 
         Args:

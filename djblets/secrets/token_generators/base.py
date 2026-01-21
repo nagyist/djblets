@@ -6,10 +6,11 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+    from typing import ClassVar
 
 
 class BaseTokenGenerator:
@@ -32,7 +33,7 @@ class BaseTokenGenerator:
     #:
     #: Type:
     #:     str
-    token_generator_id: Optional[str] = None
+    token_generator_id: ClassVar[str | None] = None
 
     def create_token(
         self,

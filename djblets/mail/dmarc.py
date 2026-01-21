@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from enum import Enum
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import dns.rdatatype
 import dns.resolver
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-_public_suffix_list: Optional[PublicSuffixList] = None
+_public_suffix_list: (PublicSuffixList | None) = None
 
 
 class DmarcPolicy(Enum):
@@ -187,7 +187,7 @@ class DmarcRecord:
         cls,
         hostname: str,
         txt_record: str,
-    ) -> Optional[DmarcRecord]:
+    ) -> DmarcRecord | None:
         """Return a DmarcRecord from a DMARC TXT record.
 
         Args:
@@ -261,7 +261,7 @@ def _fetch_dmarc_record(
     hostname: str,
     use_cache: bool,
     cache_expiration: int,
-) -> Optional[DmarcRecord]:
+) -> DmarcRecord | None:
     """Fetch a DMARC record from DNS, optionally caching it.
 
     This will query DNS for the DMARC record for a given hostname, returning
@@ -309,7 +309,7 @@ def _fetch_dmarc_record(
 
                 raise ValueError
 
-    record_str: Optional[str]
+    record_str: str | None
 
     try:
         if use_cache:
@@ -332,7 +332,7 @@ def get_dmarc_record(
     hostname: str,
     use_cache: bool = True,
     cache_expiration: int = DEFAULT_EXPIRATION_TIME,
-) -> Optional[DmarcRecord]:
+) -> DmarcRecord | None:
     """Return a DMARC record for a given hostname.
 
     This will query the DNS records for a hostname, returning a parsed version

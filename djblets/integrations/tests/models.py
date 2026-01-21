@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from djblets.integrations.models import BaseIntegrationConfig
 
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class IntegrationConfig(BaseIntegrationConfig):
     """Integration configuration model for unit tests."""
 
-    manager: Optional[IntegrationManager] = None
+    manager: (IntegrationManager | None) = None
 
     @classmethod
     def get_integration_manager(cls) -> IntegrationManager:

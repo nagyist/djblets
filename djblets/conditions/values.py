@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import re
-from typing import (Any, Callable, ClassVar, Generic, Optional, Sequence,
-                    TYPE_CHECKING, Union, cast)
+from typing import (Any, Callable, ClassVar, Generic, Sequence, TYPE_CHECKING,
+                    Union, cast)
 
 from django import forms
 from django.db.models import Model, QuerySet
@@ -79,8 +79,7 @@ class BaseConditionValueField(Generic[_T]):
     #:
     #: The default is a simple model that just stores the model data as
     #: attributes.
-    js_model_class: ClassVar[Optional[str]] = \
-        'Djblets.Forms.ConditionValueField'
+    js_model_class: ClassVar[str | None] = 'Djblets.Forms.ConditionValueField'
 
     #: The JavaScript view class for editing fields.
     #:
@@ -89,7 +88,7 @@ class BaseConditionValueField(Generic[_T]):
     #:
     #: It's passed any options that are returned from
     #: :py:meth:`get_js_model_data`.
-    js_view_class: ClassVar[Optional[str]] = None
+    js_view_class: ClassVar[str | None] = None
 
     def serialize_value(
         self,
@@ -144,7 +143,7 @@ class BaseConditionValueField(Generic[_T]):
         data: _DataT,
         files: _FilesT,
         name: str,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Return a value from a form data dictionary.
 
         This attempts to return the value for a condition from Django form
@@ -387,7 +386,7 @@ class ConditionValueFormField(BaseConditionValueField[_T]):
         data: _DataT,
         files: _FilesT,
         name: str,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Return a value from a form data dictionary.
 
         This attempts to return the value for a condition from Django form

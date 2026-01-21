@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from django.utils.translation import gettext as _
 
 
@@ -13,7 +11,7 @@ class EnablingExtensionError(Exception):
     def __init__(
         self,
         message: str,
-        load_error: Optional[str] = None,
+        load_error: (str | None) = None,
         needs_reload: bool = False,
     ) -> None:
         """Initialize the error.
@@ -47,7 +45,7 @@ class InstallExtensionError(Exception):
     def __init__(
         self,
         message: str,
-        load_error: Optional[str] = None,
+        load_error: (str | None) = None,
     ) -> None:
         """Initialize the error.
 

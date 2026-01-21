@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.db import models
 from django.utils import timezone
@@ -43,8 +43,8 @@ class BaseIntegrationConfig(NeedsIntegrationManagerMixin, models.Model):
     def get(
         self,
         key: str,
-        default: Optional[Any] = None,
-    ) -> Optional[Any]:
+        default: Any = None,
+    ) -> Any:
         """Return the setting for a given key.
 
         This will return the setting's stored value, or its default value for
@@ -71,7 +71,7 @@ class BaseIntegrationConfig(NeedsIntegrationManagerMixin, models.Model):
     def set(
         self,
         key: str,
-        value: Optional[Any],
+        value: Any,
     ) -> None:
         """Set a value for the given settings key.
 

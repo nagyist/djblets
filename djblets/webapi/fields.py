@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from datetime import datetime
 from importlib import import_module
-from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING
+from typing import Any, Mapping, Sequence, TYPE_CHECKING
 
 import dateutil.parser
 from django.core.exceptions import ValidationError
@@ -14,6 +14,8 @@ from django.utils.translation import gettext_lazy as _, gettext
 from typing_extensions import TypedDict
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from django.core.files.uploadedfile import UploadedFile
     from django.http import QueryDict
     from django.utils.datastructures import MultiValueDict
@@ -54,7 +56,7 @@ class BaseAPIFieldType:
     #:
     #: Type:
     #:     str
-    name: Optional[StrOrPromise] = None
+    name: ClassVar[StrOrPromise | None] = None
 
     ######################
     # Instance variables #
@@ -86,7 +88,7 @@ class BaseAPIFieldType:
         name: str,
         fields_data: _FieldsDict,
         files_data: _FilesDict,
-    ) -> Optional[object]:
+    ) -> object | None:
         """Return a value from the data from a request.
 
         Args:
@@ -139,7 +141,7 @@ class BaseAPIFieldType:
 
     def clean_value(
         self,
-        value: Optional[Any],
+        value: Any,
     ) -> Any:
         """Validate and return a normalized result from the given value.
 
@@ -410,7 +412,7 @@ class FileFieldType(BaseAPIFieldType):
         name: str,
         fields_data: _FieldsDict,
         files_data: _FilesDict,
-    ) -> Optional[UploadedFile]:
+    ) -> UploadedFile | None:
         """Return a value from the uploaded files from a request.
 
         Args:
@@ -481,7 +483,7 @@ class ListFieldType(BaseAPIFieldType):
     #:
     #: Type:
     #:     dict
-    item_info: Optional[ListFieldTypeItemsInfo]
+    item_info: ListFieldTypeItemsInfo | None
 
     def __init__(self, *args, **kwargs) -> None:
         """Initialize the field type.

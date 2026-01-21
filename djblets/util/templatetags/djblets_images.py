@@ -6,7 +6,7 @@ import io
 import logging
 import os
 import re
-from typing import Optional, TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union
 
 from django import template
 from django.core.files.base import File
@@ -67,11 +67,11 @@ def crop_image(f, x, y, width, height):
 @register.filter
 def thumbnail(
     f: Union[File, str],
-    size: Union[str, tuple[Optional[int], Optional[int]]] = '400x100',
+    size: Union[str, tuple[int | None, int | None]] = '400x100',
     *,
     create_if_missing: bool = True,
-    storage: Optional[Storage] = None,
-) -> Optional[str]:
+    storage: (Storage | None) = None,
+) -> str | None:
     """Create a thumbnail of the given image.
 
     This will create a thumbnail of the given file, which may be a file
@@ -144,9 +144,9 @@ def thumbnail(
         ValueError:
             The thumbnail size was not in a valid format.
     """
-    filename: Optional[str]
-    x: Optional[int]
-    y: Optional[int]
+    filename: str | None
+    x: int | None
+    y: int | None
 
     if isinstance(f, str):
         filename = f

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Optional, Sequence
+from typing import Any, Sequence
 
 from django import forms
 from django.contrib.sites.models import Site
@@ -53,7 +53,7 @@ class ConditionValueFormFieldTests(TestCase):
 
         value = field.get_from_form_data(data, files, 'test-field')
 
-        assert_type(value, Optional[str])
+        assert_type(value, str | None)
         self.assertEqual(value, 'abc123')
 
     def test_render_html(self) -> None:

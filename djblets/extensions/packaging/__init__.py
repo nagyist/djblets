@@ -12,7 +12,7 @@ Version Changed:
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from housekeeping import ClassMovedMixin, func_moved
 
@@ -58,7 +58,7 @@ class BuildStaticFiles(ClassMovedMixin,
 
     def npm_install(
         self,
-        package_spec: Optional[str] = None,
+        package_spec: (str | None) = None,
     ) -> None:
         """Install a package via npm.
 

@@ -11,7 +11,7 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import Optional, TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, cast
 
 from importlib_metadata import EntryPoint, Sectioned
 from setuptools import Command
@@ -20,6 +20,8 @@ from setuptools.command.build_py import build_py
 from djblets.deprecation import RemovedInDjblets80Warning
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from djblets.extensions.extension import Extension
     from djblets.extensions.packaging.static_media import (
         StaticMediaBuildContext,
@@ -53,12 +55,12 @@ class BuildStaticFiles(Command):
     #: The packaging entry point group name that extensions register into.
     #:
     #: This must be provided by subclasses.
-    extension_entrypoint_group: Optional[str] = None
+    extension_entrypoint_group: ClassVar[str | None] = None
 
     #: The Python module path for the project's settings.
     #:
     #: This must be provided by subclasses.
-    django_settings_module: Optional[str] = None
+    django_settings_module: ClassVar[str | None] = None
 
     #: The context class used to customize static media building.
     #:
@@ -68,8 +70,8 @@ class BuildStaticFiles(Command):
     #:
     #: Version Added:
     #:     5.0
-    static_media_build_context_cls: Optional[type[StaticMediaBuildContext]] = \
-        None
+    static_media_build_context_cls: \
+        ClassVar[type[StaticMediaBuildContext] | None] = None
 
     #: The class responsible for building static media.
     #:
@@ -79,7 +81,7 @@ class BuildStaticFiles(Command):
     #:
     #: Version Added:
     #:     5.0
-    static_media_builder_cls: Optional[type[StaticMediaBuilder]] = None
+    static_media_builder_cls: ClassVar[type[StaticMediaBuilder] | None] = None
 
     ######################
     # Instance variables #

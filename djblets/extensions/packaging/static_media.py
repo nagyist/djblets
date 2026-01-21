@@ -12,7 +12,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Optional, Sequence, TYPE_CHECKING, TypeVar, Union, cast
+from typing import Sequence, TYPE_CHECKING, TypeVar, Union, cast
 
 from django.core.management import call_command
 from django.utils.translation import gettext as _
@@ -121,8 +121,8 @@ class StaticMediaBuildContext:
         *,
         extension_cls: type[Extension],
         source_root_dir: Path,
-        build_dir: Optional[Path] = None,
-        package_id: Optional[str] = None,
+        build_dir: (Path | None) = None,
+        package_id: (str | None) = None,
     ) -> Self:
         """Initialize the static media build context for an extension class.
 
@@ -171,7 +171,7 @@ class StaticMediaBuildContext:
         js_bundles: JSBundleConfigs,
         source_root_dir: Path,
         static_dir: Path,
-        build_dir: Optional[Path] = None,
+        build_dir: (Path | None) = None,
     ) -> None:
         """Initialize the static media build context.
 
@@ -614,7 +614,7 @@ class StaticMediaBuilder:
 
     def npm_install(
         self,
-        package_spec: Optional[str] = None,
+        package_spec: (str | None) = None,
         /,
     ) -> None:
         """Install a package via npm.

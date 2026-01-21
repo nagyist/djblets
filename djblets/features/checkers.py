@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional, cast
+from typing import cast
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -17,7 +17,7 @@ from djblets.features.level import FeatureLevel
 logger = logging.getLogger(__name__)
 
 
-_feature_checker: Optional[BaseFeatureChecker] = None
+_feature_checker: (BaseFeatureChecker | None) = None
 
 
 class BaseFeatureChecker:
@@ -178,7 +178,7 @@ class SiteConfigFeatureChecker(SettingsFeatureChecker):
 
 
 def set_feature_checker(
-    feature_checker: Optional[BaseFeatureChecker],
+    feature_checker: BaseFeatureChecker | None,
 ) -> None:
     """Set the feature checker to use for all features.
 

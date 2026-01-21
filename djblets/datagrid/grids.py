@@ -29,7 +29,7 @@ import logging
 import re
 import string
 import traceback
-from typing import Any, Callable, Iterable, Optional, TYPE_CHECKING, Union
+from typing import Any, Callable, Iterable, TYPE_CHECKING, Union
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -623,7 +623,7 @@ class Column:
             self.css_class = css_class
 
     @cached_property
-    def cell_template_obj(self) -> Optional[_EngineTemplate]:
+    def cell_template_obj(self) -> _EngineTemplate | None:
         """Return the cell template, if it exists.
 
         By default, this requires :py:attr:`cell_template` to be set.
@@ -657,7 +657,7 @@ class Column:
     def get_sort_field(
         self,
         state: StatefulColumn,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Return the field used for sorting this column.
 
         By default, this returns :py:attr:`db_field`.
@@ -1907,7 +1907,7 @@ class DataGrid:
     #:
     #: Type:
     #:     django.core.paginator.Page
-    page: Optional[Page]
+    page: Page | None
 
     #: The 1-based page number to display.
     #:
@@ -1922,7 +1922,7 @@ class DataGrid:
     #:
     #: Type:
     #:     DataGridPaginator
-    paginator: Optional[DataGridPaginator]
+    paginator: DataGridPaginator | None
 
     #: The template used for the paginator.
     #:
@@ -1953,13 +1953,13 @@ class DataGrid:
     #:
     #: Type:
     #:     str
-    profile_columns_field: Optional[str]
+    profile_columns_field: str | None
 
     #: The profile field storing the sort order for the datagrid.
     #:
     #: Type:
     #:     str
-    profile_sort_field: Optional[str]
+    profile_sort_field: str | None
 
     #: A copy of all the row data.
     #:
@@ -1971,7 +1971,7 @@ class DataGrid:
     #:
     #: Type:
     #:     list of str
-    sort_list: Optional[list[str]]
+    sort_list: list[str] | None
 
     #: Query arguments to include when fetching datagrid contents.
     #:
@@ -2014,7 +2014,7 @@ class DataGrid:
     #:
     #: Type:
     #:     type
-    _model: Optional[type[Model]]
+    _model: type[Model] | None
 
     #: Any explicit column sort order provided during initialization.
     #:
@@ -2084,7 +2084,7 @@ class DataGrid:
     def get_column(
         cls,
         column_id: str,
-    ) -> Optional[Column]:
+    ) -> Column | None:
         """Return the column with the given ID.
 
         If not found, this will return None.
@@ -2301,7 +2301,7 @@ class DataGrid:
         ]
 
     @property
-    def model(self) -> Optional[type[Model]]:
+    def model(self) -> type[Model] | None:
         """The model representing the objects shown in the grid.
 
         Type:
@@ -2614,7 +2614,7 @@ class DataGrid:
         # Fetch the list of objects and have it ready.
         self.precompute_objects(render_context)
 
-    def get_user_profile(self) -> Optional[Model]:
+    def get_user_profile(self) -> Model | None:
         """Return the object, if any, to use for the user profile state.
 
         Returns:
@@ -2632,7 +2632,7 @@ class DataGrid:
 
     def load_extra_state(
         self,
-        profile: Optional[Model],
+        profile: Model | None,
     ) -> list[str]:
         """Load any extra state needed for this grid.
 
@@ -2662,7 +2662,7 @@ class DataGrid:
 
     def precompute_objects(
         self,
-        render_context: Optional[_RenderContext] = None,
+        render_context: (_RenderContext | None) = None,
     ) -> None:
         """Pre-compute all objects used to render the datagrid.
 
@@ -2825,7 +2825,7 @@ class DataGrid:
 
         page.object_list = page_queryset
 
-        object_list: list[Optional[Model]]
+        object_list: list[Model | None]
 
         if id_list:
             # The database will give us the items in a more or less random
@@ -3007,7 +3007,7 @@ class DataGrid:
 
     def render_listview(
         self,
-        render_context: Optional[_RenderContext] = None,
+        render_context: (_RenderContext | None) = None,
     ) -> SafeString:
         """Render the standard list view of the grid.
 
@@ -3045,8 +3045,8 @@ class DataGrid:
 
     def render_listview_to_response(
         self,
-        request: Optional[HttpRequest] = None,
-        render_context: Optional[_RenderContext] = None,
+        request: (HttpRequest | None) = None,
+        render_context: (_RenderContext | None) = None,
     ) -> HttpResponse:
         """Render the listview to a response.
 

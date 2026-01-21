@@ -109,7 +109,7 @@ import os
 import sys
 from datetime import datetime, timezone
 from functools import update_wrapper
-from typing import Literal, Mapping, Optional, TYPE_CHECKING
+from typing import Literal, Mapping, TYPE_CHECKING
 from uuid import uuid4
 
 from django.conf import settings
@@ -165,7 +165,7 @@ class TimedLogInfo:
     logger: logging.Logger
 
     #: The optional HTTP request associated with the operation.
-    request: Optional[HttpRequest]
+    request: HttpRequest | None
 
     #: The start date/time for the operation.
     start_time: datetime
@@ -190,10 +190,10 @@ class TimedLogInfo:
         critical_at: float,
         default_level: int,
         log_beginning: bool,
-        request: Optional[HttpRequest],
+        request: HttpRequest | None,
         extra: Mapping[str, object] = {},
-        logger: Optional[logging.Logger] = None,
-        trace_id: Optional[str] = None,
+        logger: (logging.Logger | None) = None,
+        trace_id: (str | None) = None,
     ) -> None:
         """Initialize the state for the timer.
 
@@ -571,10 +571,10 @@ def log_timed(
     critical_at: float = 15,
     log_beginning: bool = True,
     default_level: int = logging.DEBUG,
-    request: Optional[HttpRequest] = None,
+    request: (HttpRequest | None) = None,
     extra: Mapping[str, object] = {},
-    logger: Optional[logging.Logger] = None,
-    trace_id: Optional[str] = None,
+    logger: (logging.Logger | None) = None,
+    trace_id: (str | None) = None,
 ) -> TimedLogInfo:
     """Times an operation, logging timing information at different thresholds.
 

@@ -7,7 +7,7 @@ authentication-related forms not otherwise provided by Django.
 
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.contrib.auth.models import User
@@ -46,7 +46,7 @@ class RegistrationForm(forms.Form):
 
     def __init__(
         self,
-        request: Optional[HttpRequest] = None,
+        request: (HttpRequest | None) = None,
         *args,
         **kwargs,
     ) -> None:
@@ -87,7 +87,7 @@ class RegistrationForm(forms.Form):
 
         return formdata['password2']
 
-    def save(self) -> Optional[User]:
+    def save(self) -> User | None:
         """Save the form, creating a user if validation passes.
 
         The user will be created with the provided username, e-mail address,

@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from collections import defaultdict, namedtuple
 from threading import RLock
-from typing import Callable, Optional, OrderedDict
+from typing import Callable, OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -35,7 +35,7 @@ URITemplates: TypeAlias = dict[str, str]
 #:
 #: Version Added:
 #:     3.2
-_URITemplatesByResourceMap: TypeAlias = dict[Optional[WebAPIResource],
+_URITemplatesByResourceMap: TypeAlias = dict[WebAPIResource | None,
                                              URITemplates]
 
 
@@ -106,7 +106,7 @@ class _URITemplatesCache:
         self,
         base_href: str,
         *,
-        build_func: Optional[Callable[[str], URITemplates]] = None,
+        build_func: (Callable[[str], URITemplates] | None) = None,
     ) -> URITemplates:
         """Return URI templates from the cache.
 
@@ -415,7 +415,7 @@ class RootResource(WebAPIResource):
         self,
         name: str,
         relative_path: str,
-        relative_resource: Optional[WebAPIResource] = None,
+        relative_resource: (WebAPIResource | None) = None,
     ) -> None:
         """Register the specified resource for URI template serialization.
 
@@ -452,7 +452,7 @@ class RootResource(WebAPIResource):
     def unregister_uri_template(
         self,
         name: str,
-        relative_resource: Optional[WebAPIResource] = None,
+        relative_resource: (WebAPIResource | None) = None,
     ) -> None:
         """Unregister the specified resource for URI template serialization.
 

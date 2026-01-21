@@ -7,7 +7,6 @@ Version Added:
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -37,7 +36,7 @@ class TokenGeneratorRegistry(ExceptionFreeGetterMixin[BaseTokenGenerator],
     def get_token_generator(
         self,
         token_generator_id: str,
-    ) -> Optional[BaseTokenGenerator]:
+    ) -> BaseTokenGenerator | None:
         """Return a token generator with the specified ID.
 
         Args:

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union
 
 from django.urls import include, path, re_path
 
@@ -20,8 +20,8 @@ def build_integration_urlpatterns(
     *,
     list_view_cls: type[BaseIntegrationListView],
     config_form_view_cls: type[BaseIntegrationConfigFormView],
-    namespace: Optional[str] = None,
-    app_name: Optional[str] = None,
+    namespace: (str | None) = None,
+    app_name: (str | None) = None,
 ) -> Sequence[_AnyURL]:
     """Build URL patterns for integration pages.
 

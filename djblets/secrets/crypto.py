@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import base64
 import os
-from typing import AnyStr, Iterable, Iterator, Optional, Union, cast
+from typing import AnyStr, Iterable, Iterator, Union, cast
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -21,7 +21,7 @@ AES_BLOCK_SIZE = cast(int, algorithms.AES.block_size) // 8
 def _create_cipher(
     iv: bytes,
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> Cipher:
     """Create a cipher for use in symmetric encryption/decryption.
 
@@ -77,7 +77,7 @@ def get_default_aes_encryption_key() -> bytes:
 def aes_encrypt(
     data: Union[bytes, str],
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> bytes:
     """Encrypt data using AES encryption.
 
@@ -119,7 +119,7 @@ def aes_encrypt(
 def aes_encrypt_base64(
     data: AnyStr,
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> str:
     """Encrypt data and encode as Base64.
 
@@ -153,7 +153,7 @@ def aes_encrypt_base64(
 def aes_encrypt_iter(
     data_iter: Iterable[Union[bytes, str]],
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> Iterator[bytes]:
     """Encrypt and yield data iteratively.
 
@@ -217,7 +217,7 @@ def aes_encrypt_iter(
 def aes_decrypt(
     encrypted_data: bytes,
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> bytes:
     """Decrypt AES-encrypted data.
 
@@ -265,7 +265,7 @@ def aes_decrypt(
 def aes_decrypt_base64(
     encrypted_data: AnyStr,
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> str:
     """Decrypt an encrypted value encoded in Base64.
 
@@ -302,7 +302,7 @@ def aes_decrypt_base64(
 def aes_decrypt_iter(
     encrypted_iter: Iterable[bytes],
     *,
-    key: Optional[bytes] = None,
+    key: (bytes | None) = None,
 ) -> Iterator[bytes]:
     """Decrypt and yield data iteratively.
 

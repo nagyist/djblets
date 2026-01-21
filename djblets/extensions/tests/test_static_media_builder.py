@@ -11,7 +11,6 @@ import os
 import shutil
 import tempfile
 from pathlib import Path
-from typing import Optional
 
 import djblets
 from djblets.extensions.packaging.static_media import (StaticMediaBuildContext,
@@ -26,9 +25,9 @@ class StaticMediaBuilderTests(TestCase):
         5.0
     """
 
-    base_dir: Optional[Path]
-    build_context: Optional[StaticMediaBuildContext]
-    builder: Optional[StaticMediaBuilder]
+    base_dir: Path | None
+    build_context: StaticMediaBuildContext | None
+    builder: StaticMediaBuilder | None
 
     def setUp(self) -> None:
         super().setUp()

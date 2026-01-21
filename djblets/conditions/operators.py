@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, Iterable, Optional, TYPE_CHECKING
+from typing import Any, ClassVar, Iterable, TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
@@ -40,10 +40,10 @@ class BaseConditionOperator:
     #:
     #: This must be unique within a
     #: :py:class:`~djblets.conditions.choices.BaseConditionChoice`.
-    operator_id: ClassVar[Optional[str]] = None
+    operator_id: ClassVar[str | None] = None
 
     #: The displayed name for the operator.
-    name: ClassVar[Optional[StrOrPromise]] = None
+    name: ClassVar[StrOrPromise | None] = None
 
     ######################
     # Instance variables #
@@ -84,7 +84,7 @@ class BaseConditionOperator:
         self.choice = choice
 
     @property
-    def value_field(self) -> Optional[BaseConditionValueField]:
+    def value_field(self) -> BaseConditionValueField | None:
         """The field type used to prompt and render fields.
 
         By default, this will use the default one for the choice. The field

@@ -33,18 +33,18 @@ class ConfigPageForm(forms.Form):
     #: The unique ID of the form.
     #:
     #: This must be unique across all ConfigPages at a given URL.
-    form_id: Optional[str] = None
+    form_id: ClassVar[str | None] = None
 
     #: The displayed title for the form.
-    form_title: Optional[StrOrPromise] = None
+    form_title: ClassVar[StrOrPromise | None] = None
 
     #: The label for the save button.
     #:
     #: This can be set to ``None`` to disable the button.
-    save_label: Optional[StrOrPromise] = _('Save')
+    save_label: ClassVar[StrOrPromise | None] = _('Save')
 
     #: The template used to render the form.
-    template_name = 'configforms/config_page_form.html'
+    template_name: ClassVar[str] = 'configforms/config_page_form.html'
 
     #: The list of CSS bundle names to include on the page.
     css_bundle_names: ClassVar[Sequence[str]] = []
@@ -53,10 +53,10 @@ class ConfigPageForm(forms.Form):
     js_bundle_names: ClassVar[Sequence[str]] = []
 
     #: The optional Backbone model used for the configuration form state.
-    js_model_class: Optional[str] = None
+    js_model_class: ClassVar[str | None] = None
 
     #: The optional Backbone view used to render the form.
-    js_view_class: Optional[str] = None
+    js_view_class: ClassVar[str | None] = None
 
     form_target = forms.CharField(
         required=False,

@@ -36,7 +36,7 @@ from djblets.registries.registry import Registry, RegistryItemType
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Sequence
-    from typing import Any, Optional
+    from typing import Any
 
     from django.utils.safestring import SafeString
 
@@ -568,7 +568,7 @@ class TemplateHook(AppliesToURLMixin, ExtensionHook,
     #:     6.0:
     #:     This can also be set as a class variable so it doesn't need to be
     #:     passed to :py:meth:`__init__`.
-    template_name: Optional[str]
+    template_name: str | None
 
     #: Any additional context to use when rendering.
     #:
@@ -907,7 +907,7 @@ class BaseRegistryHook(Generic[RegistryItemType],
     """
 
     #: The registry to register items with.
-    registry: Optional[Registry[RegistryItemType]] = None
+    registry: (Registry[RegistryItemType] | None) = None
 
     ######################
     # Instance variables #
@@ -952,7 +952,7 @@ class BaseRegistryMultiItemHook(Generic[RegistryItemType],
     """
 
     #: The registry to register items with.
-    registry: Optional[Registry[RegistryItemType]] = None
+    registry: (Registry[RegistryItemType] | None) = None
 
     ######################
     # Instance variables #

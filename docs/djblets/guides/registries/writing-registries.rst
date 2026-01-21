@@ -244,7 +244,7 @@ example.
            self,
            attr_name: str,
            attr_value: object,
-       ) -> Optional[Item]:
+       ) -> Item | None:
            """Return the item if it is registered; otherwise, return None."""
            try:
                return super(SafeRegistry, self).get(attr_name, attr_value)

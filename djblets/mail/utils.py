@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from email.utils import escapesre, parseaddr, specialsre
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 def build_email_address(
     email: str,
-    full_name: Optional[str] = None,
+    full_name: (str | None) = None,
 ) -> str:
     """Build an e-mail address for a To/CC/BCC field from a user's information.
 
@@ -58,9 +58,9 @@ def build_email_address_for_user(
 
 def build_email_address_via_service(
     email: str,
-    full_name: Optional[str] = None,
-    service_name: Optional[str] = None,
-    sender_email: Optional[str] = None,
+    full_name: (str | None) = None,
+    service_name: (str | None) = None,
+    sender_email: (str | None) = None,
 ) -> str:
     """Build an e-mail address for sending on behalf of a user via a service.
 

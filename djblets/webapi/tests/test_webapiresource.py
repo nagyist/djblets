@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from collections import OrderedDict
 from dataclasses import dataclass
-from typing import Any, Iterable, Optional, TYPE_CHECKING
+from typing import Any, Iterable, TYPE_CHECKING
 
 import kgb
 from django.contrib.auth.models import User
@@ -397,7 +397,7 @@ class WebAPIResourceTests(kgb.SpyAgency, TestModelsLoaderMixin, TestCase):
 
             def get_list(self, *args, **kwargs):
                 def _gen_events(
-                    last_id: Optional[str],
+                    last_id: str | None,
                 ) -> WebAPIEventStreamMessages:
                     yield WebAPIEventStreamMessage(
                         event='progress',

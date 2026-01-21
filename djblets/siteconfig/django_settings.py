@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Callable, Optional, Union
+from typing import Callable, Union
 
 from django.conf import LazySettings, settings
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -348,7 +348,7 @@ def get_django_defaults() -> SiteConfigurationSettings:
 
 def apply_django_settings(
     siteconfig: SiteConfiguration,
-    settings_map: Optional[SiteConfigurationSettingsMap] = None,
+    settings_map: (SiteConfigurationSettingsMap | None) = None,
 ) -> None:
     """Apply Django settings stored in the site configuration.
 

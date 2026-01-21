@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from typing import Iterable, Optional, TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from django import forms
 from django.contrib.auth.models import User
@@ -399,7 +399,7 @@ class WebAPIResponseEventStreamTests(TestCase):
     def test_with_callable(self) -> None:
         """Testing WebAPIResponseEventStream with callable"""
         def _gen_messages(
-            last_id: Optional[str],
+            last_id: str | None,
         ) -> WebAPIEventStreamMessages:
             for i in range(5):
                 yield WebAPIEventStreamMessage(

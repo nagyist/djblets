@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from django.utils.translation import gettext as _
 
 
@@ -38,7 +36,7 @@ class IntegrationNotRegisteredError(IntegrationError):
 
     def __init__(
         self,
-        integration_id: Optional[str],
+        integration_id: str | None,
     ) -> None:
         """Initialize the error.
 

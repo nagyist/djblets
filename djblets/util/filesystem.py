@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import Any, Callable, Optional, cast
+from typing import Any, Callable, cast
 
 from django.core.exceptions import SuspiciousFileOperation
 from typing_extensions import Protocol
@@ -54,7 +54,7 @@ def safe_join(
     base: str,
     *paths: str,
     path_mod: Any = os.path,
-    rel_to: Optional[str] = None,
+    rel_to: (str | None) = None,
 ) -> str:
     """Safely join filesystem paths, ensuring the result is within a base path.
 

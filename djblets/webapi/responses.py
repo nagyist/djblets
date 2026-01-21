@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import (Any, Callable, Collection, Iterable, Iterator, Optional,
+from typing import (Any, Callable, Collection, Iterable, Iterator,
                     TYPE_CHECKING, Union)
 
 from django.http import HttpResponse
@@ -63,7 +63,7 @@ class WebAPIResponseLink(TypedDict):
     #:
     #: Type:
     #:     str
-    href: Optional[str]
+    href: str | None
 
     #: The optional title for the link.
     #:
@@ -134,7 +134,7 @@ WebAPIEventStreamMessages: TypeAlias = Iterator[WebAPIEventStreamMessage]
 #:     4.0
 WebAPIEventStream: TypeAlias = Union[
     WebAPIEventStreamMessages,
-    Callable[[Optional[str]], WebAPIEventStreamMessages],
+    Callable[[str | None], WebAPIEventStreamMessages],
 ]
 
 
@@ -169,7 +169,7 @@ class WebAPIResponse(HttpResponse):
     #:
     #: Type:
     #:     str
-    callback: Optional[str]
+    callback: str | None
 
     #: Whether :py:attr:`content` has been computed for the final result.
     #:
@@ -210,13 +210,13 @@ class WebAPIResponse(HttpResponse):
         *,
         obj: WebAPIResponsePayload = {},
         stat: str = 'ok',
-        api_format: Optional[str] = None,
+        api_format: (str | None) = None,
         status: int = 200,
         headers: WebAPIResponseHeaders = {},
         encoders: Sequence[WebAPIEncoder] = [],
         encoder_kwargs: Mapping[str, Any] = {},
-        mimetype: Optional[str] = None,
-        supported_mimetypes: Optional[Sequence[str]] = None,
+        mimetype: (str | None) = None,
+        supported_mimetypes: (Sequence[str] | None) = None,
     ) -> None:
         """Initialize the response.
 
@@ -348,8 +348,7 @@ class WebAPIResponse(HttpResponse):
                 return ''
 
         if not self.content_set:
-            adapter: Optional[Union[JSONEncoderAdapter,
-                                    XMLEncoderAdapter]] = None
+            adapter: (JSONEncoderAdapter | XMLEncoderAdapter | None) = None
             encoder = MultiEncoder(self.encoders)
 
             # See the note above about the check for text/plain.
@@ -441,7 +440,7 @@ class WebAPIResponsePaginated(WebAPIResponse):
     #:
     #: Type:
     #:     django.db.models.QuerySet
-    queryset: Optional[QuerySet]
+    queryset: QuerySet | None
 
     #: The results to return.
     #:
@@ -471,7 +470,7 @@ class WebAPIResponsePaginated(WebAPIResponse):
         self,
         request: HttpRequest,
         *args,
-        queryset: Optional[QuerySet] = None,
+        queryset: (QuerySet | None) = None,
         results_key: str = 'results',
         prev_key: str = 'prev',
         next_key: str = 'next',
@@ -481,9 +480,11 @@ class WebAPIResponsePaginated(WebAPIResponse):
         default_start: int = 0,
         default_max_results: int = 25,
         max_results_cap: int = 200,
-        serialize_object_func: Optional[Callable[[object], Any]] = None,
-        serialize_object_list_func: Optional[Callable[[Iterable[Any]],
-                                                      Sequence[Any]]] = None,
+        serialize_object_func: (Callable[[object], Any] | None) = None,
+        serialize_object_list_func: (
+            Callable[[Iterable[Any]], Sequence[Any]] |
+            None
+        ) = None,
         extra_data: Mapping[Any, Any] = {},
         **kwargs,
     ) -> None:
@@ -946,13 +947,13 @@ class WebAPIResponseEventStream(EventStreamHttpResponse):
         event_stream: WebAPIEventStream,
         *,
         request: HttpRequest,
-        api_format: Optional[str] = None,
+        api_format: (str | None) = None,
         status: int = 200,
         headers: WebAPIResponseHeaders = {},
         encoders: Sequence[WebAPIEncoder] = [],
         encoder_kwargs: Mapping[str, Any] = {},
-        message_data_mimetype: Optional[str] = None,
-        supported_mimetypes: Optional[Sequence[str]] = None,
+        message_data_mimetype: (str | None) = None,
+        supported_mimetypes: (Sequence[str] | None) = None,
     ) -> None:
         """Initialize the API event stream.
 
@@ -1009,7 +1010,7 @@ class WebAPIResponseEventStream(EventStreamHttpResponse):
                                  WebAPIResponse.supported_mimetypes))
 
         def _gen_events(
-            last_id: Optional[str],
+            last_id: str | None,
         ) -> EventStreamMessages:
             nonlocal event_stream
 
@@ -1052,10 +1053,10 @@ class WebAPIResponseEventStream(EventStreamHttpResponse):
 def _normalize_response_mimetype(
     *,
     request: HttpRequest,
-    mimetype: Optional[str],
-    api_format: Optional[str],
-    supported_mimetypes: Optional[Sequence[str]],
-) -> Optional[str]:
+    mimetype: str | None,
+    api_format: str | None,
+    supported_mimetypes: Sequence[str] | None,
+) -> str | None:
     """Normalize a mimetype for an API response.
 
     If an explicit mimetype is not provided, one will be computed based on:

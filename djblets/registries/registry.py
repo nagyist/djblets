@@ -11,8 +11,7 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from threading import RLock
-from typing import (Generic, Iterable, Iterator, Optional, TYPE_CHECKING,
-                    TypeVar)
+from typing import Generic, Iterable, Iterator, TYPE_CHECKING, TypeVar
 from typelets.django.strings import StrOrPromise
 
 from django.utils.translation import gettext_lazy as _
@@ -27,6 +26,8 @@ from djblets.registries.signals import registry_populating
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+    from typing import ClassVar
+
 
 logger = logging.getLogger(__name__)
 
@@ -160,13 +161,13 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     str
-    item_name: Optional[str] = None
+    item_name: ClassVar[str | None] = None
 
     #: A list of attributes that items can be looked up by.
     #:
     #: Type:
     #:     list of str
-    lookup_attrs: Sequence[str] = []
+    lookup_attrs: ClassVar[Sequence[str]] = []
 
     #: Error formatting strings for exceptions.
     #:
@@ -175,7 +176,7 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     dict
-    errors: RegistryErrorsDict = {}
+    errors: ClassVar[RegistryErrorsDict] = {}
 
     #: The default error formatting strings.
     #:
@@ -185,7 +186,7 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     dict
-    default_errors: RegistryErrorsDict = DEFAULT_ERRORS
+    default_errors: ClassVar[RegistryErrorsDict] = DEFAULT_ERRORS
 
     #: The error class indicating an already registered item.
     #:
@@ -194,7 +195,7 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     type
-    already_registered_error_class: type[AlreadyRegisteredError] = \
+    already_registered_error_class: ClassVar[type[AlreadyRegisteredError]] = \
         AlreadyRegisteredError
 
     #: The lookup error exception class.
@@ -204,7 +205,7 @@ class Registry(Generic[RegistryItemType]):
     #:
     #: Type:
     #:     type
-    lookup_error_class: type[ItemLookupError] = ItemLookupError
+    lookup_error_class: ClassVar[type[ItemLookupError]] = ItemLookupError
 
     ######################
     # Instance variables #
@@ -340,7 +341,7 @@ class Registry(Generic[RegistryItemType]):
         self,
         attr_name: str,
         attr_value: object,
-    ) -> Optional[RegistryItemType]:
+    ) -> RegistryItemType | None:
         """Return the requested registered item, or None if not found.
 
         Version Added:
@@ -741,7 +742,7 @@ class EntryPointRegistry(Registry[RegistryItemType]):
     #:
     #: Type:
     #:     str
-    entry_point: Optional[str] = None
+    entry_point: ClassVar[str | None] = None
 
     def get_defaults(self) -> Iterable[RegistryItemType]:
         """Yield the values from the entry point.

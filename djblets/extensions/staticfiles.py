@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.contrib.staticfiles.finders import (BaseFinder, FileSystemFinder,
                                                 get_finders)
@@ -310,7 +310,7 @@ class PackagingFinder(FileSystemFinder):
     #:
     #: Type:
     #:     str
-    extension_static_dir: Optional[str] = None
+    extension_static_dir: (str | None) = None
 
     def list(self, ignore_patterns, all_storages=False):
         if all_storages:

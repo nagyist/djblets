@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import warnings
-from typing import (Any, Callable, Generic, Optional, Sequence, Union, cast,
-                    overload)
+from typing import Any, Callable, Generic, Sequence, Union, cast, overload
 
 from typing_extensions import Self, TypeAlias, TypeVar
 
@@ -117,10 +116,12 @@ class AliasProperty(Generic[_GetT, _AliasPropertySetT],
         self,
         prop_name: str,
         *,
-        convert_to_func: Optional[Callable[[_AliasPropertySetT],
-                                           _AliasPropertyStoredT]] = None,
-        convert_from_func: Optional[Callable[[_AliasPropertyStoredT],
-                                             _GetT]] = None,
+        convert_to_func: (
+            Callable[[_AliasPropertySetT], _AliasPropertyStoredT] | None
+        ) = None,
+        convert_from_func: (
+            Callable[[_AliasPropertyStoredT], _GetT] | None
+        ) = None,
         deprecated: bool = False,
         deprecation_warning: type[DeprecationWarning] = DeprecationWarning,
     ) -> None:
@@ -270,9 +271,9 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
         .. code-block:: python
 
            class MyClass:
-               optional_prop: TypedProperty[Optional[str], Optional[str]] = \
+               optional_prop: TypedProperty[str | None, str | None] = \
                    TypedProperty(str)
-               required_to_set_prop: TypedProperty[Optional[int], int] = \
+               required_to_set_prop: TypedProperty[int | None, int] = \
                    TypedProperty(int,
                                  default=None
                                  allow_none=False)
@@ -293,7 +294,7 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
     allow_none: bool
 
     #: The default value for the property if one is not set.
-    default: Optional[_TypedPropertyGetT]
+    default: _TypedPropertyGetT | None
 
     #: The types that are valid for this property.
     #:
@@ -304,7 +305,7 @@ class TypedProperty(Generic[_TypedPropertyGetT, _SetT],
         self,
         valid_types: _TypedPropertyValidTypesParamT,
         *,
-        default: Optional[_TypedPropertyGetT] = None,
+        default: (_TypedPropertyGetT | None) = None,
         allow_none: bool = True,
     ) -> None:
         """Initialize the property.

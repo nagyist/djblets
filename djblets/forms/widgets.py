@@ -8,8 +8,7 @@ from __future__ import annotations
 
 import copy
 from contextlib import contextmanager
-from typing import (Any, Callable, Iterable, Iterator, Optional, TYPE_CHECKING,
-                    Union)
+from typing import Any, Callable, Iterable, Iterator, TYPE_CHECKING, Union
 
 from django.forms import widgets
 from django.forms.widgets import HiddenInput
@@ -62,10 +61,10 @@ class AmountSelectorWidget(widgets.MultiWidget):
 
     def __init__(
         self,
-        unit_choices: Sequence[tuple[Optional[int], str]],
-        number_attrs: Optional[dict[str, Any]] = None,
-        select_attrs: Optional[dict[str, Any]] = None,
-        attrs: Optional[dict[str, Any]] = None,
+        unit_choices: Sequence[tuple[int | None, str]],
+        number_attrs: (dict[str, Any] | None) = None,
+        select_attrs: (dict[str, Any] | None) = None,
+        attrs: (dict[str, Any] | None) = None,
     ) -> None:
         """Initialize the widget.
 
@@ -110,8 +109,8 @@ class AmountSelectorWidget(widgets.MultiWidget):
 
     def decompress(
         self,
-        value: Optional[int],
-    ) -> tuple[Optional[int], Optional[int]]:
+        value: int | None,
+    ) -> tuple[int | None, int | None]:
         """Break up the value into an amount and unit tuple.
 
         This assumes that the value is stored in the base unit, and will
@@ -158,7 +157,7 @@ class AmountSelectorWidget(widgets.MultiWidget):
         data: Mapping[str, Any],
         files: Mapping[str, Any],
         name: str,
-    ) -> Optional[int]:
+    ) -> int | None:
         """Return a value for the field from a submitted form.
 
         This serializes the data POSTed for the form into an integer that the
@@ -236,7 +235,7 @@ class ConditionsWidget(widgets.Widget):
     #:
     #: Version Added:
     #:     6.0
-    _choices: Optional[ConditionChoices]
+    _choices: ConditionChoices | None
 
     #: The original condition choices passed to the widget.
     #:
@@ -260,8 +259,8 @@ class ConditionsWidget(widgets.Widget):
         mode_widget: widgets.RadioSelect,
         choice_widget: widgets.Select,
         operator_widget: widgets.Select,
-        choice_kwargs: Optional[KwargsDict] = None,
-        attrs: Optional[KwargsDict] = None,
+        choice_kwargs: (KwargsDict | None) = None,
+        attrs: (KwargsDict | None) = None,
     ) -> None:
         """Initialize the widget.
 
@@ -362,7 +361,7 @@ class ConditionsWidget(widgets.Widget):
         Type:
             django.forms.widgets.Media
         """
-        widget: Optional[widgets.Widget]
+        widget: widgets.Widget | None
 
         media = (widgets.Media() +
                  self.choice_widget.media +
@@ -471,8 +470,8 @@ class ConditionsWidget(widgets.Widget):
         self,
         name: str,
         value: ConditionSetData,
-        attrs: Optional[KwargsDict] = None,
-        renderer: Optional[BaseRenderer] = None,
+        attrs: (KwargsDict | None) = None,
+        renderer: (BaseRenderer | None) = None,
     ) -> SafeText:
         """Render the widget to HTML.
 
@@ -504,7 +503,7 @@ class ConditionsWidget(widgets.Widget):
         self,
         name: str,
         value: ConditionSetData,
-        attrs: Optional[KwargsDict],
+        attrs: KwargsDict | None,
     ) -> dict[str, Any]:
         """Return context for the widget.
 
@@ -526,7 +525,7 @@ class ConditionsWidget(widgets.Widget):
             The context data for the widget.
         """
         widget_attrs = self.build_attrs(attrs or {})
-        widget_id: Optional[str] = widget_attrs.get('id')
+        widget_id: (str | None) = widget_attrs.get('id')
         rendered_rows: list[dict[str, Any]] = []
         rows: list[dict[str, Any]] = []
 
@@ -550,7 +549,7 @@ class ConditionsWidget(widgets.Widget):
             choice_id = condition['choice']
             operator_id = condition['op']
             condition_value = condition.get('value')
-            error: Optional[str] = None
+            error: (str | None) = None
 
             # Try to load the necessary choice and operator.
             #
@@ -558,8 +557,8 @@ class ConditionsWidget(widgets.Widget):
             # not to break or lose information at this stage if the choice or
             # operator is missing. We'll just show the raw data. It won't save,
             # but the user will at least get a suitable error.
-            choice: Optional[BaseConditionChoice] = None
-            operator: Optional[BaseConditionOperator] = None
+            choice: (BaseConditionChoice | None) = None
+            operator: (BaseConditionOperator | None) = None
 
             try:
                 choice = choices.get_choice(
@@ -761,7 +760,7 @@ class ConditionsWidget(widgets.Widget):
 
     def _serialize_value_field(
         self,
-        value_field: Optional[BaseConditionValueField],
+        value_field: BaseConditionValueField | None,
     ) -> dict[str, Any]:
         """Return a serialized value field for the widget.
 
@@ -793,7 +792,7 @@ class ConditionsWidget(widgets.Widget):
     def _get_value_field(
         self,
         operator: BaseConditionOperator,
-    ) -> Optional[BaseConditionValueField]:
+    ) -> BaseConditionValueField | None:
         """Return the normalized value field for an operator.
 
         If the operator's value field is a function, the resulting value field
@@ -812,9 +811,9 @@ class ConditionsWidget(widgets.Widget):
 
     def _normalize_value_field(
         self,
-        value_field: Union[Optional[BaseConditionValueField],
-                           Callable[[], Optional[BaseConditionValueField]]],
-    ) -> Optional[BaseConditionValueField]:
+        value_field: Union[BaseConditionValueField | None,
+                           Callable[[], BaseConditionValueField | None]],
+    ) -> BaseConditionValueField | None:
         """Normalize and return a value field.
 
         If ``value_field`` is a function, the resulting value field from

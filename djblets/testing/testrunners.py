@@ -5,7 +5,7 @@ import shutil
 import stat
 import sys
 import tempfile
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.core.management import execute_from_command_line
 from django.test.runner import DiscoverRunner
@@ -71,11 +71,11 @@ class TestRunner(DiscoverRunner):
 
     def __init__(
         self,
-        nose_options: Optional[Sequence[str]] = None,
-        test_packages: Optional[Sequence[str]] = None,
-        needs_collect_static: Optional[bool] = None,
+        nose_options: (Sequence[str] | None) = None,
+        test_packages: (Sequence[str] | None) = None,
+        needs_collect_static: (bool | None) = None,
         use_pytest: bool = False,
-        pytest_options: Optional[Sequence[str]] = None,
+        pytest_options: (Sequence[str] | None) = None,
         *args,
         **kwargs,
     ) -> None:
@@ -267,7 +267,7 @@ class TestRunner(DiscoverRunner):
     def _run_pytest_tests(
         self,
         test_labels: Sequence[str] = [],
-        argv: Optional[Sequence[str]] = None,
+        argv: (Sequence[str] | None) = None,
         *args,
         **kwargs,
     ) -> int:

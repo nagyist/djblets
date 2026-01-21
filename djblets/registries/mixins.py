@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Generic, Optional, TYPE_CHECKING
+from typing import Generic, TYPE_CHECKING
 
 from djblets.registries.errors import ItemLookupError
 from djblets.registries.registry import RegistryItemType
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
             self,
             attr_name: str,
             attr_value: object,
-        ) -> Optional[RegistryItemType]:
+        ) -> RegistryItemType | None:
             ...
 else:
     _BaseClass = Generic
@@ -50,7 +50,7 @@ class ExceptionFreeGetterMixin(_BaseClass[RegistryItemType]):
         self,
         attr_name: str,
         attr_value: object,
-    ) -> Optional[RegistryItemType]:
+    ) -> RegistryItemType | None:
         """Return the requested registered item.
 
         Args:

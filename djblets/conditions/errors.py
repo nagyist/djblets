@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from djblets.registries.errors import AlreadyRegisteredError, ItemLookupError
 
 
@@ -24,16 +22,16 @@ class ConditionChoiceNotFoundError(ItemLookupError):
     ######################
 
     #: The ID of the choice that could not be found.
-    choice_id: Optional[str]
+    choice_id: str | None
 
     #: The index of the condition this error applies to within the set.
-    condition_index: Optional[int]
+    condition_index: int | None
 
     def __init__(
         self,
         message: str,
-        condition_index: Optional[int] = None,
-        choice_id: Optional[str] = None,
+        condition_index: (int | None) = None,
+        choice_id: (str | None) = None,
     ) -> None:
         """Initialize the error.
 
@@ -71,16 +69,16 @@ class ConditionOperatorNotFoundError(ItemLookupError):
     ######################
 
     #: The index of the condition this error applies to within the set.
-    condition_index: Optional[int]
+    condition_index: int | None
 
     #: The ID of the operator that could not be found.
-    operator_id: Optional[str]
+    operator_id: str | None
 
     def __init__(
         self,
         message: str,
-        condition_index: Optional[int] = None,
-        operator_id: Optional[str] = None,
+        condition_index: (int | None) = None,
+        operator_id: (str | None) = None,
     ) -> None:
         """Initialize the error.
 
@@ -120,16 +118,16 @@ class InvalidConditionValueError(ValueError):
     #: The error code.
     #:
     #: This will generally correspond to a form validation error code.
-    code: Optional[str]
+    code: str | None
 
     #: The index of the condition this error applies to within the set.
-    condition_index: Optional[int]
+    condition_index: int | None
 
     def __init__(
         self,
         message: str,
-        code: Optional[str] = None,
-        condition_index: Optional[int] = None,
+        code: (str | None) = None,
+        condition_index: (int | None) = None,
     ) -> None:
         """Initialize the error.
 

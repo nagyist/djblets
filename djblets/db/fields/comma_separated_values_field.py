@@ -6,7 +6,7 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Optional, Sequence, TYPE_CHECKING, Union
+from typing import Sequence, TYPE_CHECKING, Union
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -91,9 +91,9 @@ class CommaSeparatedValuesField(models.CharField):
 
     def from_db_value(
         self,
-        value: Optional[str],
+        value: str | None,
         *args,
-    ) -> Optional[list[str]]:
+    ) -> list[str] | None:
         """Convert the value coming from the database.
 
         Args:
@@ -135,7 +135,7 @@ class CommaSeparatedValuesField(models.CharField):
 
     def get_prep_value(
         self,
-        value: Optional[list[str]],
+        value: list[str] | None,
     ) -> str:
         """Convert the given Python representation to DB format.
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Final, Iterable, Iterator, Optional, TYPE_CHECKING
+from typing import Any, Final, Iterable, Iterator, TYPE_CHECKING
 
 from django.utils.translation import gettext as _
 from typing_extensions import NotRequired, TypedDict
@@ -94,7 +94,7 @@ class Condition:
         cls,
         choices: ConditionChoices,
         data: ConditionData,
-        condition_index: Optional[int] = None,
+        condition_index: (int | None) = None,
         choice_kwargs: KwargsDict = {},
     ) -> Condition:
         """Deserialize a condition from serialized data.
@@ -243,7 +243,7 @@ class Condition:
     def matches(
         self,
         value: Any,
-        value_state_cache: Optional[ValueStateCache] = None,
+        value_state_cache: (ValueStateCache | None) = None,
     ) -> bool:
         """Return whether a value matches the condition.
 

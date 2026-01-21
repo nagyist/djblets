@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from django.utils.translation import gettext_lazy as _
 
 from djblets.features.errors import FeatureConflictError, FeatureNotFoundError
@@ -34,7 +32,7 @@ FEATURE_DEFAULT_ERRORS.update({
 })
 
 
-_registry: Optional[FeaturesRegistry] = None
+_registry: (FeaturesRegistry | None) = None
 
 
 class FeaturesRegistry(Registry[Feature]):
@@ -101,7 +99,7 @@ class FeaturesRegistry(Registry[Feature]):
     def get_feature(
         self,
         feature_id: str,
-    ) -> Optional[Feature]:
+    ) -> Feature | None:
         """Return the feature instance with the given ID.
 
         Args:

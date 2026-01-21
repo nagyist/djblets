@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import (Any, Callable, ClassVar, Iterable, Iterator, Optional,
-                    Sequence, TYPE_CHECKING, Union)
+from typing import (Any, Callable, ClassVar, Iterable, Iterator, Sequence,
+                    TYPE_CHECKING)
 
 from django.utils.translation import gettext_lazy as _
 
@@ -60,16 +60,16 @@ class BaseConditionChoice:
     #:
     #: This must be unique within a
     #: :py:class:`~djblets.conditions.conditions.ConditionSet`.
-    choice_id: ClassVar[Optional[str]] = None
+    choice_id: ClassVar[str | None] = None
 
     #: The displayed name for the choice.
-    name: ClassVar[Optional[str]] = None
+    name: ClassVar[str | None] = None
 
     #: The operators for this choice.
     #:
     #: This must be set to an instance of
     #: :py:class:`~djblets.conditions.operators.ConditionOperators`.
-    operators: ClassVar[Optional[ConditionOperators]] = None
+    operators: ClassVar[ConditionOperators | None] = None
 
     #: The default field type used to prompt and render fields.
     #:
@@ -81,10 +81,11 @@ class BaseConditionChoice:
     #: or ``None`` to disable default values.
     #:
     #: If it's a function, it must accept a ``**kwargs``, for future expansion.
-    default_value_field: Optional[Union[
-        BaseConditionValueField,
-        Callable[[], Optional[BaseConditionValueField]],
-    ]] = None
+    default_value_field: (
+        BaseConditionValueField |
+        Callable[[], BaseConditionValueField | None] |
+        None
+    ) = None
 
     #: The keyword argument required for condition matching.
     #:
@@ -164,7 +165,7 @@ class BaseConditionChoice:
     def get_match_value(
         self,
         value: Any,
-        value_state_cache: Optional[ValueStateCache] = None,
+        value_state_cache: (ValueStateCache | None) = None,
         **kwargs,
     ) -> Any:
         """Return a normalized value used for matching.
@@ -414,7 +415,7 @@ class ModelQueryChoiceMixin:
     """
 
     #: The queryset used for the choice.
-    queryset: Optional[QuerySet] = None
+    queryset: (QuerySet | None) = None
 
     def get_queryset(self) -> QuerySet:
         """Return the queryset used for the choice.
@@ -460,7 +461,7 @@ class BaseConditionModelChoice(ModelQueryChoiceMixin, BaseConditionChoice):
     def default_value_field(  # type: ignore[override]
         self,
         **kwargs,
-    ) -> Optional[BaseConditionValueField]:
+    ) -> BaseConditionValueField | None:
         """Return the default value field for this choice.
 
         This will call out to :py:meth:`get_queryset` before returning the
@@ -522,7 +523,7 @@ class BaseConditionModelMultipleChoice(ModelQueryChoiceMixin,
     def default_value_field(  # type: ignore[override]
         self,
         **kwargs,
-    ) -> Optional[BaseConditionValueField]:
+    ) -> BaseConditionValueField | None:
         """Return the default value field for this choice.
 
         This will call out to :py:meth:`get_queryset` before returning the

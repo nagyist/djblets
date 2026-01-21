@@ -15,7 +15,7 @@ from importlib import import_module
 from importlib.machinery import ModuleSpec
 from importlib.util import module_from_spec
 from itertools import zip_longest
-from typing import Any, Iterator, Optional, TYPE_CHECKING, Union
+from typing import Any, Iterator, TYPE_CHECKING, Union
 from unittest.util import safe_repr
 
 from django.apps import apps
@@ -93,7 +93,7 @@ class ExpectedWarning(TypedDict):
     #:
     #: Type:
     #:     str
-    message: NotRequired[Optional[str]]
+    message: NotRequired[str | None]
 
 
 class TestCase(testcases.TestCase):
@@ -260,7 +260,7 @@ class TestCase(testcases.TestCase):
     def assertWarns(
         self,
         cls: type[Warning] = DeprecationWarning,
-        message: Optional[str] = None,
+        message: (str | None) = None,
     ) -> Iterator[None]:
         """Assert that a warning is generated with a given message.
 
@@ -410,7 +410,7 @@ class TestCase(testcases.TestCase):
         self,
         queries: Sequence[Union[ExpectedQuery,
                                 dict[str, Any]]],
-        num_statements: Optional[int] = None,
+        num_statements: (int | None) = None,
         *,
         with_tracebacks: bool = False,
         traceback_size: int = 15,

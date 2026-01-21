@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Any, Optional, Union
+from typing import Any, TYPE_CHECKING
 
 from django.contrib import auth
 from django.http import HttpRequest
@@ -13,6 +13,9 @@ from typing_extensions import TypeAlias
 
 from djblets.auth.ratelimit import is_ratelimited
 from djblets.webapi.responses import WebAPIResponseHeaders
+
+if TYPE_CHECKING:
+    from typing import ClassVar
 
 
 #: A type alias for authentication results.
@@ -42,8 +45,8 @@ from djblets.webapi.responses import WebAPIResponseHeaders
 #: Version Added:
 #:     3.2
 WebAPIAuthenticateResult: TypeAlias = tuple[bool,
-                                            Optional[str],
-                                            Optional[WebAPIResponseHeaders]]
+                                            str | None,
+                                            WebAPIResponseHeaders | None]
 
 
 #: A type alias for credentials passed to or from auth handlers.
@@ -57,9 +60,11 @@ WebAPICredentials: TypeAlias = dict[str, Any]
 #:
 #: Version Added:
 #:     3.2
-WebAPIGetCredentialsResult: TypeAlias = \
-    Optional[Union[WebAPIAuthenticateResult,
-                   WebAPICredentials]]
+WebAPIGetCredentialsResult: TypeAlias = (
+    WebAPIAuthenticateResult |
+    WebAPICredentials |
+    None
+)
 
 
 logger = logging.getLogger(__name__)
@@ -86,7 +91,7 @@ class WebAPIAuthBackend:
     #:
     #: Type:
     #:     str
-    www_auth_scheme: Optional[str] = None
+    www_auth_scheme: ClassVar[str | None] = None
 
     #: A regex of sensitive entries in the credentials dictionary.
     #:
@@ -95,8 +100,8 @@ class WebAPIAuthBackend:
     #: casing.
     #:
     #: This can be extended for other sensitive information.
-    SENSITIVE_CREDENTIALS_RE = \
-        re.compile('api|token|key|secret|password|signature', re.I)
+    SENSITIVE_CREDENTIALS_RE: ClassVar[re.Pattern[str]] = \
+        re.compile(r'api|token|key|secret|password|signature', re.I)
 
     def get_auth_headers(
         self,
@@ -118,7 +123,7 @@ class WebAPIAuthBackend:
         self,
         request: HttpRequest,
         **kwargs,
-    ) -> Optional[WebAPIAuthenticateResult]:
+    ) -> WebAPIAuthenticateResult | None:
         """Authenticate a request against this auth backend.
 
         This will fetch the credentials and attempt an authentication against
@@ -244,7 +249,7 @@ class WebAPIAuthBackend:
         self,
         request: HttpRequest,
         **credentials,
-    ) -> Optional[WebAPIAuthenticateResult]:
+    ) -> WebAPIAuthenticateResult | None:
         """Validate that credentials are valid.
 
         This is called before we attempt to authenticate with the credentials,

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import copy
-from typing import Any, Optional, TYPE_CHECKING, Union
+from typing import Any, TYPE_CHECKING, Union
 from zoneinfo import available_timezones
 
 from django import forms
@@ -96,7 +96,7 @@ class ConditionsField(forms.Field):
     def __init__(
         self,
         choices: ConditionsFieldChoices,
-        choice_kwargs: Optional[KwargsDict] = None,
+        choice_kwargs: (KwargsDict | None) = None,
         *args,
         **kwargs,
     ) -> None:
@@ -256,8 +256,8 @@ class ConditionsField(forms.Field):
 
     def to_python(
         self,
-        value: Optional[Any],
-    ) -> Optional[ConditionSet]:
+        value: Any,
+    ) -> ConditionSet | None:
         """Parse and return conditions from the field's data.
 
         This takes the serialized values provided by the field's widget,

@@ -6,7 +6,7 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Callable, Iterator, Optional, TYPE_CHECKING, Union
+from typing import Callable, Iterator, TYPE_CHECKING, Union
 
 from django.http.response import StreamingHttpResponse
 from typing_extensions import NotRequired, TypeAlias, TypedDict
@@ -32,7 +32,7 @@ class EventStreamMessage(TypedDict):
     #:
     #: Type:
     #:     bytes or str
-    data: NotRequired[Optional[Union[bytes, str]]]
+    data: NotRequired[bytes | str | None]
 
     #: The event name to send.
     #:
@@ -40,7 +40,7 @@ class EventStreamMessage(TypedDict):
     #:
     #: Type:
     #:     str
-    event: NotRequired[Optional[str]]
+    event: NotRequired[str | None]
 
     #: The ID to send.
     #:
@@ -48,7 +48,7 @@ class EventStreamMessage(TypedDict):
     #:
     #: Type:
     #:     str
-    id: NotRequired[Optional[str]]
+    id: NotRequired[str | None]
 
     #: The retry time in milliseconds for reconnections after a disconnect.
     #:
@@ -56,7 +56,7 @@ class EventStreamMessage(TypedDict):
     #:
     #: Type:
     #:     int
-    retry_ms: NotRequired[Optional[int]]
+    retry_ms: NotRequired[int | None]
 
 
 #: An iterator for event stream messages.
@@ -75,7 +75,7 @@ EventStreamMessages: TypeAlias = Iterator[EventStreamMessage]
 #:     4.0
 EventStream: TypeAlias = Union[
     EventStreamMessages,
-    Callable[[Optional[str]], EventStreamMessages],
+    Callable[[str | None], EventStreamMessages],
 ]
 
 
@@ -125,13 +125,13 @@ class EventStreamHttpResponse(StreamingHttpResponse):
     #:
     #: Type:
     #:     django.http.HttpRequest
-    request: Optional[HttpRequest]
+    request: HttpRequest | None
 
     def __init__(
         self,
         event_stream: EventStream,
         *,
-        request: Optional[HttpRequest] = None,
+        request: (HttpRequest | None) = None,
         status: int = 200,
         content_type: str = 'text/event-stream',
         **kwargs,
@@ -201,7 +201,7 @@ class EventStreamHttpResponse(StreamingHttpResponse):
         event_stream = self.event_stream
 
         if callable(event_stream):
-            last_id: Optional[str]
+            last_id: str | None
             request = self.request
 
             if request is not None:

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional, Union
+from typing import Union
 
 from typing_extensions import assert_type
 
@@ -79,14 +79,14 @@ class AliasPropertyTests(TestCase):
     def test_set_with_convert_to_func_and_none(self) -> None:
         """Testing AliasProperty.__set__ with convert_to_func and value=None"""
         class MyObject:
-            prop: AliasProperty[Optional[int], Optional[int]] = \
-                AliasProperty[Optional[int], Optional[int]](
+            prop: AliasProperty[int | None, int | None] = \
+                AliasProperty[int | None, int | None](
                     'other_prop',
                     convert_to_func=str)
             other_prop = '100'
 
         obj = MyObject()
-        assert_type(obj.prop, Optional[int])
+        assert_type(obj.prop, int | None)
 
         with self.assertNoWarnings():
             obj.prop = None
@@ -146,14 +146,14 @@ class AliasPropertyTests(TestCase):
         """Testing AliasProperty.__get__ with convert_from_func and value=None
         """
         class MyObject:
-            prop: AliasProperty[Optional[str], Optional[str]] = \
-                AliasProperty[Optional[str], Optional[str]](
+            prop: AliasProperty[str | None, str | None] = \
+                AliasProperty[str | None, str | None](
                     'other_prop',
                     convert_to_func=str)
             other_prop = None
 
         obj = MyObject()
-        assert_type(obj.prop, Optional[str])
+        assert_type(obj.prop, str | None)
 
         with self.assertNoWarnings():
             self.assertIsNone(obj.prop)
@@ -193,12 +193,11 @@ class TypedPropertyTests(TestCase):
     def test_set_with_none_and_allow_none_true(self) -> None:
         """Testing TypedProperty.__set__ with None value and allow_none=True"""
         class MyObject:
-            prop: TypedProperty[Optional[Union[int, bool]],
-                                Optional[Union[int, bool]]] = \
+            prop: TypedProperty[int | bool | None, int | bool | None] = \
                 TypedProperty((int, bool), allow_none=True)
 
         obj = MyObject()
-        assert_type(obj.prop, Optional[Union[int, bool]])
+        assert_type(obj.prop, int | bool | None)
 
         obj.prop = None
         assert_type(obj.prop, None)
