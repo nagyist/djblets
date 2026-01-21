@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import (Any, Callable, Collection, Iterable, Iterator, List,
-                    Optional, Sequence, TYPE_CHECKING, Union)
+from typing import (Any, Callable, Collection, Iterable, Iterator, Optional,
+                    TYPE_CHECKING, Union)
 
 from django.http import HttpResponse
 from django.utils.encoding import force_str
@@ -22,7 +22,8 @@ from djblets.webapi.errors import INVALID_FORM_DATA
 
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping
+    from collections.abc import Mapping, Sequence
+    from typing import ClassVar
 
     from django.db.models import QuerySet
     from django.forms import Form
@@ -144,7 +145,7 @@ class WebAPIResponse(HttpResponse):
     #:
     #: Type:
     #:     list of str
-    supported_mimetypes: List[str] = [
+    supported_mimetypes: ClassVar[Sequence[str]] = [
         'application/json',
         'application/xml',
     ]
@@ -215,7 +216,7 @@ class WebAPIResponse(HttpResponse):
         encoders: Sequence[WebAPIEncoder] = [],
         encoder_kwargs: Mapping[str, Any] = {},
         mimetype: Optional[str] = None,
-        supported_mimetypes: Optional[List[str]] = None,
+        supported_mimetypes: Optional[Sequence[str]] = None,
     ) -> None:
         """Initialize the response.
 
@@ -900,7 +901,7 @@ class WebAPIResponseFormError(WebAPIResponseError):
             if arg in kwargs:
                 raise ValueError(f'{arg}= cannot be passed to {type(self)}')
 
-        fields: dict[str, List[str]] = {
+        fields: dict[str, list[str]] = {
             field: [force_str(e) for e in form.errors[field]]
             for field in form.errors
         }
@@ -951,7 +952,7 @@ class WebAPIResponseEventStream(EventStreamHttpResponse):
         encoders: Sequence[WebAPIEncoder] = [],
         encoder_kwargs: Mapping[str, Any] = {},
         message_data_mimetype: Optional[str] = None,
-        supported_mimetypes: Optional[List[str]] = None,
+        supported_mimetypes: Optional[Sequence[str]] = None,
     ) -> None:
         """Initialize the API event stream.
 

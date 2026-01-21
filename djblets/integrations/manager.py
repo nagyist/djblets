@@ -5,7 +5,7 @@ from __future__ import annotations
 import atexit
 import logging
 import threading
-from typing import Iterable, List, Optional, Sequence, TYPE_CHECKING, Type
+from typing import Iterable, Optional, TYPE_CHECKING, Type
 from weakref import WeakValueDictionary
 
 from django.conf import settings
@@ -18,6 +18,8 @@ from djblets.integrations.errors import (IntegrationAlreadyRegisteredError,
                                          IntegrationRegistrationError)
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from djblets.integrations.integration import (Integration,
                                                   IntegrationClassType)
     from djblets.integrations.models import BaseIntegrationConfig
@@ -61,7 +63,7 @@ class IntegrationManager:
     _integration_classes: dict[str, IntegrationClassType]
 
     #: A mapping of opaque config lookup IDs to configuration instances.
-    _integration_configs: dict[str, List[BaseIntegrationConfig]]
+    _integration_configs: dict[str, list[BaseIntegrationConfig]]
 
     #: A mapping of integration IDs to instances.
     _integration_instances: dict[str, Integration]

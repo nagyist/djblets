@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import inspect
 import logging
-from typing import (Any, Callable, Final, Iterable, List, Mapping, Optional,
-                    Sequence, Set, TYPE_CHECKING, Tuple, Type, Union, cast)
+from typing import (Any, Callable, Final, Iterable, Mapping, Optional, Set,
+                    TYPE_CHECKING, Tuple, Type, Union, cast)
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -57,6 +57,7 @@ from djblets.webapi.responses import (WebAPIEventStream,
                                       WebAPIResponsePayload)
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
     from datetime import datetime
 
     from django.db.models import Model
@@ -471,7 +472,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     list of str
-    _prefetch_related_fields: List[str]
+    _prefetch_related_fields: list[str]
 
     #: A cached list of fields to select when querying resources.
     #:
@@ -480,7 +481,7 @@ class WebAPIResource(object):
     #:
     #: Type:
     #:     list of str
-    _select_related_fields: List[str]
+    _select_related_fields: list[str]
 
     def __init__(self) -> None:
         """Initialize the API resource.
@@ -1510,7 +1511,7 @@ class WebAPIResource(object):
 
         return model.objects.all()
 
-    def get_url_patterns(self) -> List[Union[URLPattern, URLResolver]]:
+    def get_url_patterns(self) -> Sequence[Union[URLPattern, URLResolver]]:
         """Return the Django URL patterns for this object and its children.
 
         This is used to automatically build up the URL hierarchy for all
@@ -1521,7 +1522,7 @@ class WebAPIResource(object):
             list:
             The list of URL patterns.
         """
-        urlpatterns: List[Union[URLPattern, URLResolver]] = [
+        urlpatterns: list[Union[URLPattern, URLResolver]] = [
             path('',
                  self.__call__,
                  name=self._build_named_url(self.name_plural)),
@@ -2154,7 +2155,7 @@ class WebAPIResource(object):
     def get_only_fields(
         self,
         request: Optional[HttpRequest],
-    ) -> Optional[List[str]]:
+    ) -> Optional[Sequence[str]]:
         """Return the list of the only fields that the payload should include.
 
         If the user has requested that no fields should be provided, this
@@ -2177,7 +2178,7 @@ class WebAPIResource(object):
     def get_only_links(
         self,
         request: Optional[HttpRequest],
-    ) -> Optional[List[str]]:
+    ) -> Optional[Sequence[str]]:
         """Return the list of the only links that the payload should include.
 
         If the user has requested that no links should be provided, this
@@ -2853,7 +2854,7 @@ class WebAPIResource(object):
         request: Optional[HttpRequest],
         query_param_name: str,
         post_field_name: str,
-    ) -> Optional[List[str]]:
+    ) -> Optional[Sequence[str]]:
         """Return a list of "only" items for filtering fields or links.
 
         This will look up the provided names in the HTTP request, looking
@@ -2913,8 +2914,8 @@ class WebAPIResource(object):
         queryset = self.get_queryset(request, is_list=is_list, *args, **kwargs)
         model = self.model
 
-        select_related_fields: List[str]
-        prefetch_related_fields: List[str] = []
+        select_related_fields: list[str]
+        prefetch_related_fields: list[str] = []
 
         # Fetch the cached related field information. If it hasn't yet been
         # generated for this resource, build it.

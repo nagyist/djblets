@@ -5,7 +5,7 @@ import shutil
 import stat
 import sys
 import tempfile
-from typing import List, Optional
+from typing import Optional, TYPE_CHECKING
 
 from django.core.management import execute_from_command_line
 from django.test.runner import DiscoverRunner
@@ -17,6 +17,9 @@ Image.init()
 
 from django.conf import settings
 from djblets.cache.serials import generate_media_serial
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 class TestRunner(DiscoverRunner):
@@ -37,7 +40,7 @@ class TestRunner(DiscoverRunner):
     #:
     #: This is a list of command line arguments that would be passed to
     #: :command:`nosetests`.
-    nose_options = [
+    nose_options: Sequence[str] = [
         '-v',
         '--match=^test',
         '--with-id',
@@ -52,10 +55,10 @@ class TestRunner(DiscoverRunner):
     #:
     #: Version Added:
     #:     4.0
-    pytest_options: List[str] = []
+    pytest_options: Sequence[str] = []
 
     #: A list of Python package/module names to test.
-    test_packages: List[str] = []
+    test_packages: Sequence[str] = []
 
     #: Whether or not ``collectstatic`` needs to be run before tests.
     needs_collect_static = True
@@ -68,11 +71,11 @@ class TestRunner(DiscoverRunner):
 
     def __init__(
         self,
-        nose_options: Optional[List[str]] = None,
-        test_packages: Optional[List[str]] = None,
+        nose_options: Optional[Sequence[str]] = None,
+        test_packages: Optional[Sequence[str]] = None,
         needs_collect_static: Optional[bool] = None,
         use_pytest: bool = False,
-        pytest_options: Optional[List[str]] = None,
+        pytest_options: Optional[Sequence[str]] = None,
         *args,
         **kwargs,
     ) -> None:
@@ -263,8 +266,8 @@ class TestRunner(DiscoverRunner):
 
     def _run_pytest_tests(
         self,
-        test_labels: List[str] = [],
-        argv: Optional[List[str]] = None,
+        test_labels: Sequence[str] = [],
+        argv: Optional[Sequence[str]] = None,
         *args,
         **kwargs,
     ) -> int:
@@ -292,7 +295,7 @@ class TestRunner(DiscoverRunner):
         if argv is None:
             argv = []
 
-        pytest_argv = self.pytest_options
+        pytest_argv = list(self.pytest_options)
 
         # test_labels may be provided to us with some command line arguments,
         # which we would have already added above. We need to sanitize this

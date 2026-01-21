@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, TYPE_CHECKING, Type
+from typing import Optional, TYPE_CHECKING, Type
 
 from django.template.loader import render_to_string
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from typelets.django.strings import StrOrPromise
 
     from djblets.configforms.forms import ConfigPageForm
@@ -32,7 +34,7 @@ class ConfigPage(object):
     page_title: Optional[StrOrPromise] = None
 
     #: The list of form subclasses to display on the page.
-    form_classes: Optional[List[Type[ConfigPageForm]]] = None
+    form_classes: Optional[Sequence[Type[ConfigPageForm]]] = None
 
     #: The template used to render the page.
     template_name = 'configforms/config_page.html'

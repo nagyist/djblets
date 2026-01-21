@@ -15,7 +15,7 @@ from importlib import import_module
 from importlib.machinery import ModuleSpec
 from importlib.util import module_from_spec
 from itertools import zip_longest
-from typing import Any, Iterator, List, Optional, TYPE_CHECKING, Type, Union
+from typing import Any, Iterator, Optional, TYPE_CHECKING, Type, Union
 from unittest.util import safe_repr
 
 from django.apps import apps
@@ -281,7 +281,7 @@ class TestCase(testcases.TestCase):
         Context:
             The test to run.
         """
-        warning_list: List[ExpectedWarning] = [
+        warning_list: Sequence[ExpectedWarning] = [
             {
                 'cls': cls,
                 'message': message,
@@ -294,7 +294,7 @@ class TestCase(testcases.TestCase):
     @contextmanager
     def assertWarnings(
         self,
-        warning_list: List[ExpectedWarning],
+        warning_list: Sequence[ExpectedWarning],
     ) -> Iterator[None]:
         """Assert that multiple warnings were generated.
 

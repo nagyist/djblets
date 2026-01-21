@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, TYPE_CHECKING, Type
+from typing import TYPE_CHECKING, Type
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -57,8 +57,8 @@ class IntegrationListContextViewMixin(NeedsIntegrationManagerMixin):
         """
         integration_manager = self.get_integration_manager()
         integrations_map: dict[str, dict[str, Any]] = {}
-        integration_ids: List[str] = []
-        configs: List[dict[str, Any]] = []
+        integration_ids: list[str] = []
+        configs: list[dict[str, Any]] = []
 
         for integration in integration_manager.get_integrations():
             integration_ids.append(integration.integration_id)

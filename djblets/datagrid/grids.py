@@ -29,8 +29,8 @@ import logging
 import re
 import string
 import traceback
-from typing import (Any, Callable, Iterable, List, Optional, Sequence, Set,
-                    TYPE_CHECKING, Type, Union)
+from typing import (Any, Callable, Iterable, Optional, Set, TYPE_CHECKING,
+                    Type, Union)
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -55,7 +55,8 @@ from djblets.template.context import get_default_template_context_processors
 from djblets.util.http import get_url_params_except
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping
+    from collections.abc import Mapping, Sequence
+    from typing import ClassVar
 
     from django.core.paginator import Page
     from django.db.models import Model
@@ -687,7 +688,7 @@ class Column:
             The URL used to toggle column visibility.
         """
         datagrid = state.datagrid
-        columns: List[str] = [
+        columns: list[str] = [
             column.id
             for column in datagrid.columns
         ]
@@ -1825,13 +1826,13 @@ class DataGrid:
     #:
     #: Type:
     #:     list of str
-    default_columns: List[str] = []
+    default_columns: ClassVar[Sequence[str]] = []
 
     #: The default sort list for columns.
     #:
     #: Type:
     #:     list of str
-    default_sort: List[str] = []
+    default_sort: ClassVar[Sequence[str]] = []
 
     ######################
     # Instance variables #
@@ -1855,7 +1856,7 @@ class DataGrid:
     #:
     #: Type:
     #:     list of StatefulColumn
-    columns: List[StatefulColumn]
+    columns: list[StatefulColumn]
 
     #: The template used to render each column header.
     #:
@@ -1881,7 +1882,7 @@ class DataGrid:
     #:
     #: Type:
     #:     list of object
-    id_list: List[Any]
+    id_list: list[Any]
 
     #: The template used to render the list view.
     #:
@@ -1965,19 +1966,19 @@ class DataGrid:
     #:
     #: Type:
     #:     list of _DataGridRow
-    rows: List[_DataGridRow]
+    rows: list[_DataGridRow]
 
     #: The sort priority list for the results.
     #:
     #: Type:
     #:     list of str
-    sort_list: Optional[List[str]]
+    sort_list: Optional[list[str]]
 
     #: Query arguments to include when fetching datagrid contents.
     #:
     #: Type:
-    #:     List[str]
-    special_query_args: List[str]
+    #:     list[str]
+    special_query_args: list[str]
 
     #: Whether state has been loaded for the datagrid.
     #:
@@ -2693,7 +2694,7 @@ class DataGrid:
         use_select_related: bool = False
 
         # Generate the actual list of fields we'll be sorting by
-        sort_list: List[str] = []
+        sort_list: list[str] = []
 
         for sort_item in self.sort_list:
             if sort_item[0] == '-':
@@ -2779,7 +2780,7 @@ class DataGrid:
 
         self.page = page
 
-        id_list: List[Any] = []
+        id_list: list[Any] = []
 
         if self.optimize_sorts and len(sort_list) > 0:
             # This can be slow when sorting by multiple columns. If we
@@ -2825,7 +2826,7 @@ class DataGrid:
 
         page.object_list = page_queryset
 
-        object_list: List[Optional[Model]]
+        object_list: list[Optional[Model]]
 
         if id_list:
             # The database will give us the items in a more or less random
@@ -2853,7 +2854,7 @@ class DataGrid:
         if render_context is None:
             render_context = self._build_render_context()
 
-        rows: List[_DataGridRow] = []
+        rows: list[_DataGridRow] = []
 
         for obj in object_list:
             if obj is None:

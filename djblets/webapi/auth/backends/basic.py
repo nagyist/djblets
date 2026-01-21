@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import base64
 import logging
-from typing import List
 
 from django.http import HttpRequest
 
@@ -50,7 +49,7 @@ class WebAPIBasicAuthBackend(WebAPIAuthBackend):
             This will be ``None`` if :mailheader:`Authorization` is not passed
             or could not be parsed as a HTTP Basic Auth header.
         """
-        parts: List[str] = request.META['HTTP_AUTHORIZATION'].split(' ')
+        parts: list[str] = request.META['HTTP_AUTHORIZATION'].split(' ')
         realm = parts[0]
 
         if realm != 'Basic':

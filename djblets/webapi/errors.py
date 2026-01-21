@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Callable, List, Optional, TYPE_CHECKING, Union
+from typing import Callable, Optional, TYPE_CHECKING, Union
 
 from housekeeping import deprecate_non_keyword_only_args
 
@@ -327,7 +327,7 @@ def _get_auth_headers(
     from djblets.webapi.auth.backends import get_auth_backends
 
     headers: dict[str, str] = {}
-    www_auth_schemes: List[str] = []
+    www_auth_schemes: list[str] = []
 
     for auth_backend_cls in get_auth_backends():
         auth_backend = auth_backend_cls()

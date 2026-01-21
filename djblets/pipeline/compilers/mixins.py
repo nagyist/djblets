@@ -9,9 +9,12 @@ from __future__ import annotations
 import json
 import logging
 import os
-from typing import List
+from typing import TYPE_CHECKING
 
 from djblets.cache.backend import cache_memoize
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 logger = logging.getLogger(__name__)
@@ -162,7 +165,7 @@ class SourceMapStaleCheckMixin:
     def _get_sourcemap_sources(
         self,
         sourcemap_path: str,
-    ) -> List[str]:
+    ) -> Sequence[str]:
         """Return sources from a sourcemap.
 
         This will open the sourcemap, deserialize it, and return the list of

@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 import re
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 from pipeline.conf import settings
 from pipeline.compilers import SubProcessCompiler
@@ -148,7 +148,7 @@ class RollupCompiler(SourceMapStaleCheckMixin, SubProcessCompiler):
             tree_root, rollup_config_path = \
                 self._find_tree_root(os.path.dirname(infile))
 
-            args: List[str] = [
+            args: list[str] = [
                 settings.ROLLUP_BINARY,
             ]
 

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List
-
 from django.conf import settings
 from django.core.cache import cache
 
@@ -16,7 +14,7 @@ class IntegrationsTestCase(TestModelsLoaderMixin, TestCase):
 
     tests_app = 'djblets.integrations.tests'
 
-    old_middleware_classes: List[str]
+    old_middleware_classes: list[str]
 
     def setUp(self) -> None:
         super().setUp()

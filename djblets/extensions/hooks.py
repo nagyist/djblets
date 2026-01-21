@@ -36,7 +36,7 @@ from djblets.registries.registry import Registry, RegistryItemType
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Sequence
-    from typing import Any, List, Optional, Type
+    from typing import Any, Optional, Type
 
     from django.utils.safestring import SafeString
 
@@ -385,7 +385,7 @@ class DataGridColumnsHook(ExtensionHook, metaclass=ExtensionHookPoint):
     def initialize(
         self,
         datagrid_cls: Type[DataGrid],
-        columns: List[Column],
+        columns: Sequence[Column],
     ) -> None:
         """Initialize the hook.
 
@@ -419,7 +419,7 @@ class URLHook(ExtensionHook, metaclass=ExtensionHookPoint):
 
     def initialize(
         self,
-        patterns: List[URLPattern],
+        patterns: Sequence[URLPattern],
     ) -> None:
         """Initialize the hook.
 
@@ -540,7 +540,7 @@ class TemplateHook(AppliesToURLMixin, ExtensionHook,
        MyTemplateHook(extension)
     """
 
-    _by_name: dict[str, List[TemplateHook]] = {}
+    _by_name: dict[str, list[TemplateHook]] = {}
 
     ######################
     # Instance variables #
@@ -877,7 +877,7 @@ class TemplateHook(AppliesToURLMixin, ExtensionHook,
     def by_name(
         cls,
         name: str,
-    ) -> List[TemplateHook]:
+    ) -> Sequence[TemplateHook]:
         """Return template hooks by name.
 
         Args:
@@ -976,7 +976,7 @@ class BaseRegistryMultiItemHook(Generic[RegistryItemType],
         registry = self.registry
         assert registry is not None
 
-        registered_items: List[RegistryItemType] = []
+        registered_items: list[RegistryItemType] = []
 
         for item in items:
             try:

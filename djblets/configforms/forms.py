@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 from django import forms
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+    from typing import ClassVar
+
     from typelets.django.strings import StrOrPromise
 
 
@@ -44,10 +47,10 @@ class ConfigPageForm(forms.Form):
     template_name = 'configforms/config_page_form.html'
 
     #: The list of CSS bundle names to include on the page.
-    css_bundle_names: List[str] = []
+    css_bundle_names: ClassVar[Sequence[str]] = []
 
     #: The list of JavaScript bundle names to include on the page.
-    js_bundle_names: List[str] = []
+    js_bundle_names: ClassVar[Sequence[str]] = []
 
     #: The optional Backbone model used for the configuration form state.
     js_model_class: Optional[str] = None

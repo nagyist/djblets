@@ -10,7 +10,7 @@ import re
 import secrets
 import string
 import zlib
-from typing import Any, List, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
@@ -167,7 +167,7 @@ class VendorChecksumTokenGenerator(BaseTokenGenerator):
         if num == 0:
             return charset[0]
 
-        result: List[str] = []
+        result: list[str] = []
 
         while num:
             num, remainder = divmod(num, 62)

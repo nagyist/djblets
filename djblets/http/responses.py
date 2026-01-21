@@ -6,7 +6,7 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Callable, Iterator, List, Optional, TYPE_CHECKING, Union
+from typing import Callable, Iterator, Optional, TYPE_CHECKING, Union
 
 from django.http.response import StreamingHttpResponse
 from typing_extensions import NotRequired, TypeAlias, TypedDict
@@ -218,7 +218,7 @@ class EventStreamHttpResponse(StreamingHttpResponse):
                 message_id = message.get('id')
                 retry = message.get('retry_ms')
 
-                payload: List[bytes] = []
+                payload: list[bytes] = []
 
                 if message_id is not None:
                     if message_id == '':

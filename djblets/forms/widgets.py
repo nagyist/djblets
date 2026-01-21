@@ -8,8 +8,8 @@ from __future__ import annotations
 
 import copy
 from contextlib import contextmanager
-from typing import (Any, Callable, Iterable, Iterator, List, Optional,
-                    TYPE_CHECKING, Tuple, Union)
+from typing import (Any, Callable, Iterable, Iterator, Optional, TYPE_CHECKING,
+                    Tuple, Union)
 
 from django.forms import widgets
 from django.forms.widgets import HiddenInput
@@ -26,7 +26,7 @@ from djblets.conditions.errors import (ConditionChoiceNotFoundError,
 from djblets.deprecation import RemovedInDjblets80Warning
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping
+    from collections.abc import Mapping, Sequence
 
     from django.forms.renderers import BaseRenderer
     from django.forms.utils import _DataT, _FilesT
@@ -62,7 +62,7 @@ class AmountSelectorWidget(widgets.MultiWidget):
 
     def __init__(
         self,
-        unit_choices: List[Tuple[Optional[int], str]],
+        unit_choices: Sequence[Tuple[Optional[int], str]],
         number_attrs: Optional[dict[str, Any]] = None,
         select_attrs: Optional[dict[str, Any]] = None,
         attrs: Optional[dict[str, Any]] = None,

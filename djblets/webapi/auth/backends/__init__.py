@@ -8,7 +8,7 @@ request.
 from __future__ import annotations
 
 from importlib import import_module
-from typing import List, Optional, Type
+from typing import Optional, TYPE_CHECKING, Type
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -17,11 +17,14 @@ from django.http import HttpRequest
 from djblets.webapi.auth.backends.base import (WebAPIAuthBackend,
                                                WebAPIAuthenticateResult)
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
-_auth_backends: List[Type[WebAPIAuthBackend]] = []
+
+_auth_backends: list[Type[WebAPIAuthBackend]] = []
 
 
-def get_auth_backends() -> List[Type[WebAPIAuthBackend]]:
+def get_auth_backends() -> Sequence[Type[WebAPIAuthBackend]]:
     """Return the list of web API authentication backends.
 
     This defaults to :py:class:`~djblets.webapi.auth.backends.basic.

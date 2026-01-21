@@ -11,8 +11,8 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from threading import RLock
-from typing import (Generic, Iterable, Iterator, List, Optional, Sequence,
-                    Type, TypeVar)
+from typing import (Generic, Iterable, Iterator, Optional, TYPE_CHECKING, Type,
+                    TypeVar)
 from typelets.django.strings import StrOrPromise
 
 from django.utils.translation import gettext_lazy as _
@@ -24,6 +24,9 @@ from djblets.registries.errors import (AlreadyRegisteredError,
                                        ItemLookupError,
                                        RegistrationError)
 from djblets.registries.signals import registry_populating
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 logger = logging.getLogger(__name__)
 
@@ -785,7 +788,7 @@ class OrderedRegistry(Registry[RegistryItemType]):
         super(OrderedRegistry, self).__init__()
 
         self._by_id: dict[int, RegistryItemType] = {}
-        self._key_order: List[int] = []
+        self._key_order: list[int] = []
 
     def on_item_registered(
         self,

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional, TYPE_CHECKING, Tuple, Type, Union
+from typing import Optional, TYPE_CHECKING, Tuple, Type, Union
 
 from django.urls import include, path, re_path
 
@@ -10,6 +10,8 @@ from djblets.integrations.views import (BaseIntegrationConfigFormView,
                                         BaseIntegrationListView)
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     # This requires django-stubs.
     from django.urls import _AnyURL
 
@@ -20,7 +22,7 @@ def build_integration_urlpatterns(
     config_form_view_cls: Type[BaseIntegrationConfigFormView],
     namespace: Optional[str] = None,
     app_name: Optional[str] = None,
-) -> List[_AnyURL]:
+) -> Sequence[_AnyURL]:
     """Build URL patterns for integration pages.
 
     This will produce a set of URL patterns for the integration administration
@@ -77,8 +79,8 @@ def build_integration_urlpatterns(
         list:
         The list of URL patterns.
     """
-    include_target: Union[List[_AnyURL], Tuple[List[_AnyURL], str]]
-    urlpatterns: List[_AnyURL] = []
+    include_target: Union[list[_AnyURL], Tuple[list[_AnyURL], str]]
+    urlpatterns: list[_AnyURL] = []
 
     if list_view_cls is not None:
         urlpatterns.append(
