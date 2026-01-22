@@ -11,12 +11,11 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from threading import RLock
-from typing import Generic, Iterable, Iterator, TYPE_CHECKING, TypeVar
+from typing import Generic, TYPE_CHECKING, TypeVar
 from typelets.django.strings import StrOrPromise
 
 from django.utils.translation import gettext_lazy as _
 from importlib_metadata import EntryPoint, entry_points
-from typing_extensions import Final, TypeAlias
 
 from djblets.deprecation import RemovedInDjblets80Warning
 from djblets.registries.errors import (AlreadyRegisteredError,
@@ -25,8 +24,8 @@ from djblets.registries.errors import (AlreadyRegisteredError,
 from djblets.registries.signals import registry_populating
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
-    from typing import ClassVar
+    from collections.abc import Iterable, Iterator, Sequence
+    from typing import ClassVar, Final, TypeAlias
 
 
 logger = logging.getLogger(__name__)

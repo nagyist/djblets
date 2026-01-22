@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Callable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from housekeeping import deprecate_non_keyword_only_args
 
 from djblets.deprecation import RemovedInDjblets70Warning
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import TypeAlias
+
     from django.http import HttpRequest
     from djblets.webapi.responses import WebAPIResponseHeaders
-    from typing_extensions import Self, TypeAlias
+    from typing_extensions import Self
 
     #: A mapping of HTTP headers to values, or a callable returning headers.
     #:

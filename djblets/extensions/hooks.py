@@ -22,15 +22,9 @@ import uuid
 from collections.abc import Mapping
 from typing import Generic, TYPE_CHECKING, cast
 
-from django.dispatch import Signal
-from django.http import HttpRequest
-from django.template import Context
 from django.template.loader import render_to_string
-from django.urls import URLPattern
 from typing_extensions import final
 
-from djblets.datagrid.grids import Column, DataGrid
-from djblets.extensions.extension import Extension
 from djblets.pagestate.injectors import page_state_injectors
 from djblets.registries.registry import Registry, RegistryItemType
 
@@ -38,8 +32,14 @@ if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Sequence
     from typing import Any
 
+    from django.dispatch import Signal
+    from django.http import HttpRequest
+    from django.template import Context
+    from django.urls import URLPattern
     from django.utils.safestring import SafeString
 
+    from djblets.datagrid.grids import Column, DataGrid
+    from djblets.extensions.extension import Extension
     from djblets.pagestate.state import PageStateData
 
 

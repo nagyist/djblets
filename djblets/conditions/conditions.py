@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Final, Iterable, Iterator, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext as _
 from typing_extensions import NotRequired, TypedDict
@@ -14,6 +14,9 @@ from djblets.conditions.errors import (ConditionChoiceNotFoundError,
                                        InvalidConditionValueError)
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable, Iterator
+    from typing import Any, Final
+
     from djblets.conditions.choices import (BaseConditionChoice,
                                             ConditionChoices)
     from djblets.conditions.operators import BaseConditionOperator

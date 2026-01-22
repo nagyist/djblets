@@ -6,14 +6,14 @@ from typing import TYPE_CHECKING
 
 from django.urls import include, path, re_path
 
-from djblets.integrations.views import (BaseIntegrationConfigFormView,
-                                        BaseIntegrationListView)
-
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
     # This requires django-stubs.
     from django.urls import _AnyURL
+
+    from djblets.integrations.views import (BaseIntegrationConfigFormView,
+                                            BaseIntegrationListView)
 
 
 def build_integration_urlpatterns(

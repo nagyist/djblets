@@ -5,37 +5,37 @@ from __future__ import annotations
 import locale
 import logging
 import os
+from collections.abc import Mapping
 from pathlib import PosixPath
-from types import ModuleType
-from typing import Any, Mapping, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING, TypedDict
 
 import importlib_resources
 from django.conf import settings
-from django.contrib.admin.sites import AdminSite
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpRequest
 from django.templatetags.static import static
 from django.urls import URLPattern, URLResolver, get_mod_func
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext as _
-from typing_extensions import NotRequired, TypeAlias, TypedDict
 
 from djblets.extensions.errors import InstallExtensionMediaError
-from djblets.extensions.models import RegisteredExtension
 from djblets.extensions.settings import ExtensionSettings
-from djblets.webapi.resources import WebAPIResource
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
     from importlib_metadata import EntryPoint
-    from typing import ClassVar, Protocol
+    from types import ModuleType
+    from typing import ClassVar, Protocol, TypeAlias
 
-    from django.http import HttpResponseBase
+    from django.contrib.admin.sites import AdminSite
+    from django.http import HttpRequest, HttpResponseBase
     from typelets.json import JSONDict
+    from typing_extensions import NotRequired
 
     from djblets.extensions.hooks import ExtensionHook
     from djblets.extensions.manager import ExtensionManager
+    from djblets.extensions.models import RegisteredExtension
+    from djblets.webapi.resources import WebAPIResource
 
     class ExtensionMiddlewareCallable(Protocol):
         def __call__(

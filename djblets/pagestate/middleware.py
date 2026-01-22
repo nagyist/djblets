@@ -12,7 +12,7 @@ from djblets.pagestate.state import PageState
 from djblets.util.http import encode_etag
 
 if TYPE_CHECKING:
-    from typing import Callable
+    from collections.abc import Callable
 
     from django.http import HttpRequest, HttpResponseBase
 

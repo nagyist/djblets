@@ -8,9 +8,8 @@ from __future__ import annotations
 
 import re
 import secrets
-import string
 import zlib
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
@@ -18,6 +17,7 @@ from djblets.secrets.token_generators.base import BaseTokenGenerator
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+    from typing import Any
 
 
 class VendorChecksumTokenGenerator(BaseTokenGenerator):

@@ -9,9 +9,13 @@ from __future__ import annotations
 import itertools
 import re
 from collections import deque
-from typing import Any, AnyStr, Iterable, cast
+from typing import TYPE_CHECKING, cast
 
 from django.utils.functional import SimpleLazyObject
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from typing import Any, AnyStr
 
 
 def iterable_len(

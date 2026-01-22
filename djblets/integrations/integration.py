@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import ClassVar, Sequence, TYPE_CHECKING
-
-from typing_extensions import TypeAlias
+from typing import TYPE_CHECKING
 
 from djblets.integrations.forms import IntegrationConfigForm
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+    from typing import ClassVar, TypeAlias
+
     from typelets.django.strings import StrOrPromise
 
     from djblets.extensions.hooks import ExtensionHook

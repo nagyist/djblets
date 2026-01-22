@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from email.utils import parseaddr
-from typing import Sequence, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -18,6 +18,8 @@ from djblets.mail.dmarc import is_email_allowed_by_dmarc
 from djblets.mail.utils import build_email_address_via_service
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from django.core.mail.message import SafeMIMEText
 
 

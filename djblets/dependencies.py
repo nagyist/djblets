@@ -17,9 +17,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
-    from typing import TypedDict
-
-    from typing_extensions import TypeAlias
+    from typing import TypeAlias, TypedDict
 
     class PythonSpecificDependency(TypedDict):
         """A dependency definition that differs based on Python version.

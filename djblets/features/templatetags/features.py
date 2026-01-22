@@ -2,17 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django import template
-from django.template.base import (Node, NodeList, TemplateSyntaxError,
-                                  token_kwargs)
+from django.template.exceptions import TemplateSyntaxError
+from django.template.base import Node, NodeList, token_kwargs
 
 from djblets.features.registry import get_features_registry
 
 if TYPE_CHECKING:
-    from django.template.base import (Context, FilterExpression, Parser,
-                                      Token)
+    from django.template import Context
+    from django.template.base import FilterExpression, Parser, Token
     from typelets.funcs import KwargsDict
 
 

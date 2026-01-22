@@ -11,8 +11,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from djblets.secrets.token_generators import token_generator_registry
-from djblets.secrets.token_generators.legacy_sha1 import \
-    LegacySHA1TokenGenerator
 from djblets.webapi.errors import WebAPITokenGenerationError
 from djblets.webapi.signals import webapi_token_created
 

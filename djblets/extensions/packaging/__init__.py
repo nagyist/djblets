@@ -17,7 +17,7 @@ from typing import Any
 from housekeeping import ClassMovedMixin, func_moved
 
 from djblets.deprecation import RemovedInDjblets80Warning
-import djblets.extensions.packaging.setuptools_backend as setuptools_backend
+from djblets.extensions.packaging import setuptools_backend
 
 
 class BuildPy(ClassMovedMixin,

@@ -3,10 +3,14 @@
 from __future__ import annotations
 
 import warnings
-from typing import Any, Callable, Generic, Sequence, cast, overload
+from collections.abc import Sequence
+from typing import Any, Generic, TYPE_CHECKING, TypeVar, cast, overload
 
-from typing_extensions import Self, TypeAlias, TypeVar
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import TypeAlias
 
+    from typing_extensions import Self
 
 # NOTE: When mypy supports PEP 696, we can give many of these defaults.
 #       Setters can be based on the preceding getters as specific in
@@ -20,7 +24,8 @@ _AliasPropertySetT = TypeVar('_AliasPropertySetT')
 _AliasPropertyStoredT: TypeAlias = Any
 
 _TypedPropertyGetT = TypeVar('_TypedPropertyGetT')
-_TypedPropertyValidTypesParamT: TypeAlias = type[_SetT] | Sequence[type[_SetT]]
+_TypedPropertyValidTypesParamT: TypeAlias = \
+    type[_SetT] | Sequence[type[_SetT]]
 
 
 class BaseProperty(Generic[_StoredT]):

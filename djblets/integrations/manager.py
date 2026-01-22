@@ -5,7 +5,7 @@ from __future__ import annotations
 import atexit
 import logging
 import threading
-from typing import Iterable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from weakref import WeakValueDictionary
 
 from django.conf import settings
@@ -18,7 +18,7 @@ from djblets.integrations.errors import (IntegrationAlreadyRegisteredError,
                                          IntegrationRegistrationError)
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Iterable, Sequence
 
     from djblets.integrations.integration import (Integration,
                                                   IntegrationClassType)

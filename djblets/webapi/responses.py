@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Collection, Iterable, Iterator, TYPE_CHECKING
+from collections.abc import Callable, Iterator
+from typing import Any, TYPE_CHECKING, TypedDict
 
 from django.http import HttpResponse
 from django.utils.encoding import force_str
-from typing_extensions import NotRequired, TypeAlias, TypedDict
 
 from djblets.http.responses import (EventStreamMessage,
                                     EventStreamMessages,
@@ -21,12 +21,13 @@ from djblets.webapi.errors import INVALID_FORM_DATA
 
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping, Sequence
-    from typing import ClassVar
+    from collections.abc import Collection, Iterable, Mapping, Sequence
+    from typing import ClassVar, TypeAlias
 
     from django.db.models import QuerySet
     from django.forms import Form
     from django.http import HttpRequest
+    from typing_extensions import NotRequired
 
     from djblets.webapi.errors import WebAPIError
 

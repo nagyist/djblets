@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 from threading import Lock, Thread
-from typing import Any, Callable, Iterable
+from typing import TYPE_CHECKING
 
 from kgb import SpyAgency
 
@@ -14,6 +14,10 @@ from djblets.registries.errors import (AlreadyRegisteredError,
 from djblets.registries.registry import Registry, OrderedRegistry, UNREGISTER
 from djblets.registries.signals import registry_populating
 from djblets.testing.testcases import TestCase
+
+if TYPE_CHECKING:
+    from collections.abc import Callable, Iterable
+    from typing import Any
 
 
 class Item:

@@ -29,13 +29,13 @@ import logging
 import re
 import string
 import traceback
-from typing import Any, Callable, Iterable, TYPE_CHECKING
+from collections.abc import Callable
+from typing import Any, TYPE_CHECKING, TypedDict
 from urllib.parse import urlencode
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import InvalidPage, Paginator
-from django.db.models import QuerySet
 from django.http import Http404, HttpResponse
 from django.template.defaultfilters import date
 from django.template.loader import get_template, render_to_string
@@ -46,7 +46,6 @@ from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 from housekeeping import deprecate_non_keyword_only_args
-from typing_extensions import Final, TypeAlias, TypedDict
 from typelets.symbols import UNSET
 
 from djblets.deprecation import RemovedInDjblets80Warning
@@ -54,11 +53,11 @@ from djblets.template.context import get_default_template_context_processors
 from djblets.util.http import get_url_params_except
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping, Sequence
-    from typing import ClassVar
+    from collections.abc import Iterable, Mapping, Sequence
+    from typing import ClassVar, Final, TypeAlias
 
     from django.core.paginator import Page
-    from django.db.models import Model
+    from django.db.models import Model, QuerySet
     from django.http import HttpRequest
     from django.template.backends.base import _EngineTemplate
     from django.template.context import Context

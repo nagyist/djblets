@@ -6,7 +6,7 @@ import copy
 import difflib
 import json
 import sys
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import gettext as _
@@ -16,6 +16,7 @@ from djblets.util.json_utils import json_merge_patch, json_patch
 
 if TYPE_CHECKING:
     from argparse import ArgumentParser
+    from typing import Any
 
     from djblets.siteconfig.models import (SiteConfigurationSettings,
                                            SiteConfigurationSettingsValue)

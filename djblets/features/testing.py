@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from django.test.utils import TestContextDecorator
-from typing_extensions import TypeAlias
 
 from djblets.features.feature import Feature
 from djblets.features.registry import get_features_registry
+
+if TYPE_CHECKING:
+    from typing import TypeAlias
 
 
 #: A type mapping feature instances or IDs to enabled flags.

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.utils import timezone
@@ -18,6 +18,7 @@ from djblets.secrets.token_generators.base import BaseTokenGenerator
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+    from typing import Any
 
 
 class LegacySHA1TokenGenerator(BaseTokenGenerator):

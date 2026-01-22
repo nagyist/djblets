@@ -6,7 +6,7 @@ provided by Django. At the moment, there is only support here for registration.
 
 from __future__ import annotations
 
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.contrib import auth
 from django.http import HttpResponseRedirect
@@ -18,6 +18,8 @@ from djblets.auth.signals import user_registered
 from djblets.auth.util import validate_test_cookie
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.http import HttpRequest, HttpResponse
 
 

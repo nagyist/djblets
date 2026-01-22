@@ -6,15 +6,15 @@ import logging
 from importlib import import_module
 from typing import TYPE_CHECKING
 
-from django.contrib.auth.models import User
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpRequest
 
 from djblets.webapi.auth.backends.base import (WebAPIAuthBackend,
                                                WebAPIAuthenticateResult,
                                                WebAPIGetCredentialsResult)
 
 if TYPE_CHECKING:
+    from django.contrib.auth.models import User
+    from django.http import HttpRequest
     from oauth2_provider.models import AccessToken
 
 

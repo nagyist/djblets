@@ -5,7 +5,6 @@ from __future__ import annotations
 import datetime
 
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 from djblets.privacy.consent import (BaseConsentRequirement, Consent,
                                      ConsentData, get_consent_tracker)

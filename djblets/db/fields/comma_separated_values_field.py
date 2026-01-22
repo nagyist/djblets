@@ -6,12 +6,14 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Sequence, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.core.exceptions import ValidationError
 from django.db import models
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from django.db.backends.base.base import BaseDatabaseWrapper
 
 

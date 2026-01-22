@@ -7,15 +7,15 @@ import re
 from typing import Any, TYPE_CHECKING
 
 from django.contrib import auth
-from django.http import HttpRequest
 from django.utils.translation import gettext as _
-from typing_extensions import TypeAlias
 
 from djblets.auth.ratelimit import is_ratelimited
 from djblets.webapi.responses import WebAPIResponseHeaders
 
 if TYPE_CHECKING:
-    from typing import ClassVar
+    from typing import ClassVar, TypeAlias
+
+    from django.http import HttpRequest
 
 
 #: A type alias for authentication results.

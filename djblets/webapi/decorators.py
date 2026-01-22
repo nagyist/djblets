@@ -5,7 +5,7 @@ from __future__ import annotations
 import inspect
 import logging
 from functools import update_wrapper, wraps
-from typing import Callable, TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest
@@ -20,6 +20,8 @@ from djblets.webapi.fields import (BooleanFieldType,
                                    StringFieldType)
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     _T = TypeVar('_T')
     _P = ParamSpec('_P')
 

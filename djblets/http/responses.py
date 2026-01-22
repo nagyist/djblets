@@ -6,13 +6,16 @@ Version Added:
 
 from __future__ import annotations
 
-from typing import Callable, Iterator, TYPE_CHECKING
+from collections.abc import Callable, Iterator
+from typing import TYPE_CHECKING, TypedDict
 
 from django.http.response import StreamingHttpResponse
-from typing_extensions import NotRequired, TypeAlias, TypedDict
 
 if TYPE_CHECKING:
+    from typing import TypeAlias
+
     from django.http import HttpRequest
+    from typing_extensions import NotRequired
 
 
 class EventStreamMessage(TypedDict):

@@ -6,10 +6,10 @@ from django.utils.translation import gettext_lazy as _
 
 from djblets.features.errors import FeatureConflictError, FeatureNotFoundError
 from djblets.features.feature import Feature
+from djblets.registries.errors import RegistrationError
 from djblets.registries.registry import (ALREADY_REGISTERED,
                                          ATTRIBUTE_REGISTERED,
                                          DEFAULT_ERRORS,
-                                         RegistrationError,
                                          Registry,
                                          RegistryErrorsDict,
                                          UNREGISTER)

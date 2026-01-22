@@ -3,20 +3,23 @@
 from __future__ import annotations
 
 import logging
-from collections import defaultdict, namedtuple
+from collections import OrderedDict, defaultdict, namedtuple
 from threading import RLock
-from typing import Callable, OrderedDict
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpRequest, HttpResponseNotModified
 from django.utils.translation import gettext_lazy as _
 from django.urls import path
-from typing_extensions import TypeAlias
 
 from djblets.webapi.errors import DOES_NOT_EXIST
 from djblets.webapi.resources.base import WebAPIResource
 from djblets.webapi.responses import WebAPIResponseError
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import TypeAlias
 
 
 logger = logging.getLogger(__name__)

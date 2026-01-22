@@ -2,20 +2,26 @@
 
 from __future__ import annotations
 
-from typing import Callable
+from typing import TYPE_CHECKING, TypedDict
 
 from django.conf import LazySettings, settings
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.cache import DEFAULT_CACHE_ALIAS
 from django.utils import timezone
-from typing_extensions import NotRequired, TypeAlias, TypedDict
 
 from djblets.cache.backend_compat import normalize_cache_backend
 from djblets.cache.forwarding_backend import (DEFAULT_FORWARD_CACHE_ALIAS,
                                               ForwardingCacheBackend)
-from djblets.siteconfig.models import (SiteConfiguration,
-                                       SiteConfigurationSettings,
-                                       SiteConfigurationSettingsValue)
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import TypeAlias
+
+    from typing_extensions import NotRequired
+
+    from djblets.siteconfig.models import (SiteConfiguration,
+                                           SiteConfigurationSettings,
+                                           SiteConfigurationSettingsValue)
 
 
 class SiteConfigurationMappingDynamicValue(TypedDict):

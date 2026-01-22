@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 
 from django.contrib.sites.models import Site
 from django.db import models
-from typing_extensions import TypeAlias
 
 from djblets.cache.synchronizer import GenerationSynchronizer
 from djblets.db.fields.json_field import JSONField
@@ -15,7 +14,7 @@ from typelets.json import JSONDict, JSONValue
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
-    from typing import ClassVar
+    from typing import ClassVar, TypeAlias
 
 
 #: An alias for valid value types in site configuration settings.

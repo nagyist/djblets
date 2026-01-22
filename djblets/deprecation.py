@@ -11,7 +11,7 @@ Version Changed:
 
 from __future__ import annotations
 
-from typing import Any, Callable
+from typing import TYPE_CHECKING
 
 from housekeeping import (
     BasePendingRemovalWarning,
@@ -19,8 +19,13 @@ from housekeeping import (
     deprecated_arg_value as djblets_deprecated_arg_value,
     deprecate_non_keyword_only_args as djblets_deprecate_non_keyword_only_args,
     func_moved)
-from housekeeping.functions import _FuncT
-from housekeeping.helpers import LazyObject
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import Any
+
+    from housekeeping.functions import _FuncT
+    from housekeeping.helpers import LazyObject
 
 
 class BaseRemovedInProductVersionWarning(BaseRemovedInWarning):

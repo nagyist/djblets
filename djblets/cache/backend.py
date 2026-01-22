@@ -33,11 +33,10 @@ from djblets.util.symbols import UNSET
 from housekeeping import deprecate_non_keyword_only_args
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
-    from typing import Any, Callable, Iterable, Iterator
+    from collections.abc import Callable, Iterable, Iterator, Sequence
+    from typing import Annotated, Any, TypeAlias
 
     from django.core.cache.backends.base import BaseCache
-    from typing_extensions import Annotated, TypeAlias
 
     from djblets.protect.locks import CacheLock
     from djblets.util.symbols import Unsettable

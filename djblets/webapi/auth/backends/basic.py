@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import base64
 import logging
-
-from django.http import HttpRequest
+from typing import TYPE_CHECKING
 
 from djblets.webapi.auth.backends.base import (WebAPIAuthBackend,
                                                WebAPIGetCredentialsResult)
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 
 logger = logging.getLogger(__name__)

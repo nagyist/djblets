@@ -8,7 +8,8 @@ from django import forms
 from typing_extensions import TypeVar
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Mapping, Sequence
+    from collections.abc import Mapping, Sequence
+    from typing import ClassVar
 
     from django.core.files.uploadedfile import UploadedFile
     from django.utils.datastructures import MultiValueDict

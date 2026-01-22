@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Sequence
+from collections.abc import Sequence
+from typing import Any
 
 from django import forms
 from django.contrib.sites.models import Site

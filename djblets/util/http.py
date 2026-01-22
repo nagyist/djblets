@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import hashlib
-from typing import Mapping
+from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
 from django.http import HttpResponse, HttpResponseNotModified
 from django.utils.encoding import force_bytes
 
 from djblets.util.dates import http_date
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class HttpResponseNotAcceptable(HttpResponse):

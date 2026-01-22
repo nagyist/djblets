@@ -4,9 +4,6 @@ from __future__ import annotations
 
 from typing import List, TYPE_CHECKING
 
-import dns.message
-import dns.rdataclass
-import dns.rdatatype
 import dns.resolver
 from django.core.cache import cache
 from django.utils.encoding import force_bytes

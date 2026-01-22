@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from datetime import datetime
 from importlib import import_module
-from typing import Any, Mapping, Sequence, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import dateutil.parser
 from django.core.exceptions import ValidationError
@@ -14,12 +14,12 @@ from django.utils.translation import gettext_lazy as _, gettext
 from typing_extensions import TypedDict
 
 if TYPE_CHECKING:
-    from typing import ClassVar
+    from collections.abc import Mapping, Sequence
+    from typing import Any, ClassVar, TypeAlias
 
     from django.core.files.uploadedfile import UploadedFile
     from django.http import QueryDict
     from django.utils.datastructures import MultiValueDict
-    from typing_extensions import TypeAlias
     from typelets.django.strings import StrOrPromise
 
     from djblets.webapi.resources import WebAPIResource

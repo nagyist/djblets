@@ -12,11 +12,10 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Sequence, TYPE_CHECKING, TypeVar, cast
+from typing import TYPE_CHECKING, TypeVar, cast
 
 from django.core.management import call_command
 from django.utils.translation import gettext as _
-from typing_extensions import Self, TypeAlias
 
 import djblets
 from djblets.extensions.errors import ExtensionPackagingError
@@ -24,7 +23,11 @@ from djblets.pipeline.settings import build_pipeline_settings
 from djblets.util.filesystem import is_exe_in_path
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+    from typing import TypeAlias
+
     from typelets.json import JSONDict
+    from typing_extensions import Self
 
     from djblets.extensions.extension import (CSSBundleConfigs,
                                               Extension,

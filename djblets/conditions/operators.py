@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, Iterable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
@@ -14,6 +14,9 @@ from djblets.registries.registry import (ALREADY_REGISTERED,
                                          NOT_REGISTERED, OrderedRegistry,
                                          UNREGISTER)
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from typing import Any, ClassVar
+
     from typelets.django.strings import StrOrPromise
 
     from djblets.conditions.choices import BaseConditionChoice

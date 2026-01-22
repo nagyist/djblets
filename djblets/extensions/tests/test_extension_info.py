@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 
@@ -15,6 +15,7 @@ from djblets.testing.testcases import TestCase
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+    from typing import Any
 
     from djblets.extensions.extension import ExtensionMetadata
 

@@ -3,21 +3,21 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Iterator, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.template import Library, RequestContext
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from pipeline.conf import settings as pipeline_settings
 from pipeline.templatetags.pipeline import JavascriptNode, StylesheetNode
-from typing_extensions import TypeAlias
 
-from djblets.extensions.hooks import TemplateHook
 from djblets.extensions.manager import get_extension_managers
 from djblets.pagestate.templatetags.djblets_pagestate import page_hook_point
 
 if TYPE_CHECKING:
-    from django.http import HttpRequest
+    from collections.abc import Callable, Iterator
+    from typing import Any, TypeAlias
+
     from django.template import Context
     from django.utils.safestring import SafeString
     from pipeline.templatetags.pipeline import PipelineMixin

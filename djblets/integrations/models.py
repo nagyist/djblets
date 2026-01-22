@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.db import models
 from django.utils import timezone
@@ -12,6 +12,8 @@ from djblets.db.fields import JSONField
 from djblets.integrations.mixins import NeedsIntegrationManagerMixin
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from djblets.integrations.integration import Integration
 
 

@@ -15,7 +15,7 @@ from importlib import import_module
 from importlib.machinery import ModuleSpec
 from importlib.util import module_from_spec
 from itertools import zip_longest
-from typing import Any, Iterator, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from unittest.util import safe_repr
 
 from django.apps import apps
@@ -44,10 +44,10 @@ except ImportError:
     Version = None
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Iterator, Sequence
     from contextlib import AbstractContextManager
     from types import ModuleType
-    from typing import ClassVar
+    from typing import Any, ClassVar
     from warnings import WarningMessage
 
     from django_assert_queries import ExpectedQuery

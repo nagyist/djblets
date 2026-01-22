@@ -4,10 +4,14 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import Any, Callable, cast
+from typing import TYPE_CHECKING, cast
 
 from django.core.exceptions import SuspiciousFileOperation
 from typing_extensions import Protocol
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import Any
 
 
 class _PathModule(Protocol):

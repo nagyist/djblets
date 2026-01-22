@@ -7,8 +7,9 @@ This module contains widgets that correspond to fields provided in
 from __future__ import annotations
 
 import copy
+from collections.abc import Callable
 from contextlib import contextmanager
-from typing import Any, Callable, Iterable, Iterator, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.forms import widgets
 from django.forms.widgets import HiddenInput
@@ -16,7 +17,6 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from housekeeping import deprecate_non_keyword_only_args
-from typing_extensions import Self, TypeAlias
 
 from djblets.conditions import ConditionSet
 from djblets.conditions.choices import ConditionChoices
@@ -25,13 +25,15 @@ from djblets.conditions.errors import (ConditionChoiceNotFoundError,
 from djblets.deprecation import RemovedInDjblets80Warning
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping, Sequence
+    from collections.abc import Iterable, Iterator, Mapping, Sequence
+    from typing import Any, TypeAlias
 
     from django.forms.renderers import BaseRenderer
     from django.forms.utils import _DataT, _FilesT
     from django.utils.safestring import SafeText
     from typelets.django.strings import StrOrPromise
     from typelets.funcs import KwargsDict
+    from typing_extensions import Self
 
     from djblets.conditions.choices import BaseConditionChoice
     from djblets.conditions.conditions import ConditionData, ConditionSetData

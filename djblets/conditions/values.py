@@ -3,18 +3,20 @@
 from __future__ import annotations
 
 import re
-from typing import (Any, Callable, ClassVar, Generic, Sequence, TYPE_CHECKING,
-                    cast)
+from collections.abc import Callable, Sequence
+from typing import Any, Generic, TYPE_CHECKING, cast
 
 from django import forms
 from django.db.models import Model, QuerySet
 from django.utils.translation import gettext_lazy as _
-from typing_extensions import TypeAlias, TypeVar
+from typing_extensions import TypeVar
 
 from djblets.conditions.errors import InvalidConditionValueError
 from typelets.json import JSONDict, JSONValue
 
 if TYPE_CHECKING:
+    from typing import ClassVar, TypeAlias
+
     from django.forms.utils import _DataT, _FilesT
     from django.utils.safestring import SafeString
 

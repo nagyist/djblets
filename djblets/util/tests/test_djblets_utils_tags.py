@@ -2,16 +2,18 @@
 
 from __future__ import annotations
 
-import warnings
-from collections import OrderedDict
 from datetime import datetime, timedelta
 
 from django.http import HttpRequest, QueryDict
 from django.template import Context, Template, TemplateSyntaxError
 
 from djblets.testing.testcases import TagTest, TestCase
-from djblets.util.templatetags.djblets_utils import (ageid, escapespaces,
-                                                     humanize_list, indent)
+from djblets.util.humanize import humanize_list
+from djblets.util.templatetags.djblets_utils import (
+    ageid,
+    escapespaces,
+    indent,
+)
 
 
 class AgeIdTagTests(TagTest):

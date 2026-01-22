@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from typing import Iterable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.contrib.auth.models import User
@@ -26,6 +26,8 @@ from djblets.webapi.responses import (WebAPIEventStreamMessage,
                                       WebAPIResponsePaginated)
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+
     from djblets.webapi.responses import WebAPIResponsePayload
 
 

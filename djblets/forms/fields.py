@@ -9,9 +9,7 @@ from zoneinfo import available_timezones
 from django import forms
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _, gettext
-from typing_extensions import Self, TypeAlias
 
-from djblets.conditions.choices import ConditionChoices
 from djblets.conditions.conditions import ConditionSet
 from djblets.conditions.errors import (ConditionChoiceNotFoundError,
                                        ConditionOperatorNotFoundError,
@@ -22,8 +20,12 @@ from djblets.forms.widgets import (ConditionsWidget,
                                    ListEditWidget)
 
 if TYPE_CHECKING:
-    from typelets.funcs import KwargsDict
+    from typing import TypeAlias
 
+    from typelets.funcs import KwargsDict
+    from typing_extensions import Self
+
+    from djblets.conditions.choices import ConditionChoices
     from djblets.conditions.conditions import ConditionSetData
 
 

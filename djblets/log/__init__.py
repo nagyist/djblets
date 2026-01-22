@@ -109,7 +109,7 @@ import os
 import sys
 from datetime import datetime, timezone
 from functools import update_wrapper
-from typing import Literal, Mapping, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from uuid import uuid4
 
 from django.conf import settings
@@ -118,6 +118,9 @@ from housekeeping import deprecate_non_keyword_only_args
 from djblets.deprecation import RemovedInDjblets80Warning
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+    from typing import Literal
+
     from django.http import HttpRequest
 
 

@@ -12,13 +12,14 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpRequest
-
-from djblets.webapi.auth.backends.base import (WebAPIAuthBackend,
-                                               WebAPIAuthenticateResult)
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from django.http import HttpRequest
+
+    from djblets.webapi.auth.backends.base import (WebAPIAuthBackend,
+                                                   WebAPIAuthenticateResult)
 
 
 _auth_backends: list[type[WebAPIAuthBackend]] = []

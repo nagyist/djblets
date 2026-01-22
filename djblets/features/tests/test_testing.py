@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import ClassVar, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from djblets.features import Feature, FeatureLevel, get_features_registry
 from djblets.features.testing import (override_feature_check,
@@ -10,6 +10,8 @@ from djblets.features.testing import (override_feature_check,
 from djblets.testing.testcases import TestCase
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+
     from djblets.features.testing import FeatureStates
 
 

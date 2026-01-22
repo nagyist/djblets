@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import inspect
 import logging
-from typing import Any, Callable, Final, Iterable, Mapping, TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, TypedDict, cast
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -19,8 +19,6 @@ from django.http.response import (HttpResponseNotAllowed,
 from django.urls import include, path, re_path, reverse
 from django.utils.functional import cached_property
 from django.views.decorators.vary import vary_on_headers
-from typing_extensions import (Literal, NotRequired, Protocol, TypeAlias,
-                               TypedDict)
 
 from djblets.auth.ratelimit import (RATE_LIMIT_API_ANONYMOUS,
                                     RATE_LIMIT_API_AUTHENTICATED,
@@ -56,14 +54,15 @@ from djblets.webapi.responses import (WebAPIEventStream,
                                       WebAPIResponsePayload)
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Callable, Iterable, Mapping, Sequence
     from datetime import datetime
-    from typing import ClassVar
+    from typing import Any, ClassVar, Final, Literal, Protocol, TypeAlias
 
     from django.db.models import Model
     from django.http import HttpRequest
     from django.urls import URLPattern, URLResolver
     from typelets.funcs import KwargsDict
+    from typing_extensions import NotRequired
 
     from djblets.webapi.fields import (BaseAPIFieldType,
                                        ListFieldTypeItemsInfo)

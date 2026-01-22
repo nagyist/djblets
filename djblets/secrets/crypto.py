@@ -8,11 +8,15 @@ from __future__ import annotations
 
 import base64
 import os
-from typing import AnyStr, Iterable, Iterator, cast
+from typing import TYPE_CHECKING, cast
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from django.conf import settings
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable, Iterator
+    from typing import AnyStr
 
 
 AES_BLOCK_SIZE = cast(int, algorithms.AES.block_size) // 8

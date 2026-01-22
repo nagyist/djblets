@@ -9,12 +9,16 @@ from __future__ import annotations
 import logging
 import time
 from contextlib import contextmanager
-from typing import Any, Iterator
+from typing import TYPE_CHECKING
 
 from django.http import HttpRequest
 
 from djblets.log import log_timed
 from djblets.testing.testcases import TestCase
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+    from typing import Any
 
 
 root_logger = logging.getLogger()

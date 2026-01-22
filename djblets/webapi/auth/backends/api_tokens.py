@@ -13,10 +13,9 @@ list at ``settings.WEB_API_AUTH_BACKENDS``.
 from __future__ import annotations
 
 import logging
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from django.contrib.auth import get_backends
-from django.http import HttpRequest
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import gettext as _
@@ -27,11 +26,14 @@ from djblets.webapi.auth.backends.base import (WebAPIAuthenticateResult,
                                                WebAPIGetCredentialsResult)
 from djblets.webapi.errors import LOGIN_FAILED
 from djblets.webapi.models import BaseWebAPIToken
-from djblets.webapi.responses import WebAPIResponseHeaders
 from djblets.webapi.signals import webapi_token_expired
 
 if TYPE_CHECKING:
-    from typing import ClassVar
+    from typing import Any, ClassVar
+
+    from django.http import HttpRequest
+
+    from djblets.webapi.responses import WebAPIResponseHeaders
 
 
 logger = logging.getLogger(__name__)

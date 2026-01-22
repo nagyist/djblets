@@ -17,7 +17,6 @@ from djblets.protect.ratelimit import RateLimit, check_rate_limit
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
-    from typing import Any
 
     from django.http import HttpRequest
 

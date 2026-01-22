@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from collections import OrderedDict
 from dataclasses import dataclass
-from typing import Any, Iterable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 import kgb
 from django.contrib.auth.models import User
@@ -29,6 +29,9 @@ from djblets.webapi.responses import (WebAPIEventStreamMessage,
                                       WebAPIResponseEventStream)
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from typing import Any
+
     from djblets.webapi.responses import WebAPIResponsePayload
 
 

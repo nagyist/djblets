@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import (Any, Callable, ClassVar, Iterable, Iterator, Sequence,
-                    TYPE_CHECKING)
+from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
@@ -35,6 +34,9 @@ from djblets.registries.registry import (ALREADY_REGISTERED,
                                          UNREGISTER)
 
 if TYPE_CHECKING:
+    from collections.abc import Callable, Iterable, Iterator, Sequence
+    from typing import Any, ClassVar
+
     from django.db.models import QuerySet
     from typelets.funcs import KwargsDict
 
