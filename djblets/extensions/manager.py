@@ -1851,8 +1851,14 @@ class ExtensionManager:
         if not os.path.isabs(filename):
             filename = os.path.join(tempfile.gettempdir(), filename)
 
-        with open(filename, 'w') as fp:
-            locks.lock(fp, lock_flags)
+        with open(filename, mode='w', encoding='utf-8') as fp:
+            # As of Django 3.2, ``locks.lock()`` returns ``False`` when a
+            # non-blocking lock cannot be acquired. Raise an IOError(EAGAIN) to
+            # mimic the older behavior that this was initially written against.
+            if not locks.lock(fp, lock_flags):
+                raise BlockingIOError(
+                    errno.EAGAIN,
+                    f'Could not acquire lock on "{filename}"')
 
             try:
                 yield
