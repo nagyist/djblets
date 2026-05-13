@@ -1,55 +1,21 @@
 """Common symbols useful for function signatures.
 
+Version Changed:
+    6.0:
+    This module now just forwards to :py:mod:`typelets.symbols`. Imports to
+    this module will be deprecated in a future release.
+
 Version Added:
     3.3
 """
 
-from enum import Enum
-from typing import TypeVar, Union
+from __future__ import annotations
 
-from typing_extensions import Final, Literal, TypeAlias
-
-
-_T = TypeVar('_T')
+from typelets.symbols import UNSET, UnsetSymbol, Unsettable
 
 
-class UnsetSymbol(Enum):
-    """A type indicating an unsettable value.
-
-    This can be useful in functions that take default values to distinguish
-    between a value not provided and a false/``None`` value.
-
-    Version Changed:
-        4.0:
-        This is now an Enum, allowing values to be used in
-        :py:class:`typing.Literal`.
-
-    Version Added:
-        3.3
-    """
-
-    UNSET = '<UNSET>'
-
-
-#: An instance of a symbol indicating an unset value.
-#:
-#: Version Added:
-#:     3.3
-UNSET: Final[Literal[UnsetSymbol.UNSET]] = UnsetSymbol.UNSET
-
-
-#: A generic type alias for marking a type as unsettable.
-#:
-#: This allows for usage like:
-#:
-#: .. code-block:: python
-#:
-#:    def __init__(
-#:        self,
-#:        value: Unsettable[str],
-#:    ) -> None:
-#:        ...
-#:
-#: Version Added:
-#:     4.0
-Unsettable: TypeAlias = Union[Literal[UnsetSymbol.UNSET], _T]
+__all__ = [
+    'UNSET',
+    'UnsetSymbol',
+    'Unsettable',
+]
