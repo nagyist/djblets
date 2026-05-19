@@ -281,8 +281,9 @@ def check_rate_limit(
                 count = cache.incr(cache_key)
             except ValueError:
                 # Add this to the cache, and set expiration 1 minute beyond
-                # the window to help avoid race conditions or clock skew,
-                cache.add(cache_key, 1, timeout=window + 60)
+                # the number of seconds remaining to help avoid race
+                # conditions or clock skew.
+                cache.add(cache_key, 1, timeout=time_left_secs + 60)
         except Exception as e:
             logger.exception('Failed to set rate limit cache key "%s". Rate '
                              'limit checks are currently unreliable. Is the '
