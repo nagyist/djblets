@@ -63,7 +63,6 @@ __all__ = [
     'SerializableJSONList',
     'SerializableJSONListImmutable',
     'SerializableJSONValue',
-    'SerializableJSONValue',
     'StrOrPromise',
     'StrPromise',
     'ToJsonProtocol',
