@@ -166,10 +166,14 @@ Djblets.
    https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-mail
 .. _djblets.markdown:
    https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-markdown
+.. _djblets.pagestate:
+   https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-pagestate
 .. _djblets.pipeline:
    https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-pipeline
 .. _djblets.privacy:
    https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-privacy
+.. _djblets.protect:
+   https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-protect
 .. _djblets.recaptcha:
    https://www.reviewboard.org/docs/djblets/latest/coderef/#coderef-djblets-recaptcha
 .. _djblets.registries:
@@ -206,6 +210,8 @@ Djblets.
 Compatibility
 =============
 
+Djblets 6.x (release-6.x_) supports Python 3.8-3.13 and Django 4.2.
+
 Djblets 5.x (release-5.x_) supports Python 3.8-3.12 and Django 4.2.
 
 Djblets 4.x (release-4.x_) supports Python 3.8-3.12 and Django 3.2.
@@ -228,6 +234,7 @@ See the `release notes`_ for information on the latest public releases.
 .. _release-3.x: https://github.com/djblets/djblets/tree/release-3.x
 .. _release-4.x: https://github.com/djblets/djblets/tree/release-4.x
 .. _release-5.x: https://github.com/djblets/djblets/tree/release-5.x
+.. _release-6.x: https://github.com/djblets/djblets/tree/release-6.x
 .. _release notes: https://www.reviewboard.org/docs/releasenotes/djblets/
 
 
