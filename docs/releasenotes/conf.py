@@ -241,6 +241,7 @@ intersphinx_mapping = {
     'djblets3.x': ('%s/docs/djblets/3.x/' % rbwebsite_url, None),
     'djblets4.x': ('%s/docs/djblets/4.x/' % rbwebsite_url, None),
     'djblets5.x': ('%s/docs/djblets/5.x/' % rbwebsite_url, None),
+    'djblets6.x': ('%s/docs/djblets/6.x/' % rbwebsite_url, None),
     'djblets-latest': ('%s/docs/djblets/latest/' % rbwebsite_url, None),
 }
 

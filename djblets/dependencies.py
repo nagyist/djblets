@@ -64,6 +64,7 @@ reviewboard_doc_major_version = 'dev'
 #: The version range required for Django.
 django_version = '~=5.2.9'
 
+
 ###########################################################################
 # Python dependencies
 ###########################################################################

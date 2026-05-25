@@ -1,0 +1,1057 @@
+.. default-intersphinx:: django4.2 djblets6.x python3
+
+
+=========================
+Djblets 6.0 Release Notes
+=========================
+
+**Release date**: May 24, 2026
+
+
+Installation
+============
+
+Djblets 6.0 is compatible with Python 3.8 - 3.13 and Django_ 4.2.x.
+
+To install Djblets 6.0, run:
+
+.. code-block:: console
+
+   $ pip3 install Djblets==6.0
+
+
+To learn more, see:
+
+* `Documentation <https://www.reviewboard.org/docs/djblets/6.x/>`_
+* `Djblets on PyPI <https://pypi.org/project/Djblets/>`_
+* `Djblets on GitHub <https://github.com/djblets/djblets/>`_
+
+
+.. _Django: https://www.djangoproject.com/
+
+
+Highlights
+==========
+
+* :py:mod:`djblets.cache`: Safer cache key building to prevent cache
+  poisoning, and cache lock support.
+
+* :py:mod:`djblets.datagrid`: Easier creation of columns, enhanced
+  search indexing support, and JSON serialization.
+
+* :py:mod:`djblets.extensions`: Per-app admin modules, better
+  :py:class:`TemplateHooks <djblets.extensions.hooks.TemplateHook>`, and
+  performance improvements.
+
+* :py:mod:`djblets.pagestate`: New module for dynamic page state injection
+  into templates.
+
+* :py:mod:`djblets.protect`: New module for creating and managing distributed
+  locks and handling rate limiting.
+
+* :py:mod:`djblets.siteconfig`: Layered lookups of configuration state,
+  making it easier to override settings at user, team, or other levels.
+
+* :py:mod:`djblets.util.views`: Subnet support for health check IPs.
+
+Those are just some of the highlights. There are lots of new features, bug
+fixes, enhanced typing, and deprecations throughout Djblets 6.
+
+
+Packaging
+=========
+
+* Added a dependency on :pypi:`typelets` 1.1.x.
+
+* Added a dependency on :pypi:`django-assert-queries` 2.0.x.
+
+  This offers compatibility for the now-deprecated
+  :py:mod:`djblets.db.query_catcher` and
+  :py:mod:`djblets.db.query_comparator` modules.
+
+  This dependency will be removed in Djblets 8 when these modules are dropped.
+
+* Switched package building to the :pypi:`buildthings` backend.
+
+
+djblets.pagestate (New)
+=======================
+
+This is a new feature in Djblets allowing for advanced injection of
+dynamic state into a page.
+
+Extension authors know that :py:class:`TemplateHooks
+<djblets.extensions.hooks.TemplateHook>` are a powerful way of letting
+third-party code modify a page, rendering new HTML in pre-defined places (such
+as a list of scripts, a list of buttons, etc.), and attaching custom state for
+later processing.
+
+This feature is now available more generally.
+
+Templates can now define page hook points, and callers can inject content
+into them. All with a simple API.
+
+This plays nice with HTTP caching. When injecting, a custom ETag for that
+content can be set, which will be merged with the ETag sent in the HTTP
+response.
+
+See our :ref:`guide on Dynamic Page Injections <pagestate-guide>`.
+
+
+djblets.protect (New)
+=====================
+
+Distributed locks
+-----------------
+
+We added a basic distributed lock implementation that can be used to help
+applications avoid stampede issues.
+
+:py:class:`djblets.protect.locks.CacheLock` provides the lock, using the
+cache backend for coordination. It can be used as a context manager or passed
+to existing cache functions (such as
+:py:func:`djblets.cache.backend.cache_memoize`).
+
+.. important::
+
+   These locks should only be used in cases where the loss of a lock will
+   not cause corruption or other bad behavior. As cache backends may expire
+   keys prematurely, and may lack atomic operations, a lock cannot be
+   guaranteed.
+
+   These should be treated as a best-effort optimistic lock.
+
+
+For example:
+
+.. code-block:: python
+
+   from djblets.cache.backend import cache_memoize
+   from djblets.protect.locks import CacheLock
+
+   lock = CacheLock(key='my-lock')
+
+   # As a context manager:
+   with lock:
+       if lock.locked():
+           # Do something expensive
+           ...
+
+   # With cache_memoize:
+   result = cache_memoize(
+       'my-key',
+       lambda: generate_expensive_state(),
+       lock=lock,
+   )
+
+
+Generic rate limiting
+---------------------
+
+:py:mod:`djblets.protect.ratelimit` allows callers to rate limit any
+operation, with rate limits based on users, IPs, or any other criteria
+required.
+
+This can be used to limit requests to third-party services or Webhook
+endpoints, limit access to files, limit changes to profiles or edits on
+objects, or anything else the application requires.
+
+See our :ref:`guide on Rate Limiting <ratelimit-guide>`.
+
+
+djblets.cache
+=============
+
+Protection for cache key poisoning
+----------------------------------
+
+When constructing a cache key, callers can provide a list of strings
+(hard-coded or variables) used to construct the cache key. Each component
+will be escaped and combined safely.
+
+This can help avoid cache key poisoning, making cache keys safe when they
+involve dynamic input, like identifiers or domains.
+
+The following support this:
+
+* :py:func:`djblets.cache.backend.cache_memoize`
+* :py:func:`djblets.cache.backend.cache_memoize_iter`
+* :py:func:`djblets.cache.backend.make_cache_key`
+* :py:class:`djblets.cache.synchronizer.GenerationSynchronizer`
+
+For example:
+
+.. code-block:: python
+
+   from djblets.cache.backend import cache_memoize
+
+
+   result = cache_memoize(
+       ['user-stats', user.username, 'full'],
+       lambda: build_user_stats(),
+   )
+
+This is opt-in. If your cache key is composed of variables instead of
+static strings, you should update your code to be a list of strings.
+
+
+Locked cache operations
+-----------------------
+
+To avoid stampede issues, where multiple concurrent requests may cause data
+to be generated multiple times for the same cache key, data generation can
+now be guarded with a distributed lock.
+
+Both :py:func:`~djblets.cache.backend.cache_memoize` and
+:py:func:`~djblets.cache.backend.cache_memoize_iter` now take an optional
+``lock=`` argument, which accepts a
+:py:class:`~djblets.protect.locks.CacheLock` instance. This will make a
+best attempt to prevent the cache data generation function from being
+called more than once, blocking other requests until completed.
+
+For example:
+
+.. code-block:: python
+
+   from djblets.cache.backend import cache_memoize
+   from djblets.protect.locks import CacheLock
+
+   lock = CacheLock(key='my-lock')
+
+   result = cache_memoize(
+       'my-key',
+       lambda: generate_expensive_state(),
+       lock=lock,
+   )
+
+
+djblets.conditions
+==================
+
+* Improved IDE support and static analysis by adding Python type hints
+  throughout the module.
+
+
+djblets.configforms
+===================
+
+* Added dark mode support for configform field and form errors.
+
+
+djblets.datagrid
+================
+
+Simplified creation of columns
+------------------------------
+
+Datagrid column subclasses no longer need to override
+:py:meth:`~djblets.datagrid.grids.Column.__init__`. Instead, they can
+set attributes directly on the class. This makes columns easier to write,
+and reduces startup time and memory usage of datagrids.
+
+For example:
+
+.. code-block:: python
+
+   from djblets.datagrid.grids import Column
+
+
+   class AuthorColumn(Column):
+       label = 'Author'
+       detailed_label = 'Author Name'
+       db_field = 'author__name'
+       shrink = True
+       sortable = True
+
+
+Caller-controlled columns and sorts
+-----------------------------------
+
+Datagrids can now be given an explicit list of columns and sorting to use when
+instantiating the instance.
+
+For example:
+
+.. code-block:: python
+
+   datagrid = MyDataGrid(
+       request=request,
+       columns=['summary', 'author', 'last_updated'],
+       sort=['-last_updated'],
+   )
+
+
+Control over datagrid search indexing
+-------------------------------------
+
+Search engine bots have a tendency to explore too many combinations of
+column fields and sort options.
+
+Several updates have been made to reduce what a bot can follow:
+
+* Sort and column choices are no longer navigable links.
+
+* The last page of a datagrid now communicates to search engine bots that
+  they shouldn't navigate there.
+
+* Search engine bots are now informed which page is the first, previous, next,
+  or last pages in the datagrid results.
+
+* Canonical URLs are now provided that exclude extra columns or sort
+  options, reducing how many pages need to be indexed.
+
+* URLs all use sorted arguments, keeping URLs stable for search engines
+  that don't normalize URLs themselves.
+
+* Search indexing for a datagrid can be turned off by setting
+  ``allow_search_indexing = False`` when constructing the datagrid.
+
+For example:
+
+.. code-block:: python
+
+   from djblets.datagrid.grids import DataGrid
+
+
+   class MyDataGrid(DataGrid):
+       allow_search_indexing = False
+
+It's still up to the search engine bot to follow any hints set by the
+datagrid. Many AI bots will ignore these, but most search engines will
+respect them.
+
+
+JSON serialization of datagrids
+-------------------------------
+
+Datagrids and their columns can now be serialized to JSON. This can be used
+to provide a representation of the datagrid that can be returned in an API,
+or rendered through another means.
+
+To serialize a datagrid to JSON, call :py:meth:`DataGrid.to_json()
+<djblets.datagrid.grids.DataGrid.to_json>`.
+
+Columns can provide custom JSON serialization by overriding
+:py:meth:`Column.to_json() <djblets.datagrid.grids.Column.to_json>`.
+
+Since there are now two ways to render data (via HTML and JSON), you may
+want to calculate some common value by overriding the new
+:py:meth:`Column.get_raw_object_value()
+<djblets.datagrid.grids.Column.get_raw_object_value>`. By default, the
+result will be returned by both :py:meth:`Column.to_json()
+<djblets.datagrid.grids.Column.to_json>` and :py:meth:`Column.render_data()
+<djblets.datagrid.grids.Column.render_data>`. If you override either of these
+methods, you can call your
+:py:meth:`~djblets.datagrid.grids.Column.get_raw_object_value` and then use
+the result however you want.
+
+For example:
+
+.. code-block:: python
+
+   from typing import Any
+
+   from django.utils.html import format_html
+   from django.utils.safestring import SafeString
+   from djblets.datagrid.grids import Column, StatefulColumn
+   from typelets.django.json import SerializableDjangoJSONValue
+
+
+   class AuthorColumn(Column):
+       def get_raw_object_value(
+           self,
+           state: StatefulColumn,
+           obj: Author,
+       ) -> dict[str, Any]:
+           return {
+               'id': obj.pk,
+               'name': obj.name,
+               'url': obj.get_absolute_url(),
+           }
+
+       def to_json(
+           self,
+           state: StatefulColumn,
+           obj: Author,
+       ) -> SerializableDjangoJSONValue:
+           author_data = self.get_raw_object_value(state, obj)
+
+           return {
+               'id': author_data['id'],
+               'name': author_data['name'],
+               '_links': {
+                   'profile': {
+                       'href': author_data['url'],
+                   },
+              },
+           }
+
+       def render_data(
+           self,
+           state: StatefulColumn,
+           obj: Author,
+       ) -> SafeString:
+           author_data = self.get_raw_object_value(state, obj)
+
+           return format_html(
+               '<a data-author-id="{id}" href="{url}">{name}</a>',
+               id=author_data['id'],
+               name=author_data['name'],
+               url=author_data['url'],
+           )
+
+
+Extra data storage for datagrid columns
+---------------------------------------
+
+We added a :py:attr:`StatefulColumn.extra_data
+<djblets.datagrid.grids.StatefulColumn.extra_data>` attribute for columns,
+which they can use to store custom data.
+
+This can be used by the column implementation in any way that it may need.
+
+For example:
+
+.. code-block:: python
+
+   from django.db.models import QuerySet
+   from django.utils.safestring import SafeString, mark_safe
+   from djblets.datagrid.grids import Column, StatefulColumn
+
+
+   class StarredColumn(Column):
+       def augment_queryset(
+           self,
+           state: StatefulColumn,
+           queryset: QuerySet,
+       ) -> QuerySet:
+           pks = set(
+               state.datagrid.request.user.starred_books
+              .filter(pk__in=state.datagrid.id_list)
+               .values_list('pk', flat=True)
+           )
+
+           state.extra_data['starred_ids'] = pks
+
+           return queryset
+
+       def get_raw_object_value(
+           self,
+           state: StatefulColumn,
+           obj: Book,
+       ) -> bool:
+           return obj.pk in state.extra_data['starred_ids']
+
+       def render_data(
+           self,
+           state: StatefulColumn,
+           obj: Book,
+       ) -> SafeString:
+           if self.get_raw_object_value(state, obj):
+               return mark_safe('⭐️')
+
+           return mark_safe('')
+
+
+Performance improvements
+------------------------
+
+We've reduced the work needed to calculate datagrid pagination, making
+datagrids faster.
+
+
+djblets.db
+==========
+
+Cached value access
+-------------------
+
+We added :py:func:`~djblets.db.query.get_object_cached_field`.
+
+This returns the value populated for a model's field when using
+:py:meth:`~django.db.models.query.QuerySet.prefetch_related` or
+:py:meth:`~django.db.models.query.QuerySet.select_related`.
+
+If the value is not found in the cache, the value will *not* be fetched
+from the database. Instead, :py:func:`typelets.symbols.UNSET` will be
+returned. This makes it a useful way of safely checking for a cached
+value quickly without any side effects.
+
+For example:
+
+.. code-block:: python
+
+   from djblets.db.query import get_object_cached_field
+
+
+   # These would return the associated values if set.
+   book = (
+       Book.objects
+       .select_related('author')
+       .prefetch_related('series')
+   )[0]
+   author = get_object_cached_field(book, 'author')
+   series = get_object_cached_field(book, 'series')
+
+   # And these would return UNSET, without an additional database query.
+   book = Book.objects.all()[0]
+   author = get_object_cached_field(book, 'author')  # UNSET
+   series = get_object_cached_field(book, 'series')  # UNSET
+
+
+Typing improvements
+-------------------
+
+* Added type hints for :py:func:`~djblets.db.query.get_object_or_none`.
+
+  The returned type will always be an instance of the model type that's
+  passed in.
+
+  For example:
+
+  .. code-block:: python
+
+     from typing import reveal_type
+
+     from djblets.db.query import get_object_or_none
+
+
+     obj = get_object_or_none(Book, pk=123)
+     reveal_type(obj)  # This will be Book.
+
+
+Bug fixes
+---------
+
+* Fixed validation of values in
+  :py:class:`~djblets.db.fields.comma_separated_values_field.
+  CommaSeparatedValuesField`.
+
+
+Deprecations
+------------
+
+* Deprecated :py:mod:`djblets.db.query_catcher` and
+  :py:mod:`djblets.db.query_comparator`.
+
+  This has been replaced by our new :pypi:`django-assert-queries` package.
+  Djblets will include this as a dependency for now, but the dependency
+  will be dropped in a future release. Projects using this functionality
+  should explicitly switch to using and depending on
+  :pypi:`django-assert-queries` directly.
+
+
+djblets.extensions
+==================
+
+Per-app admin modules
+---------------------
+
+All ``.admin`` modules for an extension are now loaded.
+
+Previously, only the top-level ``.admin`` module for an extension would
+be loaded. Now, all extension-provided apps' ``.admin`` modules will be
+loaded.
+
+This is supported for all apps defined in :py:attr:`Extension.apps
+<djblets.extensions.extension.Extension.apps>`.
+
+
+Improved TemplateHook configuration
+-----------------------------------
+
+:py:class:`~djblets.extensions.hooks.TemplateHook` subclasses can now be
+customized on the class level.
+
+The following can be set on the class directly, instead of having to pass
+during construction:
+
+* :py:attr:`~djblets.extensions.hooks.TemplateHook.apply_to`
+* :py:attr:`~djblets.extensions.hooks.TemplateHook.extra_context`
+* :py:attr:`~djblets.extensions.hooks.TemplateHook.name`
+* :py:attr:`~djblets.extensions.hooks.TemplateHook.template_name`
+
+Further, they can opt out of rendering on a case-by-case basis by overriding
+:py:meth:`~djblets.extensions.hooks.TemplateHook.should_render`.
+
+For example:
+
+.. code-block:: python
+
+   from django.http import HttpRequest
+   from django.template import Context
+   from djblets.extensions.hooks import TemplateHook
+
+
+   class MyTemplateHook(TemplateHook):
+       name = 'actions'
+       apply_to = ['dashboard']
+       template_name = 'dashboard/action.html'
+       extra_context = {
+           'action_title': 'Download CSV',
+       }
+
+       def should_render(
+           self,
+           *,
+           request: HttpRequest,
+           context: Context,
+       ) -> bool:
+           return request.user.is_authenticated
+
+
+Performance and state improvements
+----------------------------------
+
+We reduced the chances for extensions to prematurely reload and cause issues
+under load.
+
+Extension state is synchronized across servers using the cache backend.
+This could expire prematurely, causing all extensions to reload. Under high
+load, this could lead to some temporary errors. State should now last for
+up to a year in cache, or until extension state has changed.
+
+Concurrency issues could also occur during installation of an extension's
+static media. This has been fixed.
+
+
+Extension customization improvements
+------------------------------------
+
+* Added custom template context for the
+  :py:func:`~djblets.extensions.views.configure_extension` and
+  :py:func:`~djblets.extensions.views.extension_list` views.
+
+  This allows applications to specialize these views, adding additional
+  data to include in the templates.
+
+* Full extension bundle IDs can now be passed to the
+  :py:func:`{% ext_css_bundle %}
+  <djblets.extensions.templatetags.djblets_extensions.ext_css_bundle>` and
+  :py:func:`{% ext_js_bundle %}
+  <djblets.extensions.templatetags.djblets_extensions.ext_js_bundle>`
+  template tags.
+
+  Full bundle IDs include the extension ID. These can be used instead of the
+  short extension-local bundle ID, in places where that's more convenient
+  or when rendering a bundle outside of an extension-managed template.
+
+* We fixed various type hint issues in both the Python and JavaScript
+  extension APIs, making it easier to properly write extensions in your IDE.
+
+
+djblets.features
+================
+
+Easier feature overrides in unit tests
+--------------------------------------
+
+:py:class:`~djblets.features.testing.override_feature_check` and
+:py:class:`~djblets.features.testing.override_feature_checks` can now be
+used as a decorator.
+
+These decorators are used for unit tests that need to simulate enabling or
+disabling a feature check. It can decorate either classes or functions.
+
+For example:
+
+.. code-block:: python
+
+   from djblets.features.testing import (override_feature_check,
+                                         override_feature_checks)
+
+
+   @override_feature_check(my_feature_id, enabled=True)
+   def test_my_feature_1() -> None:
+       ...
+
+
+   @override_feature_checks({
+       'my_feature_2': True,
+       'my_feature_3': False,
+   })
+   def test_my_feature_2_3() -> None:
+       ...
+
+
+djblets.forms
+=============
+
+Dynamic conditions
+------------------
+
+:py:class:`~djblets.forms.fields.ConditionsField` will now reflect
+dynamically-added condition choices.
+
+Callers should now pass in an instance of a
+:py:class:`~djblets.conditions.choices.ConditionChoices` instead of a class,
+in order to leverage this.
+
+For example:
+
+.. code-block:: python
+
+   from django import forms
+   from djblets.conditions.choices import ConditionChoices
+   from djblets.forms.fields import ConditionsField
+
+
+   choices = ConditionChoices([...])
+
+
+   class MyForm(forms.Form):
+       conditions = ConditionsField(choices=choices)
+
+
+Bug fixes
+---------
+
+* Fixed display issues with :py:class:`~djblets.forms.widgets.ListEditWidget`.
+
+  The widget now better fits into the available space where it's shown, and
+  shows a standard button appearance.
+
+
+djblets.http
+============
+
+Proxy-aware IP lookup
+---------------------
+
+We added :py:func:`djblets.http.requests.get_http_request_ip`.
+
+This method returns the requester's IP, paying attention to the
+:mailheader:`X-Real-IP` and :mailheader:`X-Forwarded-For` headers if
+available.
+
+Callers using this must be careful to ensure HTTP requests cannot send
+falsified headers. Web servers must sanitize these headers before they reach
+Django.
+
+
+djblets.log
+===========
+
+Customization for log timers
+----------------------------
+
+We added new options, context manager support, and deprecations for
+:py:func:`~djblets.log.log_timed`:
+
+* The new ``logger`` argument can specify which logger should be used
+  for any log messages.
+
+* The new ``trace_id`` argument can specify an ID referenced in an error
+  message, helping people locate logs relevant to the error.
+
+* The new ``extra`` argument can be used to specify additional state to
+  pass along with the log message.
+
+* The function can now be used as a context manager, which is a convenience
+  over explicitly calling ``done()`` on the log timer.
+
+* All arguments except ``message`` must now be passed as keyword-only.
+
+  This will be required starting in Djblets 8.
+
+For example:
+
+.. code-block:: python
+
+   import logging
+
+   from djblets.log import log_timed
+
+
+   logger = logging.getLogger(__name__)
+
+
+   with log_timed('Doing a thing',
+                  extra={'request': request},
+                  logger=logger):
+       ...
+
+
+Bug fixes
+---------
+
+* Fixed file descriptor leaks when starting or restarting logging.
+
+
+djblets.mail
+============
+
+Enhanced logging
+----------------
+
+* Added enhanced logging for DMARC record fetching.
+
+  When fetching a DMARC record, DEBUG-level messages will be logged to
+  indicate when the fetch begins and ends. If it takes too long, WARNING,
+  ERROR, or CRITICAL log messages will be logged based on the time spent.
+
+* Added enhanced logging for e-mail sending.
+
+  When sending an e-mail using a mail backend, DEBUG-level messages will be
+  logged to indicate when the e-mail is being sent and when delivery has
+  finished. If it takes too long, WARNING, ERROR, or CRITICAL log messages
+  will be logged based on the time spent.
+
+
+djblets.pipeline
+================
+
+More flexible tool checks
+-------------------------
+
+Checks for ``babel``, ``lessc``, ``rollup``, and other static media tools
+are now checked by running :command:`npm exec` in the list of node module
+paths, instead of checking for specific files in a specific directory.
+
+
+djblets.siteconfig
+==================
+
+Layered settings lookup
+-----------------------
+
+:py:meth:`SiteConfiguration.get()
+<djblets.siteconfig.models.SiteConfiguration.get>` now accepts a ``layers=``
+argument, which is a list of dictionaries to search for the key.
+
+If the key is present in any of the dictionaries, the value will be returned
+without checking the stored site configuration or defaults.
+
+This can be used to offer overrides for settings specific to users, teams,
+feature flag state, etc., all with the convenience of one call.
+
+For example:
+
+.. code-block:: python
+
+   from djblets.siteconfig.models import SiteConfiguration
+
+
+   siteconfig = SiteConfiguration.objects.get_current()
+   team_settings = {
+       'public_access': True,
+   }
+
+   # This will prioritize team_settings and fall back to siteconfig and
+   # then the default.
+   public_server = siteconfig.get(
+       'public_access',
+       layers=[team_settings],
+       default=False,
+   )
+
+
+djblets.testing
+===============
+
+* All mismatched warnings are now shown in the
+  :py:meth:`TestCase.assertWarnings()
+  <djblets.testing.testcases.TestCase.assertWarnings>` output.
+
+* Deprecated :py:meth:`TestCase.assertQueries()
+  <djblets.testing.testcases.TestCase.assertQueries>` in favor of
+  the :pypi:`django_assert_queries` package.
+
+
+djblets.util.decorators
+=======================
+
+Enhanced usage of @blocktag
+---------------------------
+
+* Calls to :py:func:`@blocktag <djblets.util.decorators.blocktag>` can now
+  specify an explicit tag name.
+
+  For example:
+
+  .. code-block:: python
+
+     @blocktag(name='my-block-tag')
+     def _my_tag(context, nodelist):
+         ...
+
+* Template tags implemented using
+  :py:func:`@blocktag <djblets.util.decorators.blocktag>` now accept keyword
+  arguments.
+
+  For example:
+
+  .. code-block:: html+django
+
+     {% my_block_tag param1=True param2="hi" %}
+
+
+djblets.util.views
+==================
+
+Subnet support for healthcheck IPs
+----------------------------------
+
+``settings.DJBLETS_HEALTHCHECK_IPS`` can now list subnets.
+
+When using :py:class:`~djblets.util.views.HealthCheckView`, the configured
+list of IPs allowed to perform a health check can now include subnets.
+
+For example:
+
+.. code-block:: python
+
+   DJBLETS_HEALTHCHECK_IPS = [
+       '127.0.0.1',
+       '10.0.0.0/8',
+   ]
+
+
+djblets.util.http
+=================
+
+* :py:func:`~djblets.util.http.get_url_params_except` now returns arguments
+  in sorted order instead of dictionary order.
+
+  This helps ensure URLs are consistent, which can help with caching.
+
+* Updated :py:func:`~djblets.util.http.encode_etag` to return SHA256
+  results instead of SHA1.
+
+
+djblets.util.symbols
+====================
+
+This module now forwards to modules in :pypi:`typelets`. Imports for the
+following should be updated:
+
+* :py:data:`~UNSET` → :py:data:`typelets.symbols.UNSET`
+* :py:data:`~UnsetSymbol` → :py:data:`typelets.symbols.UnsetSymbol`
+* :py:data:`~Unsettable` → :py:data:`typelets.symbols.Unsettable`
+
+These are pending deprecation and are planned to be removed in a future
+release.
+
+
+djblets.util.templatetags.djblets_utils
+=======================================
+
+Define typed variables in templates
+-----------------------------------
+
+:py:func:`{% definevar %} <djblets.util.templatetags.djblets_utils.definevar>`
+can now store non-string variables. Callers can specify the type using
+``as_type``. This supports:
+
+* ``as_type=str``: String (default)
+* ``as_type=bool``: Boolean (``true`` or ``1``, case-insensitive)
+* ``as_type=int``: Integer (invalid values will raise a
+  :py:exc:`~django.template.TemplateSyntaxError`).
+
+For example:
+
+
+.. code-block:: html+django
+
+   {% load djblets_utils %}
+
+   {% definevar "my_count" as_type=int %}123{% enddefinevar %}
+
+   {% definevar "my_bool" as_type=bool %}false{% enddefinevar %}
+
+
+Unique ID generation
+--------------------
+
+Added a :py:func:`{% unique_id %}
+<djblets.util.templatetags.djblets_utils.unique_id>` template tag for
+generating stable unique IDs within a page.
+
+These IDs can be used to dynamically create an ID for an element, making
+it easy for other attributes to reference that ID. For example:
+
+.. code-block:: html+django
+
+   {% load djblets_utils %}
+
+   {% unique_id "my_component" as my_unique_id %}
+
+   <div aria-labelledby="{{my_unique_id}}">
+    <h2 id="{{my_unique_id}}">Header</h2>
+   </div>
+
+
+djblets.util.typing
+===================
+
+This module now forwards to modules in :pypi:`typelets`. Imports for the
+following should be updated:
+
+* :py:data:`~djblets.util.typing.JSONDict` →
+  :py:data:`typelets.json.JSONDict`
+
+* :py:data:`~djblets.util.typing.JSONDictImmutable` →
+  :py:data:`typelets.json.JSONDictImmutable`
+
+* :py:data:`~djblets.util.typing.JSONList` →
+  :py:data:`typelets.json.JSONList`
+
+* :py:data:`~djblets.util.typing.JSONListImmutable` →
+  :py:data:`typelets.json.JSONListImmutable`
+
+* :py:data:`~djblets.util.typing.JSONValue` →
+  :py:data:`typelets.json.JSONValue`
+
+* :py:data:`~djblets.util.typing.KwargsDict` →
+  :py:data:`typelets.funcs.KwargsDict`
+
+* :py:data:`~djblets.util.typing.SerializableDjangoJSONDict` →
+  :py:data:`typelets.django.json.SerializableDjangoJSONDict`
+
+* :py:data:`~djblets.util.typing.SerializableDjangoJSONDictImmutable` →
+  :py:data:`typelets.django.json.SerializableDjangoJSONDictImmutable`
+
+* :py:data:`~djblets.util.typing.SerializableDjangoJSONList` →
+  :py:data:`typelets.django.json.SerializableDjangoJSONList`
+
+* :py:data:`~djblets.util.typing.SerializableDjangoJSONListImmutable` →
+  :py:data:`typelets.django.json.SerializableDjangoJSONListImmutable`
+
+* :py:data:`~djblets.util.typing.SerializableDjangoJSONValue` →
+  :py:data:`typelets.django.json.SerializableDjangoJSONValue`
+
+* :py:data:`~djblets.util.typing.StrOrPromise` →
+  :py:data:`typelets.django.strings.StrOrPromise`
+
+* :py:data:`~djblets.util.typing.StrPromise` →
+  :py:data:`typelets.django.strings.StrPromise`
+
+These are pending deprecation and are planned to be removed in a future
+release.
+
+
+djblets.webapi
+==============
+
+List serialization customization
+--------------------------------
+
+* Added :py:meth:`WebAPIResource.serialize_object_list
+  <djblets.webapi.resources.base.WebAPIResource.serialize_object_list>`.
+
+  Subclasses can override this to offer custom serialization of items for
+  a payload, or to offer pre-processing/post-processing of the results.
+
+* Added the ``serialize_object_list_func`` argument to
+  :py:class:`~djblets.webapi.responses.WebAPIResponsePaginated`.
+
+  Callers can provide a function to offer custom serialization of items
+  for a payload, or to offer pre-processing/post-processing of the results.
+
+
+Contributors
+============
+
+* Christian Hammond
+* David Trowbridge
+* Michelle Aubin
