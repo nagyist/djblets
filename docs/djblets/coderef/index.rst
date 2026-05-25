@@ -114,6 +114,7 @@ Datagrids
 .. autosummary::
    :toctree: python
 
+   djblets.datagrid
    djblets.datagrid.grids
 
 
@@ -163,6 +164,7 @@ Extensions
 .. autosummary::
    :toctree: python
 
+   djblets.extensions
    djblets.extensions.admin
    djblets.extensions.errors
    djblets.extensions.extension
